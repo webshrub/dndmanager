@@ -24,116 +24,33 @@
     <meta name="viewport"
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/register.css"/>
     <title>Registration</title>
     <script src="js/jquery.js"></script>
     <Script src="smsplugin.js" charset="utf-8" type="text/javascript"></Script>
 
 
-    <script>
-        $(document).ready(function () {
-            $(".mainCB").click(function () {
-                if ($(this).is(':checked')) {
-                    $('.CB').prop('checked', true);
-                } else {
-                    $('.CB').prop('checked', false);
-                }
-            });
-
-            $(".CB").change(function () {
-                if (!$(this).is(':checked')) {
-                    $('.mainCB').prop('checked', false);
-                }
-            });
-        });
-
-        function register() {
-//            alert("Inside register function");
-            var txt = "START ";
-            var i;
-            var isFirst = 'true';
-            for (i = 1; i < 9; i++) {
-                // alert("Inside loop i=" + i);
-                var temp = "check" + i;
-                var temp1 = document.getElementById(temp);
-                // alert("value of temp =" + temp);
-                if (temp1.checked) {
-                    if (isFirst == 'true') {
-                        txt = txt + temp1.value;
-                        isFirst = 'false';
-                    } else {
-                        txt = txt + "," + temp1.value;
-                    }
-                }
-            }
-//            alert("Value of txt = " + txt);
-            document.getElementById("order").value = "Registering for : " + txt;
-            alert('Phone: 1909 and  Message: ' + txt);
-            new SmsPlugin().send('1909',
-                    txt,
-                    function () {
-                        alert('Message sent successfully');
-                    },
-                    function (e) {
-                        alert('Message Failed:' + e);
-                    }
-            );
-        }
-
-        function unregister() {
-            // alert("Inside unregister function");
-            var txt = "STOP ";
-            var i;
-            var isFirst = 'true';
-            for (i = 1; i < 9; i++) {
-                // alert("Inside loop i=" + i);
-                var temp = "check" + i;
-                var temp1 = document.getElementById(temp);
-                // alert("value of temp =" + temp);
-                if (temp1.checked) {
-                    if (isFirst == 'true') {
-                        txt = txt + temp1.value;
-                        isFirst = 'false';
-                    } else {
-                        txt = txt + "," + temp1.value;
-
-                    }
-                }
-            }
-//            alert("Value of txt = " + txt);
-            document.getElementById("order").value = "UnRegistering for : " + txt;
-            alert('Phone: 1909 and Message: ' + txt);
-            new SmsPlugin().send('1909',
-                    txt,
-                    function () {
-                        alert('Message sent successfully');
-                    },
-                    function (e) {
-                        alert('Message Failed:' + e);
-                    }
-            );
-        }
-    </script>
+    <script src="js/register.js"></script>
 </head>
 <body>
-<h4>Select your category.</h4>
+<div class="reister_ui">
 
-<input class="mainCB" type="checkbox" id="check1" value="0">All of the following. <br>
-<input class="CB" type="checkbox" id="check2" value="1">Banking/Insurance/Financial Products/Credit Cards.<br>
-<input class="CB" type="checkbox" id="check3" value="2">Real Estate.<br>
-<input class="CB" type="checkbox" id="check4" value="3">Education.<br>
-<input class="CB" type="checkbox" id="check5" value="4">Consumer goods and automobiles.<br>
-<input class="CB" type="checkbox" id="check6" value="5">Health.<br>
-<input class="CB" type="checkbox" id="check7" value="6">Communication/Broadcasting/Entertainment/IT.<br>
-<input class="CB" type="checkbox" id="check8" value="7">Tourism and Leisure.<br>
-<br><br>
+    <h4>Select your category.</h4>
 
-<input type="button" onclick="register()" value="Register">
-&nbsp&nbsp&nbsp&nbsp
-<input type="button" onclick="unregister()" value="UnRegister">
+    <input type="checkbox" id="select_all_checkbox" value="0"><label for="select_all_checkbox">All of the following.</label> <br>
+    <label> <input class="checkbox" type="checkbox" value="1">Banking/Insurance/Financial Products/Credit Cards. </label> <br>
+    <label><input class="checkbox" type="checkbox" value="2">Real Estate.</label>.<br>
+    <label><input class="checkbox" type="checkbox" value="3">Education..</label><br>
+    <label><input class="checkbox" type="checkbox" value="4">Consumer goods and automobiles..</label><br>
+    <label><input class="checkbox" type="checkbox" value="5">Health..</label><br>
+    <label><input class="checkbox" type="checkbox" value="6">Communication/Broadcasting/Entertainment/IT..</label><br>
+    <label><input class="checkbox" type="checkbox" value="7">Tourism and Leisure..</label><br>
+    <br><br>
 
-<br> <input type="text" id="order" size="50">
-
-
+    <input type="button" onclick="register()" value="Register">
+    &nbsp&nbsp&nbsp&nbsp
+    <input type="button" onclick="unregister()" value="UnRegister">
+</div>
 <!--<div class="app">-->
 <!--<h1>Apache Cordova By Ankur Agarwal</h1>-->
 
@@ -142,7 +59,7 @@
 
 <!--<p class="event received">Device is Ready</p>-->
 <!--</div>-->
-</div>
+<!--</div>-->
 <script type="text/javascript" src="cordova-2.1.0.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript">

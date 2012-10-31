@@ -31,8 +31,8 @@
     <script>
         document.addEventListener('deviceready', main, false);
         function main() {
-            alert("Inside main ");
-            alert(SMSReader);
+//            alert("Inside main ");
+//            alert(SMSReader);
             new SMSReader().getInbox("", function (data) {
                 var text = getData(data);
                 alert("Text = " + text);
@@ -43,7 +43,7 @@
         }
 
         function getData(data) {
-            alert("Inside getData ");
+//            alert("Inside getData ");
             var txt = "";
             for (var i = 0; i < data.messages.length; i++) {
                 txt += "<b>Number:</b>" + data.messages[i].number + " ";

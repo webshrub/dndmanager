@@ -24,44 +24,13 @@
     <meta name="viewport"
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
-    <title>Inbox</title>
+    <link rel="stylesheet" type="text/css" href="css/register.css"/>
+    <title>Call Logs</title>
+    <script src="js/jquery.js"></script>
+    <Script src="js/plugin/callLogPlugin.js" charset="utf-8" type="text/javascript"></Script>
 
-    <script type="text/javascript" src="cordova-2.1.0.js"></script>
-    <script type="text/javascript" charset="utf-8" src="smsread.js"></script>
-    <script>
-        document.addEventListener('deviceready', main, false);
-        function main() {
-//            alert("Inside main ");
-//            alert(SMSReader);
-            new SMSReader().getInbox("", function (data) {
-                var text = getData(data);
-                alert("Text = " + text);
-                $("#inbox").html(text);
-            }, function () {
-                alert("Something went wrong!");
-            });
-        }
-
-        function getData(data) {
-//            alert("Inside getData ");
-            var txt = "";
-            for (var i = 0; i < data.messages.length; i++) {
-                txt += "<b>Number:</b>" + data.messages[i].number + " ";
-                if (data.messages[i].name != "") {
-                    txt += "<b>Name:</b>" + data.messages[i].name + " ";
-                }
-                txt += "<b> Message:</b>" + data.messages[i].text + "!<br />";
-            }
-            return txt;
-        }
-    </script>
 </head>
 <body>
-<h1>INBOX</h1><br/>
-
-<div id="inbox">inbox</div>
-
-
-<br/>
+<h4>Call Logs</h4>
 </body>
 </html>

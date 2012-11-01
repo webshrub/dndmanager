@@ -25,13 +25,19 @@
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
     <title>Hello World</title>
+    <script type="text/javascript" src="js/cordova-2.1.0.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
 </head>
 <body>
 <div class="app">
     <h1>Apache Cordova By Ankur Agarwal...</h1>
-    <a href="inbox.html">Inbox</a>
-    <br><br><br><br>
+    <br><br>
     <a href="register.html">Register</a>
+    <br><br>
+    <a href="callLog.html">Call Logs</a>
 
     <div id="deviceready" class="blink">
         <p class="event listening">Connecting to Device</p>
@@ -39,10 +45,6 @@
         <p class="event received">Device is Ready</p>
     </div>
 </div>
-<script type="text/javascript" src="cordova-2.1.0.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript">
-    app.initialize();
-</script>
+
 </body>
 </html>

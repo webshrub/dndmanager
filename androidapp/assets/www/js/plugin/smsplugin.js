@@ -28,8 +28,6 @@ SmsPlugin.prototype.send = function (phone, message, successCallback, failureCal
 };
 
 cordova.addConstructor(function () {
-    alert("Inside add Constructor.");
     cordova.addPlugin("SmsPlugin", new SmsPlugin());
     PluginManager.addService("SmsPlugin", "com.webshrub.moonwalker.androidapp.SmsPlugin");
-
 });

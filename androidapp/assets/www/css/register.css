@@ -17,8 +17,8 @@
  * under the License.
  */
 * .reister_ui {
-    height:50px;                   /* text area height */
-    width:600px;                   /* text area width */
-    text-align:left;
+    height: 50px; /* text area height */
+    width: 600px; /* text area width */
+    text-align: left;
     /* offset horizontal: half of text area width */
 }

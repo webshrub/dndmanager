@@ -1,23 +1,23 @@
 /*
-       Licensed to the Apache Software Foundation (ASF) under one
-       or more contributor license agreements.  See the NOTICE file
-       distributed with this work for additional information
-       regarding copyright ownership.  The ASF licenses this file
-       to you under the Apache License, Version 2.0 (the
-       "License"); you may not use this file except in compliance
-       with the License.  You may obtain a copy of the License at
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-       Unless required by applicable law or agreed to in writing,
-       software distributed under the License is distributed on an
-       "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-       KIND, either express or implied.  See the License for the
-       specific language governing permissions and limitations
-       under the License.
-*/
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ */
 
-var deviceInfo = function() {
+var deviceInfo = function () {
     document.getElementById("platform").innerHTML = device.platform;
     document.getElementById("version").innerHTML = device.version;
     document.getElementById("uuid").innerHTML = device.uuid;
@@ -27,20 +27,20 @@ var deviceInfo = function() {
     document.getElementById("colorDepth").innerHTML = screen.colorDepth;
 };
 
-var getLocation = function() {
-    var suc = function(p) {
+var getLocation = function () {
+    var suc = function (p) {
         alert(p.coords.latitude + " " + p.coords.longitude);
     };
-    var locFail = function() {
+    var locFail = function () {
     };
     navigator.geolocation.getCurrentPosition(suc, locFail);
 };
 
-var beep = function() {
+var beep = function () {
     navigator.notification.beep(2);
 };
 
-var vibrate = function() {
+var vibrate = function () {
     navigator.notification.vibrate(0);
 };
 
@@ -58,26 +58,26 @@ function updateAcceleration(a) {
     document.getElementById('z').innerHTML = roundNumber(a.z);
 }
 
-var toggleAccel = function() {
+var toggleAccel = function () {
     if (accelerationWatch !== null) {
         navigator.accelerometer.clearWatch(accelerationWatch);
         updateAcceleration({
-            x : "",
-            y : "",
-            z : ""
+            x:"",
+            y:"",
+            z:""
         });
         accelerationWatch = null;
     } else {
         var options = {};
         options.frequency = 1000;
         accelerationWatch = navigator.accelerometer.watchAcceleration(
-                updateAcceleration, function(ex) {
-                    alert("accel fail (" + ex.name + ": " + ex.message + ")");
-                }, options);
+            updateAcceleration, function (ex) {
+                alert("accel fail (" + ex.name + ": " + ex.message + ")");
+            }, options);
     }
 };
 
-var preventBehavior = function(e) {
+var preventBehavior = function (e) {
     e.preventDefault();
 };
 
@@ -97,7 +97,7 @@ function fail(msg) {
 
 function show_pic() {
     navigator.camera.getPicture(dump_pic, fail, {
-        quality : 50
+        quality:50
     });
 }
 
@@ -109,9 +109,9 @@ function close() {
 
 function contacts_success(contacts) {
     alert(contacts.length
-            + ' contacts returned.'
-            + (contacts[2] && contacts[2].name ? (' Third contact is ' + contacts[2].name.formatted)
-                    : ''));
+        + ' contacts returned.'
+        + (contacts[2] && contacts[2].name ? (' Third contact is ' + contacts[2].name.formatted)
+        : ''));
 }
 
 function get_contacts() {
@@ -119,21 +119,21 @@ function get_contacts() {
     obj.filter = "";
     obj.multiple = true;
     navigator.contacts.find(
-            [ "displayName", "name" ], contacts_success,
-            fail, obj);
+        [ "displayName", "name" ], contacts_success,
+        fail, obj);
 }
 
 function check_network() {
     var networkState = navigator.network.connection.type;
 
     var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.UNKNOWN] = 'Unknown connection';
     states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.NONE]     = 'No network connection';
+    states[Connection.WIFI] = 'WiFi connection';
+    states[Connection.CELL_2G] = 'Cell 2G connection';
+    states[Connection.CELL_3G] = 'Cell 3G connection';
+    states[Connection.CELL_4G] = 'Cell 4G connection';
+    states[Connection.NONE] = 'No network connection';
 
     confirm('Connection type:\n ' + states[networkState]);
 }
@@ -148,10 +148,10 @@ function toggleCompass() {
     if (watchID !== null) {
         navigator.compass.clearWatch(watchID);
         watchID = null;
-        updateHeading({ magneticHeading : "Off"});
-    } else {        
-        var options = { frequency: 1000 };
-        watchID = navigator.compass.watchHeading(updateHeading, function(e) {
+        updateHeading({ magneticHeading:"Off"});
+    } else {
+        var options = { frequency:1000 };
+        watchID = navigator.compass.watchHeading(updateHeading, function (e) {
             alert('Compass Error: ' + e.code);
         }, options);
     }

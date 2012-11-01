@@ -35,7 +35,6 @@
     <preference name="exit-on-suspend" value="false"/>
     <plugins>
         <plugin name="SmsPlugin" value="com.webshrub.moonwalker.androidapp.SmsPlugin"/>
-        <plugin name="SMSReader" value="com.webshrub.moonwalker.androidapp.SMSReader"/>
         <plugin name="App" value="org.apache.cordova.App"/>
         <plugin name="Geolocation" value="org.apache.cordova.GeoBroker"/>
         <plugin name="Device" value="org.apache.cordova.Device"/>

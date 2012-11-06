@@ -24,29 +24,41 @@
     <meta name="viewport"
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
-    <title>Hello World</title>
+    <title>Inbox</title>
+
+    <script type="text/javascript" charset="utf-8" src="js/plugin/smsReaderPlugin.js"></script>
     <script type="text/javascript" src="js/cordova-2.1.0.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
-        app.initialize();
+    <script src="js/jquery.js" type="text/javascript"></script>
+
+    <script>
+        document.addEventListener('deviceready', main, false);
+        function main() {
+            new SMSReaderPlugin().getInbox("", function (data) {
+                var text = getData(data);
+                $("#inbox").html(text);
+            }, function (e) {
+                alert("Something went wrong!" + e);
+            });
+        }
+
+        function getData(data) {
+            alert(data.messages.length + " messages fetched.");
+            var txt = "";
+            for (var i = 0; i < data.messages.length; i++) {
+                txt += "<b>Number:</b>" + data.messages[i].number + " ";
+                if (data.messages[i].name != "") {
+                    txt += "<b>Name:</b>" + data.messages[i].name + " ";
+                }
+                txt += "<b> Message:</b>" + data.messages[i].text + "!<br />";
+            }
+            return txt;
+        }
     </script>
 </head>
 <body>
-<div class="app">
-    <h1>Apache Cordova By Ankur Agarwal...</h1>
-    <br><br>
-    <a href="register.html">Register</a>
-    <br><br>
-    <a href="callLog.html">Call Logs</a>
-    <br><br>
-    <a href="inbox.html">Message</a>
+<h1>INBOX</h1><br/>
 
-    <div id="deviceready" class="blink">
-        <p class="event listening">Connecting to Device</p>
-
-        <p class="event received">Device is Ready</p>
-    </div>
-</div>
-
+<div id="inbox">inbox</div>
+<br/>
 </body>
 </html>

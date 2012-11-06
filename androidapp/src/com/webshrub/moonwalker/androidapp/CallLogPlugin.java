@@ -36,12 +36,6 @@ public class CallLogPlugin extends Plugin {
     private static final String SHOW_ACTION = "show";
     private static final String TAG = "CallLogPlugin";
 
-    /*
-      * (non-Javadoc)
-      *
-      * @see com.phonegap.api.Plugin#execute(java.lang.String,
-      * org.json.JSONArray, java.lang.String)
-      */
     @Override
     public PluginResult execute(String action, JSONArray data, String callbackId) {
         Log.d(TAG, "Plugin Called");

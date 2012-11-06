@@ -1,22 +1,23 @@
-var CallLog = function () {
+var CallLogPlugin = function () {
 };
 
-CallLog.prototype.list = function (params, successCallback, failureCallback) {
+CallLogPlugin.prototype.list = function (params, successCallback, failureCallback) {
     return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'list',
         [ params ]);
 };
 
-CallLog.prototype.contact = function (params, successCallback, failureCallback) {
+CallLogPlugin.prototype.contact = function (params, successCallback, failureCallback) {
     return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'contact',
         [ params ]);
 };
 
-CallLog.prototype.show = function (params, successCallback, failureCallback) {
+CallLogPlugin.prototype.show = function (params, successCallback, failureCallback) {
     return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'show',
         [ params ]);
 };
 
 cordova.addConstructor(function () {
-    cordova.addPlugin('CallLogPlugin', new CallLog());
+    alert("Inside constructor.");
+    cordova.addPlugin('CallLogPlugin', new CallLogPlugin());
     PluginManager.addService("CallLogPlugin", "com.webshrub.moonwalker.androidapp.CallLogPlugin");
 });

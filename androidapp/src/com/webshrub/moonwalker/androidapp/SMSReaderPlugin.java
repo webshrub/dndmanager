@@ -11,11 +11,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SMSReaderPlugin extends Plugin {
-    Map<String, String> contactMap = new HashMap<String, String>();
+    private static final String DATE_FORMAT = "dd/MM/yy;kk:mm";
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
+
+    private Map<String, String> contactMap = new HashMap<String, String>();
 
 
     @Override
@@ -63,6 +68,7 @@ public class SMSReaderPlugin extends Plugin {
         // time 3 days back
         Long time = System.currentTimeMillis() - 259200000;
 
+
         String selection = "date >?";
         String[] selectionArgs = new String[]{time.toString()};
         String sortOrder = null;
@@ -77,6 +83,8 @@ public class SMSReaderPlugin extends Plugin {
             if (!name.equals("")) {
                 sms.put("name", name);
             }
+            sms.put("date", SIMPLE_DATE_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
+
             smsList.put(sms);
         }
         return data;

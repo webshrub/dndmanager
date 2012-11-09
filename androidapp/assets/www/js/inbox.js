@@ -43,6 +43,5 @@ function getData(data) {
         txt += " </tr> ";
     }
     txt += " </table>";
-    ;
     return txt;
 }

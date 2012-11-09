@@ -30,17 +30,17 @@ function fetchCallLog() {
             var txt = " <table  border='1'> ";
             txt += " <tr onclick='alertOnClick()'> ";
             txt += "<td><input type='checkbox' id='select_all_checkbox'></td>";
-            txt += "<td>Check<br> All.</td>";
+            txt += "<td>Check All.</td>";
+            txt += "<td><input type='button' value='Sweep All' onclick='sweep()'></td>";
             txt += " </tr> ";
             for (var i = 0; i < data.rows.length; i++) {
-                txt += " <tr onclick='alertOnClick()'> ";
+                txt += " <tr class='entryRow' onclick='alertOnClick()'> ";
                 txt += "<td><input type='checkbox' class='checkbox'></td>";
-                txt += "<td>";
                 if (data.rows[i].cachedName != "") {
-                    txt += "<b> Name :</b>" + data.rows[i].cachedName;
+                    txt += "<td>" + data.rows[i].cachedName + "</td>";
                 }
-                txt += " <td> <b> Number :</b>" + data.rows[i].number + "</td> ";
-                txt += " <td> <b> date :</b>" + epochToJsDate(data.rows[i].date) + "</td> ";
+                txt += " <td>" + data.rows[i].number + "</td> ";
+                txt += " <td> " + data.rows[i].date + "</td> ";
                 txt += " </tr> ";
             }
             txt += " </table>";
@@ -50,4 +50,25 @@ function fetchCallLog() {
             alert('Fetching of list failed.' + e);
         }
     );
+}
+
+function sweep() {
+    $(".entryRow").each(function () {
+        var row = $(this);
+        var cb = $($(row.children()[0]).children()[0]);
+        if (cb.is(':checked')) {
+            var number = $(row.children()[2]).text();
+            var date = $(row.children()[3]).text();
+            var smsText = " COMP TEL NO " + number + ";" + date + ";" + "Unknown company";
+            new SmsPlugin().send("1909", smsText,
+                function () {
+                    alert('Message sent successfully');
+                },
+                function (e) {
+                    alert('Message Failed:' + e);
+                }
+            );
+        } else {
+        }
+    });
 }

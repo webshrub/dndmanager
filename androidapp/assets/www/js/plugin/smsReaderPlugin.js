@@ -18,7 +18,6 @@ SMSReaderPlugin.prototype.getSent = function (params, success, fail) {
 };
 
 cordova.addConstructor(function () {
-    alert("Inside add Constructor");
     cordova.addPlugin("SMSReaderPlugin", new SMSReaderPlugin());
     PluginManager.addService("SMSReaderPlugin", "com.webshrub.moonwalker.androidapp.SMSReaderPlugin");
 });

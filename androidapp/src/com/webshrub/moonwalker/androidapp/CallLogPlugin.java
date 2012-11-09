@@ -1,6 +1,3 @@
-/**
- * Example of Android PhoneGap Plugin
- */
 package com.webshrub.moonwalker.androidapp;
 
 import android.content.Intent;
@@ -17,17 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
-/**
- * Grab call log data
- *
- * @author James Hornitzky
- */
 public class CallLogPlugin extends Plugin {
-
     /**
      * List Action
      */
@@ -35,6 +26,8 @@ public class CallLogPlugin extends Plugin {
     private static final String CONTACT_ACTION = "contact";
     private static final String SHOW_ACTION = "show";
     private static final String TAG = "CallLogPlugin";
+    private static final String DATE_FORMAT = "dd/MM/yy;kk:mm";
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
 
     @Override
     public PluginResult execute(String action, JSONArray data, String callbackId) {
@@ -136,7 +129,7 @@ public class CallLogPlugin extends Plugin {
 
                 callLogCursor.moveToFirst();
                 do {
-                    callLogItem.put("date", callLogCursor.getLong(0));
+                    callLogItem.put("date", SIMPLE_DATE_FORMAT.format(new Date(callLogCursor.getLong(0))));
                     callLogItem.put("number", callLogCursor.getString(1));
                     callLogItem.put("type", callLogCursor.getInt(2));
                     callLogItem.put("duration", callLogCursor.getLong(3));

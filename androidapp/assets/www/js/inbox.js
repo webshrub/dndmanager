@@ -1,3 +1,19 @@
+$.fn.spin = function (opts) {
+    this.each(function () {
+        var $this = $(this);
+        var spinner = $this.data('spinner');
+        if (spinner) {
+            spinner.stop();
+        }
+        if (opts !== false) {
+            opts = $.extend({color:$this.css('color')}, opts);
+            spinner = new Spinner(opts).spin(this);
+            $this.data('spinner', spinner);
+        }
+    });
+    return this;
+};
+
 $(document).ready(function () {
     $("#select_all_checkbox").live('click', function () {
         ($(this).is(':checked')) ? $('.checkbox').prop('checked', true) : $('.checkbox').prop('checked', false);
@@ -15,18 +31,41 @@ $(document).ready(function () {
 });
 
 document.addEventListener('deviceready', main, false);
+
+function show() {
+    var opts = {
+        lines:12, // The number of lines to draw
+        length:7, // The length of each line
+        width:5, // The line thickness
+        radius:10, // The radius of the inner circle
+        color:'#fff', // #rbg or #rrggbb
+        speed:1, // Rounds per second
+        trail:66, // Afterglow percentage
+        shadow:true // Whether to render a shadow
+    };
+    $("#spin").show().spin(opts);
+}
+
+function hide() {
+//    alert("now hiding");
+    $("#spin").hide();
+}
+
 function main() {
-    alert("Fetching msg");
+//    alert("Fetching msg");
+    show();
     new SMSReaderPlugin().getInbox("", function (data) {
         var text = getData(data);
         $("#inbox").html(text);
+        hide();
     }, function (e) {
+        hide();
         alert("Something went wrong!" + e);
     });
 }
 
 function getData(data) {
-    alert(data.messages.length + " messages fetched.");
+//    alert(data.messages.length + " messages fetched.");
     var txt = " <table  border='1'> ";
     txt += " <tr onclick='alertOnClick()'> ";
     txt += "<td><input type='checkbox' id='select_all_checkbox'></td>";

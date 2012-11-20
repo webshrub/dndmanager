@@ -19,9 +19,7 @@ import java.util.Map;
 public class SMSReaderPlugin extends Plugin {
     private static final String DATE_FORMAT = "dd/MM/yy;kk:mm";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
-
     private Map<String, String> contactMap = new HashMap<String, String>();
-
 
     @Override
     public PluginResult execute(String action, JSONArray data, String callbackId) {
@@ -53,7 +51,6 @@ public class SMSReaderPlugin extends Plugin {
         return result;
     }
 
-
     //Read messages from inbox/or sent box.
     private JSONObject readSMS(String folder) throws JSONException {
         JSONObject data = new JSONObject();
@@ -67,7 +64,6 @@ public class SMSReaderPlugin extends Plugin {
         String[] projection = new String[]{"address", "date", "body"};
         // time 3 days back
         Long time = System.currentTimeMillis() - 259200000;
-
 
         String selection = "date >?";
         String[] selectionArgs = new String[]{time.toString()};
@@ -84,34 +80,35 @@ public class SMSReaderPlugin extends Plugin {
                 sms.put("name", name);
             }
             sms.put("date", SIMPLE_DATE_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
-
             smsList.put(sms);
         }
         return data;
     }
 
     private String getContact(String number) {
-
         String returnName = "";
-        String[] projection = new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME};
-        String selection = ContactsContract.PhoneLookup.NUMBER + "=?'";
-        String[] selectionArgs = new String[]{number};
-        String sortOrder = null;
-        if (contactMap.get(number) != null) {
-            returnName = contactMap.get(number);
-            return returnName;
-        } else {
-            Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-            Cursor cs = this.ctx.getContext().getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-            if (cs.getCount() > 0) {
-                cs.moveToFirst();
-                returnName = cs.getString(cs.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
+        try {
+            String[] projection = new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME, ContactsContract.PhoneLookup.NUMBER};
+            String selection = ContactsContract.PhoneLookup.NUMBER + "=?";
+            String[] selectionArgs = new String[]{number};
+            String sortOrder = null;
+            if (contactMap.get(number) != null) {
+                returnName = contactMap.get(number);
+                return returnName;
+            } else {
+                Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+                Cursor cs = this.ctx.getContext().getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+                if (cs.getCount() > 0) {
+                    cs.moveToFirst();
+                    returnName = cs.getString(cs.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
+                    contactMap.put(number, returnName);
+                }
+            }
+            if (returnName.equals("")) {
                 contactMap.put(number, returnName);
             }
-
-        }
-        if (returnName.equals("")) {
-            contactMap.put(number, returnName);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return returnName;
     }

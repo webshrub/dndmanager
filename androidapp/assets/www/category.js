@@ -82,9 +82,8 @@ function clearCategories() {
 function registerUnregister(isRegister) {
     var smsText = isRegister ? "START " : "STOP ";
     var values = [];
-    var items = $("input:checkbox");
     var isAllChecked = false;
-    items.each(function () {
+    $("input:checkbox").each(function () {
         if ($(this).is(':checked')) {
             values.push($(this).val());
             if ($(this).val() == "0") {
@@ -92,11 +91,7 @@ function registerUnregister(isRegister) {
             }
         }
     });
-    if (isAllChecked) {
-        smsText = smsText + "0";
-    } else {
-        smsText = smsText + values.toString();
-    }
+    smsText = isAllChecked ? smsText + "0" : smsText + values.toString();
     new SmsPlugin().send('1909', smsText,
         function () {
             alert('Message sent successfully');

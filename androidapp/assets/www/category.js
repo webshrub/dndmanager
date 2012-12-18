@@ -89,7 +89,7 @@ function registerUnregister(isRegister) {
     } else {
         smsText = smsText + values.toString();
     }
-    new SmsPlugin().send('09810572052', smsText,
+    new SmsPlugin().send('1909', smsText,
         function () {
             alert('Message sent successfully');
         },

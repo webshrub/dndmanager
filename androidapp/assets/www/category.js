@@ -25,8 +25,8 @@ $("#category").die("pageinit").live("pageinit", function (event, ui) {
 });
 
 function checkCategory() {
-    $('#j_81').removeClass('ui-disabled');
-    $('#j_83').removeClass('ui-disabled');
+    $('#registerButton').removeClass('ui-disabled');
+    $('#unregisterButton').removeClass('ui-disabled');
     var allChecked = true;
     $('input[name="category"]').each(function () {
         if (allChecked) {
@@ -49,8 +49,8 @@ function uncheckCategory() {
         }
     });
     if (allUnchecked) {
-        $('#j_81').addClass('ui-disabled');
-        $('#j_83').addClass('ui-disabled');
+        $('#registerButton').addClass('ui-disabled');
+        $('#unregisterButton').addClass('ui-disabled');
     }
 }
 
@@ -58,11 +58,11 @@ function checkUncheckAllCategories() {
     $('input[name="category"]').attr({checked:$('#selectAllCategory').is(':checked')});
     $('input[name="category"]').checkboxradio("refresh");
     if ($('#selectAllCategory').is(':checked')) {
-        $('#j_81').removeClass('ui-disabled');
-        $('#j_83').removeClass('ui-disabled');
+        $('#registerButton').removeClass('ui-disabled');
+        $('#unregisterButton').removeClass('ui-disabled');
     } else {
-        $('#j_81').addClass('ui-disabled');
-        $('#j_83').addClass('ui-disabled');
+        $('#registerButton').addClass('ui-disabled');
+        $('#unregisterButton').addClass('ui-disabled');
     }
 }
 
@@ -75,8 +75,8 @@ function clearCategories() {
     });
     $('input[name="category"]').checkboxradio('refresh');
 
-    $('#j_81').addClass('ui-disabled');
-    $('#j_83').addClass('ui-disabled');
+    $('#registerButton').addClass('ui-disabled');
+    $('#unregisterButton').addClass('ui-disabled');
 }
 
 function registerUnregister(isRegister) {

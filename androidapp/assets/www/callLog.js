@@ -32,7 +32,7 @@ function fetchCallLog() {
 }
 
 function checkCall() {
-    $('#j_26').removeClass('ui-disabled');
+    $('#reportAllButton').removeClass('ui-disabled');
     var allChecked = true;
     $('input:checkbox[name="call"]').each(function () {
         if (allChecked) {
@@ -55,7 +55,7 @@ function uncheckCall() {
         }
     });
     if (allUnchecked) {
-        $('#j_26').addClass('ui-disabled');
+        $('#reportAllButton').addClass('ui-disabled');
     }
 }
 
@@ -63,9 +63,9 @@ function checkUncheckAllCalls() {
     $('input:checkbox[name="call"]').attr({checked:$('#selectAllCall').is(':checked')});
     $('input:checkbox[name="call"]').checkboxradio("refresh");
     if ($('#selectAllCall').is(':checked')) {
-        $('#j_26').removeClass('ui-disabled');
+        $('#reportAllButton').removeClass('ui-disabled');
     } else {
-        $('#j_26').addClass('ui-disabled');
+        $('#reportAllButton').addClass('ui-disabled');
     }
 }
 
@@ -78,7 +78,7 @@ function clearCalls() {
     });
     $('input:checkbox[name="call"]').checkboxradio('refresh');
 
-    $('#j_26').addClass('ui-disabled');
+    $('#reportAllButton').addClass('ui-disabled');
 }
 
 

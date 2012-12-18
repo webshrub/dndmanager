@@ -25,6 +25,8 @@
     <script type="text/javascript" src="res/lib/cordova.js"></script>
     <script type="text/javascript" src="res/lib/childbrowser.js"></script>
     <script type="text/javascript" src="res/lib/PushNotification.js"></script>
+    <script type="text/javascript" src="js/ICanHaz/ICanHaz.js"></script>
+    <script type="text/javascript" src="js/plugin/common.js"></script>
     <link href="res/css/mobilebase.css" rel="stylesheet" type="text/css"/>
 </head>
 
@@ -70,8 +72,8 @@
     <div data-role="content" id="j_14" name="mobilecontainer" class="mobileContent mobilecontainer8"
          dsid="mobilecontainer" data-theme='a'>
         <link href="smsLog.css" rel="stylesheet" type="text/css"/>
-        <script type="text/javascript" src="smsLog.js">
-        </script>
+        <script type="text/javascript" src="js/plugin/smsReaderPlugin.js"></script>
+        <script type="text/javascript" src="smsLog.js"></script>
         <div class="mobilegrid5_wrapper">
             <table id="j_62" class="mobilegrid mobilegrid5" dsid="mobilegrid" name="mobilegrid"
                    cellpadding=0 cellspacing=0>
@@ -92,7 +94,7 @@
                         <div class="cell-wrapper">
                             <div class="mobilebutton3_wrapper ">
                                 <a data-role="button" name="mobilebutton1_13" dsid="mobilebutton1_13" class=' button mobilebutton3'
-                                   id='j_66' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   id='reportAllSMSButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
                                    tabIndex="1">
                                     Report All
                                 </a>
@@ -109,56 +111,7 @@
                 <tr class="mobilegrid6_row_0">
                     <td id="j_68" name="mobilegridcell_c606" class="mobilegridcell14" colspan=1 rowspan=1>
                         <div class="cell-wrapper">
-                            <div class="mobilelist3_wrapper">
-                                <ul data-role="listview" id="j_69" class=' mobilelist3 ' name="mobilelist1_19" dsid="mobilelist1_19"
-                                    data-filter-placeholder='' data-theme='a' data-divider-theme='b' data-count-theme='b'
-                                    style="" data-inset="true" data-split-theme="d" data-split-icon="delete">
-                                    <li>
-                                        <a>
-                                            <fieldset data-role="controlgroup">
-                                                <input type="checkbox" name="sms" id="checkbox4"/>
-                                                <label for="checkbox4">
-                                                    <h3>Ahsan Javed</h3>
-
-                                                    <p><strong>9810572052</strong></p>
-
-                                                    <p>Hey Ahsan, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-                                                </label>
-                                            </fieldset>
-                                        </a>
-                                        <a href="reportDialog.html" data-rel="dialog" data-transition="pop">Report this.</a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <fieldset data-role="controlgroup">
-                                                <input type="checkbox" name="sms" id="checkbox5"/>
-                                                <label for="checkbox5">
-                                                    <h3>Ankur Agarwal</h3>
-
-                                                    <p><strong>9810572053</strong></p>
-
-                                                    <p>Hey Ankur, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-                                                </label>
-                                            </fieldset>
-                                        </a>
-                                        <a href="reportDialog.html" data-rel="dialog" data-transition="pop">Report This.</a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <fieldset data-role="controlgroup">
-                                                <input type="checkbox" name="sms" id="checkbox6"/>
-                                                <label for="checkbox6">
-                                                    <h3>Keshav Chauhan</h3>
-
-                                                    <p><strong>9810572054</strong></p>
-
-                                                    <p>Hey Keshav, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-                                                </label>
-                                            </fieldset>
-                                        </a>
-                                        <a href="reportDialog.html" data-rel="dialog" data-transition="pop">Report this.</a>
-                                    </li>
-                                </ul>
+                            <div class="mobilelist3_wrapper" id="smsLogDiv">
                             </div>
                         </div>
                     </td>

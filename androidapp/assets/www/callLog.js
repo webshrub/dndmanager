@@ -33,7 +33,7 @@ function fetchCallLog() {
 }
 
 function checkCall() {
-    $('#reportAllButton').removeClass('ui-disabled');
+    $('#reportAllCallButton').removeClass('ui-disabled');
     var allChecked = true;
     $('input:checkbox[name="call"]').each(function () {
         if (allChecked) {
@@ -56,7 +56,7 @@ function uncheckCall() {
         }
     });
     if (allUnchecked) {
-        $('#reportAllButton').addClass('ui-disabled');
+        $('#reportAllCallButton').addClass('ui-disabled');
     }
 }
 
@@ -64,9 +64,9 @@ function checkUncheckAllCalls() {
     $('input:checkbox[name="call"]').attr({checked:$('#selectAllCall').is(':checked')});
     $('input:checkbox[name="call"]').checkboxradio("refresh");
     if ($('#selectAllCall').is(':checked')) {
-        $('#reportAllButton').removeClass('ui-disabled');
+        $('#reportAllCallButton').removeClass('ui-disabled');
     } else {
-        $('#reportAllButton').addClass('ui-disabled');
+        $('#reportAllCallButton').addClass('ui-disabled');
     }
 }
 
@@ -79,22 +79,5 @@ function clearCalls() {
     });
     $('input:checkbox[name="call"]').checkboxradio('refresh');
 
-    $('#reportAllButton').addClass('ui-disabled');
+    $('#reportAllCallButton').addClass('ui-disabled');
 }
-
-
-/* Get the template from remote url, Also caches the template for further reuse. */
-function getTemplate(templateName, json) {
-    if (!ich.templates[templateName]) {
-        $.ajax({
-            url:"templates/" + templateName + ".tpl",
-            dataType:"html",
-            async:false,
-            success:function (template) {
-                ich.addTemplate(templateName, template);
-            }
-        });
-    }
-    return ich[templateName](json, true);
-}
-

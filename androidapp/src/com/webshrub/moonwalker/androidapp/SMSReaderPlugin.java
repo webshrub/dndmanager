@@ -76,9 +76,7 @@ public class SMSReaderPlugin extends Plugin {
             sms.put("number", cur.getString(cur.getColumnIndex("address")));
             sms.put("text", cur.getString(cur.getColumnIndex("body")));
             String name = getContact(cur.getString(cur.getColumnIndex("address")));
-            if (!name.equals("")) {
-                sms.put("name", name);
-            }
+            sms.put("name", (name == null || name.equalsIgnoreCase("")) ? "Unknown" : name);
             sms.put("date", SIMPLE_DATE_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
             smsList.put(sms);
         }

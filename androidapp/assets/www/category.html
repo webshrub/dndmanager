@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>
         category
@@ -26,6 +25,7 @@
     <script type="text/javascript" src="res/lib/cordova.js"></script>
     <script type="text/javascript" src="res/lib/childbrowser.js"></script>
     <script type="text/javascript" src="res/lib/PushNotification.js"></script>
+    <script type="text/javascript" src="js/ICanHaz/ICanHaz.js"></script>
     <link href="res/css/mobilebase.css" rel="stylesheet" type="text/css"/>
 </head>
 
@@ -71,8 +71,8 @@
     <div data-role="content" id="j_14" name="mobilecontainer" class="mobileContent mobilecontainer9"
          dsid="mobilecontainer" data-theme='a'>
         <link href="category.css" rel="stylesheet" type="text/css"/>
-        <script type="text/javascript" src="category.js">
-        </script>
+        <script type="text/javascript" src="js/plugin/smsplugin.js"></script>
+        <script type="text/javascript" src="category.js"></script>
         <div class="mobilegrid7_wrapper">
             <table id="j_79" class="mobilegrid mobilegrid7" dsid="mobilegrid" name="mobilegrid"
                    cellpadding=0 cellspacing=0>
@@ -84,7 +84,7 @@
                             <div class="mobilebutton4_wrapper ">
                                 <a data-role="button" name="mobilebutton1_12" dsid="mobilebutton1_12" class=' button mobilebutton4'
                                    id='j_81' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
-                                   tabIndex="1">
+                                   tabIndex="1" onclick="register()">
                                     Register
                                 </a>
                             </div>
@@ -95,7 +95,7 @@
                             <div class="mobilebutton5_wrapper ">
                                 <a data-role="button" name="mobilebutton1_13" dsid="mobilebutton1_13" class=' button mobilebutton5'
                                    id='j_83' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
-                                   tabIndex="1">
+                                   tabIndex="1" onclick="unregister()">
                                     Unregister
                                 </a>
                             </div>
@@ -114,50 +114,49 @@
                             <div data-role="fieldcontain" class=" mobilecheckboxgroup1" id="j_86" dsid="mobilecheckboxgroup1_19">
                                 <fieldset data-role="controlgroup">
                                                 <span dsid="mobilecheckbox1_20" class="mobilecheckbox1">
-                                                    <input type="checkbox" name="j_87" id="selectAllCategory" tabIndex="1" data-theme='a' value="Item 1"
-                                                            />
+                                                    <input type="checkbox" name="j_87" id="selectAllCategory" tabIndex="1" data-theme='a' value="0"/>
                                                     <label id="j_87_label" for="selectAllCategory">
                                                         All Categories
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_21" class="mobilecheckbox2">
-                                                    <input type="checkbox" name="category" id="j_88" data-theme='a' value="Item 2"/>
+                                                    <input class="checkbox" type="checkbox" name="category" id="j_88" data-theme='a' value="1"/>
                                                     <label id="j_88_label" for="j_88">
                                                         Banking/Insurance/Financial products/Credit cards
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_22" class="mobilecheckbox3">
-                                                    <input type="checkbox" name="category" id="j_89" data-theme='a' value="Item 3"/>
+                                                    <input class="checkbox" type="checkbox" name="category" id="j_89" data-theme='a' value="2"/>
                                                     <label id="j_89_label" for="j_89">
                                                         Real Estate
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_23" class="mobilecheckbox4">
-                                                    <input type="checkbox" name="category" id="j_90" data-theme='a' value="Item 4"/>
+                                                    <input class="checkbox" type="checkbox" name="category" id="j_90" data-theme='a' value="3"/>
                                                     <label id="j_90_label" for="j_90">
                                                         Education
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_24" class="mobilecheckbox5">
-                                                    <input type="checkbox" name="category" id="j_91" data-theme='a' value="Item 5"/>
+                                                    <input class="checkbox" type="checkbox" name="category" id="j_91" data-theme='a' value="4"/>
                                                     <label id="j_91_label" for="j_91">
                                                         Health
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_25" class="mobilecheckbox6">
-                                                    <input type="checkbox" name="category" id="j_92" data-theme='a' value="Item 6"/>
+                                                    <input class="checkbox" type="checkbox" name="category" id="j_92" data-theme='a' value="5"/>
                                                     <label id="j_92_label" for="j_92">
                                                         Item Consumer goods and automobiles
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_26" class="mobilecheckbox7">
-                                                    <input type="checkbox" name="category" id="j_93" data-theme='a' value="Item 7"/>
+                                                    <input class="checkbox" type="checkbox" name="category" id="j_93" data-theme='a' value="6"/>
                                                     <label id="j_93_label" for="j_93">
                                                         Communication/Broadcasting/Entertainment/IT
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_27" class="mobilecheckbox8">
-                                                    <input type="checkbox" name="category" id="j_94" data-theme='a' value="Item 8"/>
+                                                    <input class="checkbox" type="checkbox" name="category" id="j_94" data-theme='a' value="7"/>
                                                     <label id="j_94_label" for="j_94">
                                                         Tourism and Leisure
                                                     </label>

@@ -1,4 +1,5 @@
 createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
+
 $("#category").die("pageinit").live("pageinit", function (event, ui) {
     clearCategories();
 
@@ -68,4 +69,40 @@ function clearCategories() {
 
     $('#j_81').addClass('ui-disabled');
     $('#j_83').addClass('ui-disabled');
+}
+
+function registerUnregister(isRegister) {
+    var smsText = isRegister ? "START " : "STOP ";
+    var values = [];
+    var items = $("input:checkbox");
+    var isAllChecked = false;
+    items.each(function () {
+        if ($(this).is(':checked')) {
+            values.push($(this).val());
+            if ($(this).val() == "0") {
+                isAllChecked = true;
+            }
+        }
+    });
+    if (isAllChecked) {
+        smsText = smsText + "0";
+    } else {
+        smsText = smsText + values.toString();
+    }
+    new SmsPlugin().send('09810572052', smsText,
+        function () {
+            alert('Message sent successfully');
+        },
+        function (e) {
+            alert('Message Failed:' + e);
+        }
+    );
+}
+
+function register() {
+    registerUnregister(true);
+}
+
+function unregister() {
+    registerUnregister(false);
 }

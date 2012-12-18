@@ -1,6 +1,14 @@
 createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 
 $("#category").die("pageinit").live("pageinit", function (event, ui) {
+    $('#registerButton').click(function () {
+        registerUnregister(true);
+    });
+
+    $('#unregisterButton').click(function () {
+        registerUnregister(false);
+    });
+
     clearCategories();
 
     $('input[name="category"]').click(function () {
@@ -97,12 +105,4 @@ function registerUnregister(isRegister) {
             alert('Message Failed:' + e);
         }
     );
-}
-
-function register() {
-    registerUnregister(true);
-}
-
-function unregister() {
-    registerUnregister(false);
 }

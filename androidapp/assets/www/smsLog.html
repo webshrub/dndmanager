@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        smsLog
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <link href="res/themes/olive/olive.css" rel="stylesheet"/>
+    <link href="res/lib/jquerymobile/1.1.0/jquery.mobile.structure-1.1.0.css" rel="stylesheet"/>
+    <script type="text/javascript" src="res/lib/jquery/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="res/lib/jquerymobile/jquery.mobile.iepatch.js"></script>
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function () {
+            if (navigator.userAgent.indexOf("Android") != -1) {
+                $.mobile.defaultPageTransition = 'none';
+                $.mobile.defaultDialogTransition = 'none';
+            }
+        });
+    </script>
+    <script type="text/javascript" src="res/lib/jquerymobile/1.1.0/jquery.mobile-1.1.0.js"></script>
+    <script type="text/javascript" src="res/lib/mobilebase.js"></script>
+    <script type="text/javascript" src="res/lib/cordova.js"></script>
+    <script type="text/javascript" src="res/lib/childbrowser.js"></script>
+    <script type="text/javascript" src="res/lib/PushNotification.js"></script>
+    <link href="res/css/mobilebase.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<script language="JavaScript" type="text/javascript">
+    if (navigator.userAgent.match(/iP/i)) {
+        $(window).bind('orientationchange',
+                function (event) {
+                    $('meta[name="viewport"]').attr('content', 'initial-scale=1.0,maximum-scale=1.0, ' + ((window.orientation == 90 || window.orientation == -90 || window.orientation == 270) ? "height=device-width,width=device-height" : "height=device-height,width=device-width"));
+                }).trigger('orientationchange');
+    }
+</script>
+<div data-role="page" style="min-height:800px;" dsid="smsLog" id="smsLog" class="type-interior"
+     data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
+         id="j_13" class='mobileHeader mobileheader8 '>
+        <h1 dsid="mobileheader">
+            Report using SMS Log
+        </h1>
+
+        <div id="j_57" name="mobilenavbar2_2" dsid="mobilenavbar2_2" class=" mobilenavbar3"
+             data-role="navbar" data-theme='a' style="position: relative;">
+            <ul>
+                <li>
+                    <a href="callLog.html" data-theme='a' data-icon='grid' id="j_58" dsid="mobilenavbaritem4_3" name="mobilenavbaritem4_3"
+                       class=' mobilenavbaritem9 '> Call </a>
+                </li>
+                <li>
+                    <a data-theme='a' class='ui-btn-active' data-icon='check' id="j_61" dsid="mobilenavbaritem4_6"
+                       name="mobilenavbaritem4_6" class=' mobilenavbaritem12 '> SMS </a>
+                </li>
+                <li>
+                    <a href="category.html" data-theme='a' data-icon='star' id="j_59" dsid="mobilenavbaritem4_4" name="mobilenavbaritem4_4"
+                       class=' mobilenavbaritem10 '> Category </a>
+                </li>
+                <li>
+                    <a href="more.html" data-theme='a' data-icon='gear' id="j_60" dsid="mobilenavbaritem4_5" name="mobilenavbaritem4_5"
+                       class=' mobilenavbaritem11 '> More </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" id="j_14" name="mobilecontainer" class="mobileContent mobilecontainer8"
+         dsid="mobilecontainer" data-theme='a'>
+        <link href="smsLog.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="smsLog.js">
+        </script>
+        <div class="mobilegrid5_wrapper">
+            <table id="j_62" class="mobilegrid mobilegrid5" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:auto;">
+                <col style="width:50%;">
+                <tr class="mobilegrid5_row_0">
+                    <td id="j_63" name="mobilegridcell_c591" class="mobilegridcell12" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div data-role="fieldcontain" class="mobileselectmenu2 roundcorner">
+                                <fieldset data-role="controlgroup">
+                                    <input type="checkbox" id="selectAllSMS" class="custom"/>
+                                    <label for="selectAllSMS">Select All</label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="j_65" name="mobilegridcell_c597" class="mobilegridcell13" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton3_wrapper ">
+                                <a data-role="button" name="mobilebutton1_13" dsid="mobilebutton1_13" class=' button mobilebutton3'
+                                   id='j_66' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   tabIndex="1">
+                                    Report All
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mobilegrid6_wrapper">
+            <table id="j_67" class="mobilegrid mobilegrid6" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:50%;">
+                <tr class="mobilegrid6_row_0">
+                    <td id="j_68" name="mobilegridcell_c606" class="mobilegridcell14" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilelist3_wrapper">
+                                <ul data-role="listview" id="j_69" class=' mobilelist3 ' name="mobilelist1_19" dsid="mobilelist1_19"
+                                    data-filter-placeholder='' data-theme='a' data-divider-theme='b' data-count-theme='b'
+                                    style="" data-inset="true" data-split-theme="d" data-split-icon="delete">
+                                    <li>
+                                        <a>
+                                            <fieldset data-role="controlgroup">
+                                                <input type="checkbox" name="sms" id="checkbox4"/>
+                                                <label for="checkbox4">
+                                                    <h3>Ahsan Javed</h3>
+
+                                                    <p><strong>9810572052</strong></p>
+
+                                                    <p>Hey Ahsan, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+                                                </label>
+                                            </fieldset>
+                                        </a>
+                                        <a href="reportDialog.html" data-rel="dialog" data-transition="pop">Report this.</a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <fieldset data-role="controlgroup">
+                                                <input type="checkbox" name="sms" id="checkbox5"/>
+                                                <label for="checkbox5">
+                                                    <h3>Ankur Agarwal</h3>
+
+                                                    <p><strong>9810572053</strong></p>
+
+                                                    <p>Hey Ankur, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+                                                </label>
+                                            </fieldset>
+                                        </a>
+                                        <a href="reportDialog.html" data-rel="dialog" data-transition="pop">Report This.</a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <fieldset data-role="controlgroup">
+                                                <input type="checkbox" name="sms" id="checkbox6"/>
+                                                <label for="checkbox6">
+                                                    <h3>Keshav Chauhan</h3>
+
+                                                    <p><strong>9810572054</strong></p>
+
+                                                    <p>Hey Keshav, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+                                                </label>
+                                            </fieldset>
+                                        </a>
+                                        <a href="reportDialog.html" data-rel="dialog" data-transition="pop">Report this.</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

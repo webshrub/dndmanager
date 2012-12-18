@@ -42,7 +42,7 @@ public class CallLogPlugin extends Plugin {
                     String d = data.getString(0);
                     Log.d(TAG, "Time period is: " + d);
                     if (d.equals("week"))
-                        limit = -7;
+                        limit = -1;
                     else if (d.equals("month"))
                         limit = -30;
                     else if (d.equals("all"))
@@ -134,7 +134,7 @@ public class CallLogPlugin extends Plugin {
                     callLogItem.put("type", callLogCursor.getInt(2));
                     callLogItem.put("duration", callLogCursor.getLong(3));
                     callLogItem.put("new", callLogCursor.getInt(4));
-                    callLogItem.put("cachedName", callLogCursor.getString(5));
+                    callLogItem.put("cachedName", callLogCursor.getString(5) != null ? callLogCursor.getString(5) : "Unknown");
                     callLogItem.put("cachedNumberType", callLogCursor.getInt(6));
                     //callLogItem.put("name", getContactNameFromNumber(callLogCursor.getString(1))); //grab name too
                     callLogItems.put(callLogItem);

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        splash
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <link href="res/themes/olive/olive.css" rel="stylesheet"/>
+    <link href="res/lib/jquerymobile/1.1.0/jquery.mobile.structure-1.1.0.css" rel="stylesheet"/>
+    <script type="text/javascript" src="res/lib/jquery/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="res/lib/jquerymobile/jquery.mobile.iepatch.js"></script>
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function () {
+            if (navigator.userAgent.indexOf("Android") != -1) {
+                $.mobile.defaultPageTransition = 'none';
+                $.mobile.defaultDialogTransition = 'none';
+            }
+        });
+    </script>
+    <script type="text/javascript" src="res/lib/jquerymobile/1.1.0/jquery.mobile-1.1.0.js"></script>
+    <script type="text/javascript" src="res/lib/mobilebase.js"></script>
+    <script type="text/javascript" src="res/lib/cordova.js"></script>
+    <script type="text/javascript" src="res/lib/childbrowser.js"></script>
+    <script type="text/javascript" src="res/lib/PushNotification.js"></script>
+    <script type="text/javascript" src="js/ICanHaz/ICanHaz.js"></script>
+    <link href="res/css/mobilebase.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<script language="JavaScript" type="text/javascript">
+    if (navigator.userAgent.match(/iP/i)) {
+        $(window).bind('orientationchange',
+                function (event) {
+                    $('meta[name="viewport"]').attr('content', 'initial-scale=1.0,maximum-scale=1.0, ' + ((window.orientation == 90 || window.orientation == -90 || window.orientation == 270) ? "height=device-width,width=device-height" : "height=device-height,width=device-width"));
+                }).trigger('orientationchange');
+    }
+</script>
+<script language="javascript" type="text/javascript">
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        document.addEventListener("backbutton", backButtonHandler, false);
+    }
+    function backButtonHandler(e) {
+        if ($("#callLog").length > 0 || $("#smsLog").length > 0 || $("#category").length > 0 || $("#more").length > 0) {
+            navigator.app.exitApp();
+        } else {
+            navigator.app.backHistory();
+        }
+    }
+</script>
+<div data-role="page" style="min-height:800px;" dsid="splash" id="splash" class="type-interior"
+     data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="content" id="j_14" name="mobilecontainer" class="mobileContent mobilecontainer3" dsid="mobilecontainer" data-theme='a'>
+        <link href="splash.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="splash.js"></script>
+    </div>
+</div>
+</body>
+</html>

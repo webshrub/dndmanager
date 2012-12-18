@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        alertDialog
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"
+            />
+    <link href="res/themes/olive/olive.css" rel="stylesheet"/>
+    <link href="res/lib/jquerymobile/1.1.0/jquery.mobile.structure-1.1.0.css" rel="stylesheet"
+            />
+    <script type="text/javascript" src="res/lib/store/json2.js">
+    </script>
+    <script type="text/javascript" src="res/lib/jquery/jquery-1.6.4.js">
+    </script>
+    <script type="text/javascript" src="res/lib/jquerymobile/jquery.mobile.iepatch.js">
+    </script>
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function () {
+            if (navigator.userAgent.indexOf("Android") != -1) {
+                $.mobile.defaultPageTransition = 'none';
+                $.mobile.defaultDialogTransition = 'none';
+            }
+        });
+    </script>
+    <script type="text/javascript" src="res/lib/jquerymobile/1.1.0/jquery.mobile-1.1.0.js">
+    </script>
+    <script type="text/javascript" src="res/lib/mobilebase.js">
+    </script>
+    <script type="text/javascript" src="res/lib/event/customEventHandler.js">
+    </script>
+    <script type="text/javascript" src="res/lib/base/sha1.js">
+    </script>
+    <script type="text/javascript" src="res/lib/base/oauth.js">
+    </script>
+    <script type="text/javascript" src="res/lib/base/contexts.js">
+    </script>
+    <script type="text/javascript" src="res/lib/base/jsonpath.js">
+    </script>
+    <script type="text/javascript" src="res/lib/base/jquery.xml2json.min.js">
+    </script>
+    <script type="text/javascript" src="res/lib/base/tiggzi.js">
+    </script>
+    <script type="text/javascript" src="res/lib/cordova.js">
+    </script>
+    <script type="text/javascript" src="res/lib/childbrowser.js">
+    </script>
+    <script type="text/javascript" src="res/lib/PushNotification.js">
+    </script>
+    <link href="res/css/mobilebase.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<script language="JavaScript" type="text/javascript">
+    if (navigator.userAgent.match(/iP/i)) {
+        $(window).bind('orientationchange',
+                function (event) {
+                    $('meta[name="viewport"]').attr('content', 'initial-scale=1.0,maximum-scale=1.0, ' + ((window.orientation == 90 || window.orientation == -90 || window.orientation == 270) ? "height=device-width,width=device-height" : "height=device-height,width=device-width"));
+                }).trigger('orientationchange');
+    }
+</script>
+<div data-role="dialog" style="min-height:800px;" dsid="alertDialog" id="j_0" class="type-interior"
+     data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader2"
+         id="j_2" class='mobileHeader mobileheader1 '>
+        <h1 dsid="mobileheader2">
+            Alert
+        </h1>
+    </div>
+    <div data-role="content" id="j_3" name="mobilecontainer2" class="mobileContent mobilecontainer1"
+         dsid="mobilecontainer2" data-theme='a'>
+        <link href="alertDialog.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="alertDialog.js">
+        </script>
+        <div class="mobilegrid1_wrapper">
+            <table id="j_4" class="mobilegrid mobilegrid1" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:100%;">
+                <tr class="mobilegrid1_row_0">
+                    <td id="j_5" name="mobilegridcell_c723" class="mobilegridcell1" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div name="mobilelabel1_5" id="j_6" dsid="mobilelabel1_5" data-role="tiggr_label"
+                                 class='labelClass mobilelabel1 '>
+                                Please select any Call/SMS/Category first.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="mobilegrid1_row_1">
+                    <td id="j_7" name="mobilegridcell_c729" class="mobilegridcell2" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton1_wrapper ">
+                                <a data-role="button" name="mobilebutton1_6" dsid="mobilebutton1_6" class=' button mobilebutton1'
+                                   id='j_8' data-corners='true' data-iconpos='left' data-inline='false' data-theme='a'
+                                   tabIndex="1">
+                                    OK
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

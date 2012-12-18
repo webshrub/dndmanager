@@ -1,0 +1,173 @@
+body {
+	overflow: auto;
+}
+
+a {
+    outline: none;
+}
+
+.ui-field-contain {
+    padding: 0;
+    border-bottom-width: 0px;
+}
+.ui-selectmenu {
+    z-index: 1001 !important;
+}
+
+/*
+* Overload .ui-header .ui-title, .ui-footer .ui-title classes,
+* because in flex and mobile preview they has differend font-size
+*/
+
+.ui-header .ui-title, .ui-footer .ui-title{
+	font-size: 15px;
+}
+
+
+/* Need to match mobilegrid cells min-height in preview to min-height in flex */
+.ui-content .ui-block-a,
+.ui-content .ui-block-b,
+.ui-content .ui-block-c,
+.ui-content .ui-block-d,
+.ui-content .ui-block-e {
+	min-height: 51px !important;
+}
+
+/* Need to let user have a long caption in header */
+.ui-mobile-viewport .ui-header .ui-title {
+	margin-left: 0;
+	margin-right: 0;
+	/*original jquery mobile is ".6em 30% .8em;"*/
+}
+
+/* We set own margins to elements in control groups and we need to discard native jquerymobile's margins */
+.ui-mobile-viewport fieldset.ui-controlgroup {
+	margin: 0;
+}
+
+.ui-mobile-viewport input.ui-input-text {
+	padding: 6px;
+}
+
+.ui-mobile-viewport .ui-header div[class*="mobileselectmenu"] {
+	margin: 0;
+}
+
+/* Buttons */
+
+.ui-mobile-viewport .ui-btn[class*="mobilebutton"] {
+	margin: 0;
+}
+
+.ui-mobile-viewport .ui-header div[class*="mobilebutton"][class*="_wrapper"] {
+	margin: 0;
+}
+
+.ui-mobile-viewport .ui-header .ui-btn-right div[class*="mobilebutton"][class*="_wrapper"] {
+	text-align: right;
+}
+
+.ui-mobile-viewport .ui-footer div[class*="mobilebutton"][class*="_wrapper"] {
+	margin: 0;
+	float: left;
+}
+
+/* Textarea */
+
+.ui-mobile-viewport textarea.ui-input-text {
+	margin: 0;	
+}
+
+.ui-mobile-viewport .ui-footer div[class*="mobileselectmenu"].ui-field-contain {
+	margin: 0;
+	float: left;
+}
+
+.ui-mobile-viewport .ui-footer .ui-body {
+	clear: none;	
+}
+
+.ui-mobile-viewport .ui-footer div[class*="mobilebutton"][class*="_wrapper"] a.ui-btn {
+	margin: 0 !important;
+}
+
+.ui-mobile-viewport .ui-header div.ui-navbar,
+.ui-mobile-viewport .ui-footer div.ui-navbar  {
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+}
+
+
+.ui-mobile-viewport input.ui-input-text, 
+.ui-mobile-viewport textarea.ui-input-text {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+ 	width: 100%;
+}
+
+/* Listview */
+
+.ui-mobile-viewport li.ui-li-static {
+	font-size: 16px;
+}
+
+.ui-mobile-viewport .ui-content .ui-listview {
+	margin: 0;
+}
+
+.ui-mobile-viewport .ui-listview .ui-li-icon {
+	/* remove after migrating to jqm 1.1.1, see https://github.com/jquery/jquery-mobile/issues/4489 */
+	max-height: 16px;
+	max-width: 16px;
+	margin-top: -3px;
+}
+
+h3.ui-li-heading {
+	margin: 0;
+}
+
+li.ui-li.tgz-cg-has-thumbnail h3.ui-li-heading {
+	margin-top: 20px;
+}
+
+/* Ajax busy indicator*/
+
+#ajaxBusy {
+	display: none;
+	margin: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 999999999;
+	opacity: 0.5;
+	background-color: #EEEEEE;
+}
+	
+#ajaxBusy img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.ui-li.ui-screen-hidden {
+   display: none !important;
+}
+
+/* Native jqm loader is hidden, 'cos we are using our own Ajax Busy Indicator */
+
+div.ui-loader {
+	display:none !important;
+}

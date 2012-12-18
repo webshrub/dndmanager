@@ -15,8 +15,3 @@ CallLogPlugin.prototype.show = function (params, successCallback, failureCallbac
     return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'show',
         [ params ]);
 };
-
-cordova.addConstructor(function () {
-    cordova.addPlugin('CallLogPlugin', new CallLogPlugin());
-    PluginManager.addService("CallLogPlugin", "com.webshrub.moonwalker.androidapp.CallLogPlugin");
-});

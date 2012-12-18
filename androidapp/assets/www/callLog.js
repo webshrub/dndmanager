@@ -1,6 +1,7 @@
 createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 
 $("#callLog").die("pageinit").live("pageinit", function (event, ui) {
+    document.addEventListener("deviceready", fetchCallLog, false);
 });
 
 function fetchCallLog() {

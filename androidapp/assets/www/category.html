@@ -82,7 +82,7 @@
                     <td id="j_80" name="mobilegridcell_c645" class="mobilegridcell15" colspan=1 rowspan=1>
                         <div class="cell-wrapper">
                             <div class="mobilebutton4_wrapper ">
-                                <a data-role="button" name="mobilebutton1_12" dsid="mobilebutton1_12" class=' button mobilebutton4'
+                                <a  data-role="button" name="mobilebutton1_12" dsid="mobilebutton1_12" class=' button mobilebutton4'
                                    id='registerButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
                                    tabIndex="1">
                                     Register
@@ -93,7 +93,7 @@
                     <td id="j_82" name="mobilegridcell_c651" class="mobilegridcell16" colspan=1 rowspan=1>
                         <div class="cell-wrapper">
                             <div class="mobilebutton5_wrapper ">
-                                <a data-role="button" name="mobilebutton1_13" dsid="mobilebutton1_13" class=' button mobilebutton5'
+                                <a href="reportDialog.html" data-role="button" name="mobilebutton1_13" dsid="mobilebutton1_13" class=' button mobilebutton5'
                                    id='unregisterButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
                                    tabIndex="1">
                                     Unregister
@@ -120,43 +120,43 @@
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_21" class="mobilecheckbox2">
-                                                    <input  type="checkbox" name="category" id="j_88" data-theme='a' value="1"/>
+                                                    <input type="checkbox" name="category" id="j_88" data-theme='a' value="1"/>
                                                     <label id="j_88_label" for="j_88">
                                                         Banking/Insurance/Financial products/Credit cards
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_22" class="mobilecheckbox3">
-                                                    <input  type="checkbox" name="category" id="j_89" data-theme='a' value="2"/>
+                                                    <input type="checkbox" name="category" id="j_89" data-theme='a' value="2"/>
                                                     <label id="j_89_label" for="j_89">
                                                         Real Estate
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_23" class="mobilecheckbox4">
-                                                    <input  type="checkbox" name="category" id="j_90" data-theme='a' value="3"/>
+                                                    <input type="checkbox" name="category" id="j_90" data-theme='a' value="3"/>
                                                     <label id="j_90_label" for="j_90">
                                                         Education
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_24" class="mobilecheckbox5">
-                                                    <input  type="checkbox" name="category" id="j_91" data-theme='a' value="4"/>
+                                                    <input type="checkbox" name="category" id="j_91" data-theme='a' value="4"/>
                                                     <label id="j_91_label" for="j_91">
                                                         Health
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_25" class="mobilecheckbox6">
-                                                    <input  type="checkbox" name="category" id="j_92" data-theme='a' value="5"/>
+                                                    <input type="checkbox" name="category" id="j_92" data-theme='a' value="5"/>
                                                     <label id="j_92_label" for="j_92">
                                                         Item Consumer goods and automobiles
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_26" class="mobilecheckbox7">
-                                                    <input  type="checkbox" name="category" id="j_93" data-theme='a' value="6"/>
+                                                    <input type="checkbox" name="category" id="j_93" data-theme='a' value="6"/>
                                                     <label id="j_93_label" for="j_93">
                                                         Communication/Broadcasting/Entertainment/IT
                                                     </label>
                                                 </span>
                                                 <span dsid="mobilecheckbox1_27" class="mobilecheckbox8">
-                                                    <input  type="checkbox" name="category" id="j_94" data-theme='a' value="7"/>
+                                                    <input type="checkbox" name="category" id="j_94" data-theme='a' value="7"/>
                                                     <label id="j_94_label" for="j_94">
                                                         Tourism and Leisure
                                                     </label>
@@ -170,5 +170,33 @@
         </div>
     </div>
 </div>
+
+<section style="min-height: 665px;" role="dialog" class="ui-page ui-body-d ui-overlay-a ui-dialog" tabindex="0" data-url="dialogPage" id="dialogPage"
+         data-role="dialog" data-theme="d">
+    <header role="banner" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-a" data-role="header" value="Header Value">
+
+        <a data-direction="reverse" data-transition="pop" data-theme="a" title="Close"
+           class="ui-btn-left ui-btn ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-btn-up-a"
+           data-icon="delete" data-iconpos="notext">
+            <span aria-hidden="true" class="ui-btn-inner ui-btn-corner-all">
+            <span class="ui-btn-text">Close</span>
+            <span class="ui-icon ui-icon-delete ui-icon-shadow"></span>
+            </span>
+        </a>
+
+        <h1 aria-level="1" role="heading" tabindex="0" class="ui-title">Send Sms ?</h1></header>
+    <div id="sendingSmsText" role="main" class="ui-overlay-shadow ui-content ui-body-d" data-role="content">
+        <h3>Input Dialog</h3>
+        <input value="" class="ui-input-text ui-body-d ui-corner-all ui-shadow-inset" name="text_input" placeholder="Input" type="text">
+
+        <a data-transition="pop" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-d" data-theme="d" data-role="button"
+           id="send_button"><span aria-hidden="true" class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Send</span></span></a>
+        <a data-direction="reverse" data-transition="pop" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-d" data-theme="d" data-role="button"
+           id="cancel_button"><span aria-hidden="true" class="ui-btn-inner ui-btn-corner-all"><span
+                class="ui-btn-text">Cancel</span></span></a>
+    </div>
+    <footer role="contentinfo" class="ui-overlay-shadow ui-corner-bottom ui-footer ui-bar-a" data-role="footer"></footer>
+</section>
+
 </body>
 </html>

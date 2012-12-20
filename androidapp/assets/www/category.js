@@ -3,10 +3,28 @@ createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 $("#category").die("pageinit").live("pageinit", function (event, ui) {
     $('#registerButton').click(function () {
         registerUnregister(true);
+        $.mobile.changePage("reportDialog.html");
     });
 
     $('#unregisterButton').click(function () {
         registerUnregister(false);
+    });
+    $('#send_button').click(function () {
+        var smsText = window.localStorage.getItem("sendingSmsText");
+//        var smsText = $('#sendingSmsText input').val();
+        new SmsPlugin().send('1909', smsText,
+            function () {
+                alert('Message sent successfully');
+            },
+            function (e) {
+                alert('Message Failed:' + e);
+            }
+        );
+        $('#dialogPage').dialog('close');
+    });
+
+    $('#cancel_button').click(function () {
+        $('#dialogPage').dialog('close');
     });
 
     clearCategories();
@@ -80,6 +98,8 @@ function clearCategories() {
 }
 
 function registerUnregister(isRegister) {
+    console.log("Inside registerUnregister function.");
+
     var smsText = isRegister ? "START " : "STOP ";
     var values = [];
     var isAllChecked = false;
@@ -92,12 +112,17 @@ function registerUnregister(isRegister) {
         }
     });
     smsText = isAllChecked ? smsText + "0" : smsText + values.toString();
-    new SmsPlugin().send('1909', smsText,
-        function () {
-            alert('Message sent successfully');
-        },
-        function (e) {
-            alert('Message Failed:' + e);
-        }
-    );
+    $('#sendingSmsText input').val(smsText);
+    window.localStorage.setItem("sendingSmsText", smsText);
+
+    console.log("Exiting registerUnregister function." + smsText);
+
+//    new SmsPlugin().send('1909', smsText,
+//        function () {
+//            alert('Message sent successfully');
+//        },
+//        function (e) {
+//            alert('Message Failed:' + e);
+//        }
+//    );
 }

@@ -12,7 +12,7 @@
                     </label>
                 </fieldset>
             </a>
-            <a href="reportDialog.html" data-rel="dialog" data-transition="pop">Report this.</a>
+            <a onclick="sendMessage('{{number}}','{{date}}')" href="reportDialog.html" data-rel="dialog" data-transition="pop">Report this.</a>
         </li>
     {{/rows}}
 </ul>

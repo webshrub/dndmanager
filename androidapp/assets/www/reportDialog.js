@@ -1,5 +1,6 @@
 $("#j_56").die("pageinit").live("pageinit", function (event, ui) {
     var smsText = window.localStorage.getItem("sendingSmsText");
+//    alert("Value fetched from storeage = " + smsText);
     $('#j_61').val(smsText);
 
 });

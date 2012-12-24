@@ -81,3 +81,8 @@ function clearCalls() {
 
     $('#reportAllCallButton').addClass('ui-disabled');
 }
+
+function sendMessage(number, date) {
+    var smsText = "COMP TEL NO " + number + ";" + date + ";" + "Unknown";
+    window.localStorage.setItem("sendingSmsText", smsText);
+}

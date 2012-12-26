@@ -30,6 +30,12 @@ function fetchCallLog() {
     $('#selectAllCall').click(function () {
         checkUncheckAllCalls();
     });
+
+    $('a[name=reportDialogLink]').live("click", function () {
+        var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + "Unknown";
+        window.localStorage.setItem("sendingSmsText", smsText);
+        $.mobile.changePage('reportDialog.html');
+    });
 }
 
 function checkCall() {
@@ -80,9 +86,4 @@ function clearCalls() {
     $('input:checkbox[name="call"]').checkboxradio('refresh');
 
     $('#reportAllCallButton').addClass('ui-disabled');
-}
-
-function sendMessage(number, date) {
-    var smsText = "COMP TEL NO " + number + ";" + date + ";" + "Unknown";
-    window.localStorage.setItem("sendingSmsText", smsText);
 }

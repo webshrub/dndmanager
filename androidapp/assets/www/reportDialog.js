@@ -1,13 +1,12 @@
-$("#j_56").die("pageinit").live("pageinit", function (event, ui) {
+$("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
+    $('#cancelButton').click(function () {
+        $('#reportDialog').dialog('close');
+    });
+
     var smsText = window.localStorage.getItem("sendingSmsText");
-//    alert("Value fetched from storeage = " + smsText);
-    $('#j_61').val(smsText);
-
+    $('#smsTextArea').val(smsText);
 });
 
-$('#j_68').click(function () {
-    $('#j_56').dialog('close');
-});
 function sendSms() {
     var smsText = window.localStorage.getItem("sendingSmsText");
     new SmsPlugin().send('1909', smsText,
@@ -18,5 +17,5 @@ function sendSms() {
             alert('Message Failed:' + e);
         }
     );
-    $('#j_56').dialog('close');
+    $('#reportDialog').dialog('close');
 }

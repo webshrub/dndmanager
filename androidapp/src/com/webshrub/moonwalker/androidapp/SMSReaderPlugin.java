@@ -29,7 +29,6 @@ public class SMSReaderPlugin extends Plugin {
         if (action.equals("inbox")) {
             try {
                 messages = readSMS("inbox");
-                Log.d("SMSReadPlugin", "Returning " + messages.toString());
                 result = new PluginResult(PluginResult.Status.OK, messages);
             } catch (JSONException jsonEx) {
                 Log.d("SMSReadPlugin", "Got JSON Exception " + jsonEx.getMessage());
@@ -74,6 +73,7 @@ public class SMSReaderPlugin extends Plugin {
         while (cur.moveToNext()) {
             JSONObject sms = new JSONObject();
             sms.put("number", cur.getString(cur.getColumnIndex("address")));
+//            parseString(cur.getString(cur.getColumnIndex("body")));
             sms.put("text", cur.getString(cur.getColumnIndex("body")));
             String name = getContact(cur.getString(cur.getColumnIndex("address")));
             sms.put("name", (name == null || name.equalsIgnoreCase("")) ? "Unknown" : name);
@@ -82,6 +82,17 @@ public class SMSReaderPlugin extends Plugin {
         }
         return data;
     }
+
+//    private void parseString(String body) {
+//        body.replaceAll("[\\n]", "Ankur");
+//        char[] bodyChar = body.toCharArray();
+//        Integer length = body.length();
+//        for (char c : bodyChar) {
+//            if (c == '\n')
+//                System.out.println(c);
+//        }
+//
+//    }
 
     private String getContact(String number) {
         String returnName = "";

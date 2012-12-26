@@ -13,7 +13,7 @@
                 </label>
             </fieldset>
         </a>
-        <a href="reportDialog.html" data-rel="dialog" data-transition="pop">Report this.</a>
+        <a name="reportDialogLink" data-rel="dialog" data-transition="pop" data-number="{{number}}" data-date="{{date}}" data-text="{{text}}">Report this.</a>
     </li>
     {{/messages}}
 </ul>

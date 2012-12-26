@@ -30,6 +30,12 @@ function fetchSMSLog() {
     $('#selectAllSMS').click(function () {
         checkUncheckAllSMS();
     });
+
+    $('a[name=reportDialogLink]').live("click", function () {
+        var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + $(this).attr("data-text");
+        window.localStorage.setItem("sendingSmsText", smsText);
+        $.mobile.changePage('reportDialog.html');
+    });
 }
 
 function checkSMS() {

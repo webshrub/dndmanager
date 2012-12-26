@@ -11,31 +11,31 @@ function fetchSMSLog() {
             $("#listview").listview();
             $("fieldset[name=fs]").controlgroup();
             $("input:checkbox[name=sms]").checkboxradio();
+
+            clearSMS();
+
+            $('input:checkbox[name="sms"]').change(function () {
+                if ($(this).is(':checked')) {
+                    checkSMS();
+                } else {
+                    uncheckSMS();
+                }
+            });
+
+            $('#selectAllSMS').click(function () {
+                checkUncheckAllSMS();
+            });
+
+            $('a[name=reportSMSDialogLink]').click(function () {
+                var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + $(this).attr("data-text");
+                window.localStorage.setItem("sendingSmsText", smsText);
+                $.mobile.changePage('reportDialog.html');
+            });
         },
         function (e) {
             alert('Fetching of list failed.' + e);
         }
     );
-
-    clearSMS();
-
-    $('input:checkbox[name="sms"]').live("change", function () {
-        if ($(this).is(':checked')) {
-            checkSMS();
-        } else {
-            uncheckSMS();
-        }
-    });
-
-    $('#selectAllSMS').click(function () {
-        checkUncheckAllSMS();
-    });
-
-    $('a[name=reportDialogLink]').live("click", function () {
-        var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + $(this).attr("data-text");
-        window.localStorage.setItem("sendingSmsText", smsText);
-        $.mobile.changePage('reportDialog.html');
-    });
 }
 
 function checkSMS() {

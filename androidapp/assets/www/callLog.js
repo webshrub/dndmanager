@@ -11,31 +11,31 @@ function fetchCallLog() {
             $("#listview").listview();
             $("fieldset[name=fs]").controlgroup();
             $("input:checkbox[name=call]").checkboxradio();
+
+            clearCalls();
+
+            $('input:checkbox[name=call]').change(function () {
+                if ($(this).is(':checked')) {
+                    checkCall();
+                } else {
+                    uncheckCall();
+                }
+            });
+
+            $('#selectAllCall').click(function () {
+                checkUncheckAllCalls();
+            });
+
+            $('a[name=reportCallDialogLink]').click(function () {
+                var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + "Unknown Company";
+                window.localStorage.setItem("sendingSmsText", smsText);
+                $.mobile.changePage('reportDialog.html');
+            });
         },
         function (e) {
             alert('Fetching of list failed.' + e);
         }
     );
-
-    clearCalls();
-
-    $('input:checkbox[name="call"]').live("change", function () {
-        if ($(this).is(':checked')) {
-            checkCall();
-        } else {
-            uncheckCall();
-        }
-    });
-
-    $('#selectAllCall').click(function () {
-        checkUncheckAllCalls();
-    });
-
-    $('a[name=reportDialogLink]').live("click", function () {
-        var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + "Unknown";
-        window.localStorage.setItem("sendingSmsText", smsText);
-        $.mobile.changePage('reportDialog.html');
-    });
 }
 
 function checkCall() {

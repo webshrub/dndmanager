@@ -26,6 +26,20 @@ function fetchCallLog() {
                 checkUncheckAllCalls();
             });
 
+            $('#reportAllCallButton').click(function () {
+                var smsTextObjects = [];
+                $('input:checkbox[name=call]').filter(':checked').each(function () {
+                    var reportCallDialogLink = $(this).closest('li').children('a[name=reportCallDialogLink]');
+                    var number = reportCallDialogLink.attr('data-number');
+                    var date = reportCallDialogLink.attr('data-date');
+                    var text = reportCallDialogLink.attr('data-text');
+                    var smsTextObject = {"number":number, "date":date, "text":text};
+                    smsTextObjects.push(smsTextObject);
+                });
+                moonwalkerStorage.setItem("smsTextObjects", smsTextObjects);
+                $.mobile.changePage('confirmDialog.html');
+            });
+
             $('a[name=reportCallDialogLink]').click(function () {
                 var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + "Unknown Company";
                 window.localStorage.setItem("sendingSmsText", smsText);

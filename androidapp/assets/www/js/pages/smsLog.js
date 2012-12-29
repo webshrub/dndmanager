@@ -26,6 +26,11 @@ function fetchSMSLog() {
                 checkUncheckAllSMS();
             });
 
+            $('#reportAllSMSButton').click(function () {
+                prepareSmsTextObjects();
+                $.mobile.changePage('confirmDialog.html');
+            });
+
             $('a[name=reportSMSDialogLink]').click(function () {
                 var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + $(this).attr("data-text");
                 moonwalkerStorage.setItem("sendingSmsText", smsText);
@@ -86,4 +91,17 @@ function clearSMS() {
     $('input:checkbox[name="sms"]').checkboxradio('refresh');
 
     $('#reportAllSMSButton').addClass('ui-disabled');
+}
+
+function prepareSmsTextObjects() {
+    var smsTextObjects = [];
+    $('input:checkbox[name=sms]').filter(':checked').each(function () {
+        var reportSMSDialogLink = $(this).closest('li').children('a[name=reportSMSDialogLink]');
+        var number = reportSMSDialogLink.attr('data-number');
+        var date = reportSMSDialogLink.attr('data-date');
+        var text = reportSMSDialogLink.attr('data-text');
+        var smsTextObject = {"number":number, "date":date, "text":text};
+        smsTextObjects.push(smsTextObject);
+    });
+    moonwalkerStorage.setItem("smsTextObjects", smsTextObjects);
 }

@@ -95,5 +95,5 @@ function registerUnregister(isRegister) {
         }
     });
     smsText = isAllChecked ? smsText + "0" : smsText + values.toString();
-    window.localStorage.setItem("sendingSmsText", smsText);
+    moonwalkerStorage.setItem("sendingSmsText", smsText);
 }

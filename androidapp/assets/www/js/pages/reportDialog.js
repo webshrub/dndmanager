@@ -5,7 +5,7 @@ $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
         $('#reportDialog').dialog('close');
     });
 
-    var smsText = window.localStorage.getItem("sendingSmsText");
+    var smsText = moonwalkerStorage.getItem("sendingSmsText");
     $('#smsTextArea').val(smsText);
 
     $('#sendSMSButton').click(function () {

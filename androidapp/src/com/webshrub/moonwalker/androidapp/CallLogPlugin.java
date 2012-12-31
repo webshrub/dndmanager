@@ -117,7 +117,7 @@ public class CallLogPlugin extends Plugin {
             Cursor callLogCursor = ctx.getContext().getContentResolver().query(
                     CallLog.Calls.CONTENT_URI,
                     strFields,
-                    CallLog.Calls.DATE + ">?",
+                    CallLog.Calls.DATE + ">?" + "and " + CallLog.Calls.TYPE + "=" + CallLog.Calls.INCOMING_TYPE,
                     new String[]{period},
                     CallLog.Calls.DEFAULT_SORT_ORDER);
 

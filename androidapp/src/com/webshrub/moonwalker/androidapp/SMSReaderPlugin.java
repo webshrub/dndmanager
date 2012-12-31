@@ -71,13 +71,15 @@ public class SMSReaderPlugin extends Plugin {
         JSONArray smsList = new JSONArray();
         data.put("messages", smsList);
         while (cur.moveToNext()) {
-            JSONObject sms = new JSONObject();
-            sms.put("number", cur.getString(cur.getColumnIndex("address")));
-            sms.put("text", cur.getString(cur.getColumnIndex("body")));
             String name = getContact(cur.getString(cur.getColumnIndex("address")));
-            sms.put("name", (name == null || name.equalsIgnoreCase("")) ? "Unknown" : name);
-            sms.put("date", SIMPLE_DATE_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
-            smsList.put(sms);
+            if (name.isEmpty()) {
+                JSONObject sms = new JSONObject();
+                sms.put("number", cur.getString(cur.getColumnIndex("address")));
+                sms.put("text", cur.getString(cur.getColumnIndex("body")));
+                sms.put("name", (name == null || name.equalsIgnoreCase("")) ? "Unknown" : name);
+                sms.put("date", SIMPLE_DATE_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
+                smsList.put(sms);
+            }
         }
         return data;
     }

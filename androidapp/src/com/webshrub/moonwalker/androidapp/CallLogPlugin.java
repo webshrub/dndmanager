@@ -41,8 +41,10 @@ public class CallLogPlugin extends Plugin {
                 if (!data.isNull(0)) {
                     String d = data.getString(0);
                     Log.d(TAG, "Time period is: " + d);
-                    if (d.equals("week"))
-                        limit = -1;
+                    if (d.equals("3day"))
+                        limit = -3;
+                    else if (d.equals("week"))
+                        limit = -7;
                     else if (d.equals("month"))
                         limit = -30;
                     else if (d.equals("all"))

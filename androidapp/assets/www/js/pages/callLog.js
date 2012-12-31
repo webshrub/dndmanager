@@ -5,7 +5,7 @@ $("#callLog").die("pageinit").live("pageinit", function (event, ui) {
 });
 
 function fetchCallLog() {
-    new CallLogPlugin().list('week',
+    new CallLogPlugin().list('3day',
         function (data) {
             $('#callLogDiv').html(getTemplate("callLog", data));
             $("#listview").listview();

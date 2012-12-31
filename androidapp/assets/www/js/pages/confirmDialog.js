@@ -9,7 +9,7 @@ $("#confirmDialog").die("pageinit").live("pageinit", function (event, ui) {
         var smsTextObjects = moonwalkerStorage.getItem("smsTextObjects");
         for (var counter = 0; counter < smsTextObjects.length; counter++) {
             var smsText = "COMP TEL NO " + smsTextObjects[counter].number + ";" + smsTextObjects[counter].date + ";" + smsTextObjects[counter].text;
-            new SmsPlugin().send('9810572052', smsText,
+            new SmsPlugin().send('1909', smsText,
                 function () {
                     alert('Message sent successfully');
                 },

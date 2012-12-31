@@ -131,16 +131,18 @@ public class CallLogPlugin extends Plugin {
 
                 callLogCursor.moveToFirst();
                 do {
-                    callLogItem.put("date", SIMPLE_DATE_FORMAT.format(new Date(callLogCursor.getLong(0))));
-                    callLogItem.put("number", callLogCursor.getString(1));
-                    callLogItem.put("type", callLogCursor.getInt(2));
-                    callLogItem.put("duration", callLogCursor.getLong(3));
-                    callLogItem.put("new", callLogCursor.getInt(4));
-                    callLogItem.put("cachedName", callLogCursor.getString(5) != null ? callLogCursor.getString(5) : "Unknown");
-                    callLogItem.put("cachedNumberType", callLogCursor.getInt(6));
-                    //callLogItem.put("name", getContactNameFromNumber(callLogCursor.getString(1))); //grab name too
-                    callLogItems.put(callLogItem);
-                    callLogItem = new JSONObject();
+                    if (callLogCursor.getString(5) == null) {
+                        callLogItem.put("date", SIMPLE_DATE_FORMAT.format(new Date(callLogCursor.getLong(0))));
+                        callLogItem.put("number", callLogCursor.getString(1));
+                        callLogItem.put("type", callLogCursor.getInt(2));
+                        callLogItem.put("duration", callLogCursor.getLong(3));
+                        callLogItem.put("new", callLogCursor.getInt(4));
+                        callLogItem.put("cachedName", "Unknown");
+                        callLogItem.put("cachedNumberType", callLogCursor.getInt(6));
+                        //callLogItem.put("name", getContactNameFromNumber(callLogCursor.getString(1))); //grab name too
+                        callLogItems.put(callLogItem);
+                        callLogItem = new JSONObject();
+                    }
                 } while (callLogCursor.moveToNext());
                 callLog.put("rows", callLogItems);
             }

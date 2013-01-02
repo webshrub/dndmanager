@@ -1,26 +1,26 @@
 createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 
 $("#more").die("pageinit").live("pageinit", function (event, ui) {
-    FB.init({
-        appId:'117635671730897',
-        nativeInterface:CDV.FB,
-        useCachedDialogs:false
-    });
-    $('#j_14 [name="mobilelistitem1_10"]').die().live({
-        click:function () {
-            if (!$(this).attr('disabled')) {
-                publishStory();
-            }
-        }
-    });
-    $('#j_14 [name="mobilelistitem1_11"]').die().live({
-        click:function () {
-            if (!$(this).attr('disabled')) {
-//                publishPost();
-                postToWall();
-            }
-        }
-    });
+//    FB.init({
+//        appId:'117635671730897',
+//        nativeInterface:CDV.FB,
+//        useCachedDialogs:false
+//    });
+//    $('#j_14 [name="mobilelistitem1_10"]').die().live({
+//        click:function () {
+//            if (!$(this).attr('disabled')) {
+//                publishStory();
+//            }
+//        }
+//    });
+//    $('#j_14 [name="mobilelistitem1_11"]').die().live({
+//        click:function () {
+//            if (!$(this).attr('disabled')) {
+////                publishPost();
+//                postToWall();
+//            }
+//        }
+//    });
 });
 
 function publishStory() {

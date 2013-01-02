@@ -12,7 +12,7 @@ $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
         var smsText = $('#smsTextArea').val();
         new SmsPlugin().send('1909', smsText,
             function () {
-                alert('Message sent successfully');
+//                alert('Message sent successfully');
             },
             function (e) {
                 alert('Message Failed:' + e);

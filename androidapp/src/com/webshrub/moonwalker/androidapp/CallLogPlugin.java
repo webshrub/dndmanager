@@ -23,6 +23,7 @@ public class CallLogPlugin extends Plugin {
      * List Action
      */
     private static final String ACTION = "list";
+    private static final String DELETE = "delete";
     private static final String CONTACT_ACTION = "contact";
     private static final String SHOW_ACTION = "show";
     private static final String TAG = "CallLogPlugin";
@@ -65,6 +66,18 @@ public class CallLogPlugin extends Plugin {
             } catch (JSONException jsonEx) {
                 Log.d(TAG, "Got JSON Exception " + jsonEx.getMessage());
                 result = new PluginResult(Status.JSON_EXCEPTION);
+            }
+        } else if (DELETE.equals(action)) {
+            try {
+                if (!data.isNull(0)) {
+                    deleteCallLogByNumber(data.getString(0));
+                    result = new PluginResult(Status.OK);
+
+                }
+            } catch (JSONException jsonEx) {
+                Log.d(TAG, "Got JSON Exception " + jsonEx.getMessage());
+                result = new PluginResult(Status.JSON_EXCEPTION);
+            } catch (Exception e) {
             }
         } else if (SHOW_ACTION.equals(action)) {
             try {
@@ -192,4 +205,14 @@ public class CallLogPlugin extends Plugin {
         // return the original number if no match was found
         return number;
     }
+
+    public void deleteCallLogByNumber(String number) {
+        try {
+            String queryString = CallLog.Calls.NUMBER + " = '" + number + "'";
+            ctx.getContext().getContentResolver().delete(CallLog.Calls.CONTENT_URI, queryString, null);
+        } catch (Exception e) {
+
+        }
+    }
 }
+

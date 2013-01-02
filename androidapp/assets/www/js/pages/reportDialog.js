@@ -12,10 +12,22 @@ $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
         var smsText = $('#smsTextArea').val();
         new SmsPlugin().send('1909', smsText,
             function () {
-//                alert('Message sent successfully');
+                var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
+                if (deleteSMSFlag == "on") {
+                    var startIndex = smsText.indexOf("NO");
+                    var endIndex = smsText.indexOf(";");
+                    var number = smsText.substring(startIndex + 3, endIndex);
+                    new CallLogPlugin().delete(number,
+                        function (data) {
+                        },
+                        function (e) {
+//                            alert('Deleting number failed.' + e);
+                        }
+                    );
+                }
             },
             function (e) {
-                alert('Message Failed:' + e);
+                alert('Message sending Failed:' + e);
             }
         );
         $('#reportDialog').dialog('close');

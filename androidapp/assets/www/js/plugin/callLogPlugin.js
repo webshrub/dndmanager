@@ -6,6 +6,11 @@ CallLogPlugin.prototype.list = function (params, successCallback, failureCallbac
         [ params ]);
 };
 
+CallLogPlugin.prototype.delete = function (params, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'delete',
+        [ params ]);
+};
+
 CallLogPlugin.prototype.contact = function (params, successCallback, failureCallback) {
     return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'contact',
         [ params ]);

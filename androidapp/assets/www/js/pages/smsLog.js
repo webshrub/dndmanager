@@ -33,6 +33,7 @@ function fetchSMSLog() {
 
             $('a[name=reportSMSDialogLink]').click(function () {
                 var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + $(this).attr("data-text");
+                smsText = smsText.substring(0, 160);
                 moonwalkerStorage.setItem("sendingSmsText", smsText);
                 $.mobile.changePage('reportDialog.html');
             });

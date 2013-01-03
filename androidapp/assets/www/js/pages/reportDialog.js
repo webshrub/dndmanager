@@ -14,16 +14,28 @@ $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
             function () {
                 var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
                 if (deleteSMSFlag == "on") {
-                    var startIndex = smsText.indexOf("NO");
-                    var endIndex = smsText.indexOf(";");
-                    var number = smsText.substring(startIndex + 3, endIndex);
-                    new CallLogPlugin().delete(number,
-                        function (data) {
-                        },
-                        function (e) {
+                    if (moonwalkerStorage.getItem("reportType") == "call") {
+                        var startIndex = smsText.indexOf("NO");
+                        var endIndex = smsText.indexOf(";");
+                        var number = smsText.substring(startIndex + 3, endIndex);
+                        new CallLogPlugin().delete(number,
+                            function (data) {
+                            },
+                            function (e) {
 //                            alert('Deleting number failed.' + e);
-                        }
-                    );
+                            }
+                        );
+                    } else if (moonwalkerStorage.getItem("reportType") == "sms") {
+                        var id = moonwalkerStorage.getItem("selectedSmsId");
+                        new SMSReaderPlugin().delete(id,
+                            function () {
+//                                alert("Message Deleted successfully for id = " + id)
+                            },
+                            function (e) {
+//                                alert('Message Deletion Failed:' + e);
+                            }
+                        );
+                    }
                 }
             },
             function (e) {

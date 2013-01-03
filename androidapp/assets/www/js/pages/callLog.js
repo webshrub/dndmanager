@@ -35,6 +35,7 @@ function fetchCallLog() {
                 var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + "Unknown Company";
                 smsText = smsText.substring(0, 160);
                 moonwalkerStorage.setItem("sendingSmsText", smsText);
+                moonwalkerStorage.setItem("reportType", "call");
                 $.mobile.changePage('reportDialog.html');
             });
         },

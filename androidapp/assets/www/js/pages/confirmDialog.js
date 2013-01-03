@@ -13,7 +13,7 @@ $("#confirmDialog").die("pageinit").live("pageinit", function (event, ui) {
             var smsText = "COMP TEL NO " + smsTextObjects[counter].number + ";" + smsTextObjects[counter].date + ";" + smsTextObjects[counter].text;
             new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag, smsTextObjects[counter].number,
                 function () {
-                    alert('Message sent successfully');
+//                    alert('Message sent successfully');
                 },
                 function (e) {
                     alert('Message Failed:' + e);

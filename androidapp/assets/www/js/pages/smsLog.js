@@ -35,7 +35,6 @@ function fetchSMSLog() {
                 var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + $(this).attr("data-text");
                 smsText = smsText.substring(0, 160);
                 moonwalkerStorage.setItem("sendingSmsText", smsText);
-                moonwalkerStorage.setItem("selectedSmsId", $(this).attr("data-_id"));
                 moonwalkerStorage.setItem("reportType", "sms");
                 $.mobile.changePage('reportDialog.html');
             });

@@ -43,6 +43,14 @@ public class SMSReaderPlugin extends Plugin {
                 Log.d("SMSReadPlugin", "Got JSON Exception " + jsonEx.getMessage());
                 result = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
             }
+        } else if (action.equals("delete")) {
+            try {
+                deleteSmsById(data.getString(0));
+                result = new PluginResult(PluginResult.Status.OK, messages);
+            } catch (JSONException jsonEx) {
+                Log.d("SMSReadPlugin", "Got JSON Exception " + jsonEx.getMessage());
+                result = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
+            }
         } else {
             result = new PluginResult(PluginResult.Status.INVALID_ACTION);
             Log.d("SMSReadPlugin", "Invalid action : " + action + " passed");
@@ -60,7 +68,7 @@ public class SMSReaderPlugin extends Plugin {
             uriSMSURI = Uri.parse("content://sms/sent");
         }
 
-        String[] projection = new String[]{"address", "date", "body"};
+        String[] projection = new String[]{"_id", "address", "date", "body"};
         // time 3 days back
         Long time = System.currentTimeMillis() - 259200000;
 
@@ -74,6 +82,7 @@ public class SMSReaderPlugin extends Plugin {
             String name = getContact(cur.getString(cur.getColumnIndex("address")));
             if (name.isEmpty()) {
                 JSONObject sms = new JSONObject();
+                sms.put("_id", cur.getString(cur.getColumnIndex("_id")));
                 sms.put("number", cur.getString(cur.getColumnIndex("address")));
                 sms.put("text", cur.getString(cur.getColumnIndex("body")));
                 sms.put("name", (name == null || name.equalsIgnoreCase("")) ? "Unknown" : name);
@@ -114,5 +123,14 @@ public class SMSReaderPlugin extends Plugin {
 
     private ContentResolver getContentResolver() {
         return this.ctx.getContext().getContentResolver();
+    }
+
+    public void deleteSmsById(String id) {
+        try {
+            String queryString = "_id" + " = " + id;
+            int n = ctx.getContext().getContentResolver().delete(Uri.parse("content://sms"), queryString, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

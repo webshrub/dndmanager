@@ -106,5 +106,6 @@ function prepareSmsTextObjects() {
         var smsTextObject = {"number":number, "date":date, "text":text};
         smsTextObjects.push(smsTextObject);
     });
+    moonwalkerStorage.setItem("reportType", "sms");
     moonwalkerStorage.setItem("smsTextObjects", smsTextObjects);
 }

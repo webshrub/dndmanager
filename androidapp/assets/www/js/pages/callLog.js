@@ -36,6 +36,7 @@ function fetchCallLog() {
                 smsText = smsText.substring(0, 160);
                 moonwalkerStorage.setItem("sendingSmsText", smsText);
                 moonwalkerStorage.setItem("reportType", "call");
+                moonwalkerStorage.setItem("spamNumber", $(this).attr("data-number"));
                 $.mobile.changePage('reportDialog.html');
             });
         },

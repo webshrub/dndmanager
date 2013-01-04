@@ -12,12 +12,10 @@ $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
         var smsText = $('#smsTextArea').val();
         var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
         var reportType = moonwalkerStorage.getItem("reportType");
-        var startIndex = smsText.indexOf("NO");
-        var endIndex = smsText.indexOf(";");
-        var number = smsText.substring(startIndex + 3, endIndex);
         var saveSMSFlag = moonwalkerStorage.getItem("saveMessageFlag");
+        var spamNumber = moonwalkerStorage.getItem("spamNumber");
 
-        new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag,saveSMSFlag, number,
+        new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag, saveSMSFlag, spamNumber,
             function () {
             },
             function (e) {

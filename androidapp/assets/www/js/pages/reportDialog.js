@@ -15,8 +15,9 @@ $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
         var startIndex = smsText.indexOf("NO");
         var endIndex = smsText.indexOf(";");
         var number = smsText.substring(startIndex + 3, endIndex);
+        var saveSMSFlag = moonwalkerStorage.getItem("saveMessageFlag");
 
-        new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag, number,
+        new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag,saveSMSFlag, number,
             function () {
             },
             function (e) {

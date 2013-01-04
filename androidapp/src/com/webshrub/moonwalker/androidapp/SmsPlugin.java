@@ -37,11 +37,11 @@ public class SmsPlugin extends Plugin {
                 String message = arg1.getString(1);
                 sendSMS(phoneNumber, message);
                 String reportType = arg1.getString(2);
-                String isToDelete = arg1.getString(3);
+                String deleteSMSFlag = arg1.getString(3);
                 String saveSMSFlag = arg1.getString(4);
                 String number = arg1.getString(5);
 
-                if (ON.equals(isToDelete)) {
+                if (ON.equals(deleteSMSFlag)) {
                     if (CALL.equals(reportType)) {
                         deleteCallLogByNumber(number);
                     } else if (SMS.equals(reportType)) {

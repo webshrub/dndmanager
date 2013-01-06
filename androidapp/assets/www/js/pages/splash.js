@@ -1,4 +1,5 @@
-createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
-$("#splash").die("pageinit").live("pageinit", function (event, ui) {
-    $.mobile.changePage('callLog.html');
+//createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
+
+$("#splash").die("pageshow").live("pageshow", function (event, ui) {
+    $.mobile.changePage($('#category'));
 });

@@ -1,4 +1,4 @@
-<ul data-role="listview" id="listview" class=' mobilelist3 ' name="mobilelist1_19" dsid="mobilelist1_19"
+<ul data-role="listview" id="smsListView" class=' mobilelist3 ' name="mobilelist1_19" dsid="mobilelist1_19"
     data-filter-placeholder='' data-theme='a' data-divider-theme='b' data-count-theme='b'
     style="" data-inset="true" data-split-theme="d" data-split-icon="delete">
     {{#messages}}

@@ -1,18 +1,19 @@
-createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
+//createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
+
+$("#category").die("pageshow").live("pageshow", function (event, ui) {
+    clearCategories();
+});
 
 $("#category").die("pageinit").live("pageinit", function (event, ui) {
-
     $('#registerButton').click(function () {
         registerUnregister(true);
-        $.mobile.changePage("reportDialog.html");
+        $.mobile.changePage($("#reportDialog"));
     });
 
     $('#unregisterButton').click(function () {
         registerUnregister(false);
-        $.mobile.changePage("reportDialog.html");
+        $.mobile.changePage($("#reportDialog"));
     });
-
-    clearCategories();
 
     $('input[name="category"]').click(function () {
         if ($(this).is(':checked')) {

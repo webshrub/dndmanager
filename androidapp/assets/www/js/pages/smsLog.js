@@ -1,4 +1,8 @@
-createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
+//createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
+
+$("#smsLog").die("pageshow").live("pageshow", function (event, ui) {
+    clearSMS()
+});
 
 $("#smsLog").die("pageinit").live("pageinit", function (event, ui) {
     document.addEventListener("deviceready", fetchSMSLog, false);
@@ -8,11 +12,7 @@ function fetchSMSLog() {
     new SMSReaderPlugin().getInbox('',
         function (data) {
             $('#smsLogDiv').html(getTemplate("smsLog", data));
-            $("#listview").listview();
-            $("fieldset[name=fs]").controlgroup();
-            $("input:checkbox[name=sms]").checkboxradio();
-
-            clearSMS();
+            $('#smsLogDiv').trigger('create');
 
             $('input:checkbox[name="sms"]').change(function () {
                 if ($(this).is(':checked')) {
@@ -27,8 +27,8 @@ function fetchSMSLog() {
             });
 
             $('#reportAllSMSButton').click(function () {
-                prepareSmsTextObjects();
-                $.mobile.changePage('confirmDialog.html');
+                prepareSmsTextObjectsFromSmsLog();
+                $.mobile.changePage($('#confirmDialog'));
             });
 
             $('a[name=reportSMSDialogLink]').click(function () {
@@ -37,7 +37,7 @@ function fetchSMSLog() {
                 moonwalkerStorage.setItem("sendingSmsText", smsText);
                 moonwalkerStorage.setItem("reportType", "sms");
                 moonwalkerStorage.setItem("spamNumber", $(this).attr("data-number"));
-                $.mobile.changePage('reportDialog.html');
+                $.mobile.changePage($('#reportDialog'));
             });
         },
         function (e) {
@@ -96,7 +96,7 @@ function clearSMS() {
     $('#reportAllSMSButton').addClass('ui-disabled');
 }
 
-function prepareSmsTextObjects() {
+function prepareSmsTextObjectsFromSmsLog() {
     var smsTextObjects = [];
     $('input:checkbox[name=sms]').filter(':checked').each(function () {
         var reportSMSDialogLink = $(this).closest('li').children('a[name=reportSMSDialogLink]');

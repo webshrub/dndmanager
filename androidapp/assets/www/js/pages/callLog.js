@@ -1,18 +1,19 @@
 createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 
+$("#callLog").die("pageshow").live("pageshow", function (event, ui) {
+    clearCalls();
+});
+
 $("#callLog").die("pageinit").live("pageinit", function (event, ui) {
     document.addEventListener("deviceready", fetchCallLog, false);
 });
+
 
 function fetchCallLog() {
     new CallLogPlugin().list('3day',
         function (data) {
             $('#callLogDiv').html(getTemplate("callLog", data));
-            $("#listview").listview();
-            $("fieldset[name=fs]").controlgroup();
-            $("input:checkbox[name=call]").checkboxradio();
-
-            clearCalls();
+            $('#callLogDiv').trigger('create');
 
             $('input:checkbox[name=call]').change(function () {
                 if ($(this).is(':checked')) {
@@ -27,8 +28,8 @@ function fetchCallLog() {
             });
 
             $('#reportAllCallButton').click(function () {
-                prepareSmsTextObjects();
-                $.mobile.changePage('confirmDialog.html');
+                prepareSmsTextObjectsFromCallLog();
+                $.mobile.changePage($('#confirmDialog'));
             });
 
             $('a[name=reportCallDialogLink]').click(function () {
@@ -37,7 +38,7 @@ function fetchCallLog() {
                 moonwalkerStorage.setItem("sendingSmsText", smsText);
                 moonwalkerStorage.setItem("reportType", "call");
                 moonwalkerStorage.setItem("spamNumber", $(this).attr("data-number"));
-                $.mobile.changePage('reportDialog.html');
+                $.mobile.changePage($('#reportDialog'));
             });
         },
         function (e) {
@@ -96,7 +97,7 @@ function clearCalls() {
     $('#reportAllCallButton').addClass('ui-disabled');
 }
 
-function prepareSmsTextObjects() {
+function prepareSmsTextObjectsFromCallLog() {
     var smsTextObjects = [];
     $('input:checkbox[name=call]').filter(':checked').each(function () {
         var reportCallDialogLink = $(this).closest('li').children('a[name=reportCallDialogLink]');

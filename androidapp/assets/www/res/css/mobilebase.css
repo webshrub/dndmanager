@@ -168,6 +168,6 @@ input::-webkit-inner-spin-button {
 
 /* Native jqm loader is hidden, 'cos we are using our own Ajax Busy Indicator */
 
-div.ui-loader {
-	display:none !important;
-}
+/*div.ui-loader {*/
+	/*display:none !important;*/
+/*}*/

@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        splash
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <link href="res/themes/olive/olive.css" rel="stylesheet"/>
+    <link href="res/lib/jquerymobile/1.1.0/jquery.mobile.structure-1.1.0.css" rel="stylesheet"/>
+    <link href="res/css/mobilebase.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="res/lib/jquery/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="res/lib/jquerymobile/jquery.mobile.iepatch.js"></script>
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function () {
+            if (navigator.userAgent.indexOf("Android") != -1) {
+                $.mobile.defaultPageTransition = 'none';
+                $.mobile.defaultDialogTransition = 'none';
+            }
+        });
+    </script>
+    <script type="text/javascript" src="res/lib/jquerymobile/1.1.0/jquery.mobile-1.1.0.js"></script>
+    <script type="text/javascript" src="res/lib/mobilebase.js"></script>
+    <script type="text/javascript" src="res/lib/cordova.js"></script>
+    <script type="text/javascript" src="res/lib/childbrowser.js"></script>
+    <script type="text/javascript" src="res/lib/PushNotification.js"></script>
+    <script type="text/javascript" src="js/ICanHaz/ICanHaz.js"></script>
+    <script type="text/javascript" src="js/plugin/common.js"></script>
+    <script type="text/javascript" src="js/plugin/smsplugin.js"></script>
+    <script type="text/javascript" src="js/plugin/smsReaderPlugin.js"></script>
+    <script type="text/javascript" src="js/plugin/callLogPlugin.js"></script>
+    <link href="css/splash.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/splash.js"></script>
+    <link href="css/category.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/category.js"></script>
+    <link href="css/callLog.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/callLog.js"></script>
+    <link href="css/smsLog.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/smsLog.js"></script>
+    <link href="css/more.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/more.js"></script>
+    <link href="css/about.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/about.js"></script>
+    <link href="css/settings.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/settings.js"></script>
+    <link href="css/faq.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/faq.js"></script>
+    <link href="css/reportDialog.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/reportDialog.js"></script>
+    <link href="css/confirmDialog.css" rel="stylesheet" type="text/css"/>
+    <link href="css/moonwalker.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/confirmDialog.js"></script>
+</head>
+
+<body>
+<script language="JavaScript" type="text/javascript">
+    if (navigator.userAgent.match(/iP/i)) {
+        $(window).bind('orientationchange',
+                function (event) {
+                    $('meta[name="viewport"]').attr('content', 'initial-scale=1.0,maximum-scale=1.0, ' + ((window.orientation == 90 || window.orientation == -90 || window.orientation == 270) ? "height=device-width,width=device-height" : "height=device-height,width=device-width"));
+                }).trigger('orientationchange');
+    }
+</script>
+<script language="javascript" type="text/javascript">
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        document.addEventListener("backbutton", backButtonHandler, false);
+    }
+    function backButtonHandler(e) {
+        if ($("#category").length > 0 || $("#callLog").length > 0 || $("#smsLog").length > 0 || $("#more").length > 0) {
+            navigator.app.exitApp();
+        } else {
+            navigator.app.backHistory();
+        }
+    }
+</script>
+<div data-role="page" style="min-height:800px;" dsid="splash" id="splash" class="type-interior"
+     data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="content" id="splashContent" name="mobilecontainer" class="mobileContent mobilecontainer3" dsid="mobilecontainer" data-theme='a'>
+    </div>
+</div>
+<div data-role="page" style="min-height:800px;" dsid="category" id="category" class="type-interior"
+     data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader" class='mobileHeader mobileheader9 '>
+        <h1 dsid="mobileheader">
+            Register/Unregister Categories
+        </h1>
+
+        <div id="j_74" name="mobilenavbar2_2" dsid="mobilenavbar2_2" class=" mobilenavbar4"
+             data-role="navbar" data-theme='a' style="position: relative;">
+            <ul>
+                <li>
+                    <a data-theme='a' class='ui-btn-active' data-icon='star' id="j_76" dsid="mobilenavbaritem4_4" class=' mobilenavbaritem14 '> Category </a>
+                </li>
+                <li>
+                    <a href="#callLog" data-theme='a' data-icon='grid' id="j_75" dsid="mobilenavbaritem4_3" class=' mobilenavbaritem13 '> Call </a>
+                </li>
+                <li>
+                    <a href="#smsLog" data-theme='a' data-icon='check' id="j_78" dsid="mobilenavbaritem4_6" class=' mobilenavbaritem16 '> SMS </a>
+                </li>
+                <li>
+                    <a href="#more" data-theme='a' data-icon='gear' id="j_77" dsid="mobilenavbaritem4_5" class=' mobilenavbaritem15 '> More </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer9"
+         dsid="mobilecontainer" data-theme='a'>
+        <div class="mobilegrid7_wrapper">
+            <table id="j_79" class="mobilegrid mobilegrid7" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:50%;">
+                <col style="width:auto;">
+                <tr class="mobilegrid7_row_0">
+                    <td id="j_80" name="mobilegridcell_c645" class="mobilegridcell15" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton4_wrapper ">
+                                <a data-role="button" name="mobilebutton1_12" dsid="mobilebutton1_12" class=' button mobilebutton4'
+                                   id='registerButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   tabIndex="1">
+                                    Register
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="j_82" name="mobilegridcell_c651" class="mobilegridcell16" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton5_wrapper ">
+                                <a data-role="button" dsid="mobilebutton1_13" class=' button mobilebutton5'
+                                   id='unregisterButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   tabIndex="1">
+                                    Unregister
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mobilegrid8_wrapper">
+            <table id="j_84" class="mobilegrid mobilegrid8" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:100%;">
+                <tr class="mobilegrid8_row_0">
+                    <td id="j_85" name="mobilegridcell_c660" class="mobilegridcell17" colspan=1 rowspan=1>
+                        <div class="cell-wrapper" id="categoryDiv">
+                            <ul data-role="listview" id="categoryListView" class=' mobilelist1 ' name="mobilelist1_17" dsid="mobilelist1_17"
+                                data-filter-placeholder='' data-theme='a' data-divider-theme='b' data-count-theme='b'
+                                style="" data-inset="true">
+                                <li>
+                                    <a>
+                                        <fieldset name="fs" data-role="controlgroup">
+                                            <input type="checkbox" name="category" id="selectAllCategory" data-theme='a' value="0"/>
+                                            <label id="j_87_label" for="selectAllCategory">
+                                                All Categories
+                                            </label>
+                                        </fieldset>
+                                    </a>
+                                    <a class="placeholder"></a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <fieldset name="fs" data-role="controlgroup">
+                                            <input type="checkbox" name="category" id="j_88" data-theme='a' value="1"/>
+                                            <label id="j_88_label" for="j_88">
+                                                Banking/Insurance/Financial products/Credit cards
+                                            </label>
+                                        </fieldset>
+                                    </a>
+                                    <a class="placeholder"></a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <fieldset name="fs" data-role="controlgroup">
+                                            <input type="checkbox" name="category" id="j_89" data-theme='a' value="2"/>
+                                            <label id="j_89_label" for="j_89">
+                                                Real Estate
+                                            </label>
+                                        </fieldset>
+                                    </a>
+                                    <a class="placeholder"></a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <fieldset name="fs" data-role="controlgroup">
+                                            <input type="checkbox" name="category" id="j_90" data-theme='a' value="3"/>
+                                            <label id="j_90_label" for="j_90">
+                                                Education
+                                            </label>
+                                        </fieldset>
+                                    </a>
+                                    <a class="placeholder"></a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <fieldset name="fs" data-role="controlgroup">
+                                            <input type="checkbox" name="category" id="j_91" data-theme='a' value="4"/>
+                                            <label id="j_91_label" for="j_91">
+                                                Health
+                                            </label>
+                                        </fieldset>
+                                    </a>
+                                    <a class="placeholder"></a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <fieldset name="fs" data-role="controlgroup">
+                                            <input type="checkbox" name="category" id="j_92" data-theme='a' value="5"/>
+                                            <label id="j_92_label" for="j_92">
+                                                Item Consumer goods and automobiles
+                                            </label>
+                                        </fieldset>
+                                    </a>
+                                    <a class="placeholder"></a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <fieldset name="fs" data-role="controlgroup">
+                                            <input type="checkbox" name="category" id="j_93" data-theme='a' value="6"/>
+                                            <label id="j_93_label" for="j_93">
+                                                Communication/Broadcasting/Entertainment/IT
+                                            </label>
+                                        </fieldset>
+                                    </a>
+                                    <a class="placeholder"></a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <fieldset name="fs" data-role="controlgroup">
+                                            <input type="checkbox" name="category" id="j_94" data-theme='a' value="7"/>
+                                            <label id="j_94_label" for="j_94">
+                                                Tourism and Leisure
+                                            </label>
+                                        </fieldset>
+                                    </a>
+                                    <a class="placeholder"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div data-role="page" style="min-height:800px;" dsid="callLog" id="callLog" class="type-interior"
+     data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader2"
+         id="callLogHeader" class='mobileHeader mobileheader4 '>
+        <h1 dsid="mobileheader2">
+            Report using Call Log
+        </h1>
+
+        <div id="j_19" name="mobilenavbar2_5" dsid="mobilenavbar2_5" class=" mobilenavbar1"
+             data-role="navbar" data-theme='a' style="position: relative;">
+            <ul>
+                <li>
+                    <a href="#category" data-theme='a' data-icon='star' id="j_21" dsid="mobilenavbaritem4_7" name="mobilenavbaritem4_7"
+                       class=' mobilenavbaritem2 '> Category </a>
+                </li>
+                <li>
+                    <a data-theme='a' class='ui-btn-active' data-icon='grid' id="j_20" dsid="mobilenavbaritem4_6"
+                       name="mobilenavbaritem4_61" class=' mobilenavbaritem1 '> Call </a>
+                </li>
+                <li>
+                    <a href="#smsLog" data-theme='a' data-icon='check' id="j_23" dsid="mobilenavbaritem4_9" name="mobilenavbaritem4_9"
+                       class=' mobilenavbaritem4 '> SMS </a>
+                </li>
+                <li>
+                    <a href="#more" data-theme='a' data-icon='gear' id="j_22" dsid="mobilenavbaritem4_8" name="mobilenavbaritem4_8"
+                       class=' mobilenavbaritem3 '> More </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" id="callLogContent" name="mobilecontainer2" class="mobileContent mobilecontainer4"
+         dsid="mobilecontainer2" data-theme='a'>
+        <div class="mobilegrid2_wrapper">
+            <table class="mobilegrid mobilegrid2" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:auto;">
+                <col style="width:50%;">
+                <tr class="mobilegrid2_row_0">
+                    <td name="mobilegridcell_c902" class="mobilegridcell3" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div data-role="fieldcontain" class="mobileselectmenu1 roundcorner">
+                                <fieldset data-role="controlgroup">
+                                    <input type="checkbox" id="selectAllCall" class="custom"/>
+                                    <label for="selectAllCall">Select All</label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </td>
+                    <td name="mobilegridcell_c908" class="mobilegridcell4" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton2_wrapper ">
+                                <a data-role="button" name="mobilebutton1_11" dsid="mobilebutton1_11" class=' button mobilebutton2'
+                                   id='reportAllCallButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   tabIndex="2">
+                                    Report All
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mobilegrid3_wrapper">
+            <table id="j_27" class="mobilegrid mobilegrid3" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:267px;">
+                <tr class="mobilegrid3_row_0">
+                    <td id="j_28" name="mobilegridcell_c917" class="mobilegridcell5" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilelist1_wrapper" id="callLogDiv">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div data-role="page" style="min-height:800px;" dsid="smsLog" id="smsLog" class="type-interior"
+     data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
+         class='mobileHeader mobileheader8 '>
+        <h1 dsid="mobileheader">
+            Report using SMS Log
+        </h1>
+
+        <div name="mobilenavbar2_2" dsid="mobilenavbar2_2" class=" mobilenavbar3"
+             data-role="navbar" data-theme='a' style="position: relative;">
+            <ul>
+                <li>
+                    <a href="#category" data-theme='a' data-icon='star' dsid="mobilenavbaritem4_4" class=' mobilenavbaritem10 '> Category </a>
+                </li>
+                <li>
+                    <a href="#callLog" data-theme='a' data-icon='grid' dsid="mobilenavbaritem4_3" class=' mobilenavbaritem9 '> Call </a>
+                </li>
+                <li>
+                    <a data-theme='a' class='ui-btn-active' data-icon='check' id="j_61" dsid="mobilenavbaritem4_6" class=' mobilenavbaritem12 '> SMS </a>
+                </li>
+                <li>
+                    <a href="#more" data-theme='a' data-icon='gear' dsid="mobilenavbaritem4_5" class=' mobilenavbaritem11 '> More </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer8"
+         dsid="mobilecontainer" data-theme='a'>
+        <div class="mobilegrid5_wrapper">
+            <table id="j_62" class="mobilegrid mobilegrid5" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:auto;">
+                <col style="width:50%;">
+                <tr class="mobilegrid5_row_0">
+                    <td id="j_63" name="mobilegridcell_c591" class="mobilegridcell12" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div data-role="fieldcontain" class="mobileselectmenu2 roundcorner">
+                                <fieldset data-role="controlgroup">
+                                    <input type="checkbox" id="selectAllSMS" class="custom"/>
+                                    <label for="selectAllSMS">Select All</label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </td>
+                    <td name="mobilegridcell_c597" class="mobilegridcell13" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton3_wrapper ">
+                                <a data-role="button" dsid="mobilebutton1_13" class=' button mobilebutton3'
+                                   id='reportAllSMSButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   tabIndex="1">
+                                    Report All
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mobilegrid6_wrapper">
+            <table class="mobilegrid mobilegrid6" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:50%;">
+                <tr class="mobilegrid6_row_0">
+                    <td id="j_68" name="mobilegridcell_c606" class="mobilegridcell14" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilelist3_wrapper" id="smsLogDiv">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div data-role="page" style="min-height:480px;" dsid="more" id="more" class="type-interior"
+     data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
+         class='mobileHeader mobileheader5 '>
+        <h1 dsid="mobileheader">
+            More...
+        </h1>
+
+        <div id="j_34" name="mobilenavbar2_2" dsid="mobilenavbar2_2" class=" mobilenavbar2"
+             data-role="navbar" data-theme='a' style="position: relative;">
+            <ul>
+                <li>
+                    <a href="#category" data-theme='a' data-icon='star' id="j_36" dsid="mobilenavbaritem4_4" name="mobilenavbaritem4_4"
+                       class=' mobilenavbaritem6 '> Category </a>
+                </li>
+                <li>
+                    <a href="#callLog" data-theme='a' data-icon='grid' id="j_35" dsid="mobilenavbaritem4_3" name="mobilenavbaritem4_3"
+                       class=' mobilenavbaritem5 '> Call </a>
+                </li>
+                <li>
+                    <a href="#smsLog" data-theme='a' data-icon='check' id="j_38" dsid="mobilenavbaritem4_6" name="mobilenavbaritem4_6"
+                       class=' mobilenavbaritem8 '> SMS </a>
+                </li>
+                <li>
+                    <a data-theme='a' class='ui-btn-active' data-icon='gear' id="j_37" dsid="mobilenavbaritem4_5"
+                       name="mobilenavbaritem4_5" class=' mobilenavbaritem7 '> More </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer5"
+         dsid="mobilecontainer" data-theme='a'>
+        <div class="mobilelist2_wrapper">
+            <ul data-role="listview" id="j_39" class=' mobilelist2 ' name="mobilelist1_7" dsid="mobilelist1_7"
+                data-filter-placeholder='' data-theme='a' data-divider-theme='b' data-count-theme='b'
+                style="">
+                <li class=' mobilelistitem4 '>
+                    <a href="#about" id="j_40" name="mobilelistitem1_8" dsid="mobilelistitem1_8" tabIndex="1" class=' mobilelistitem4 '>
+                        <h3>About</h3>
+                    </a>
+                </li>
+                <li class=' mobilelistitem5 '>
+                    <a href="#settings" id="j_41" name="mobilelistitem1_9" dsid="mobilelistitem1_9" tabIndex="1" class=' mobilelistitem5 '>
+                        <h3>Settings</h3>
+                    </a>
+                </li>
+                <li class=' mobilelistitem6 '>
+                    <a id="j_42" name="mobilelistitem1_10" dsid="mobilelistitem1_10" tabIndex="1" class=' mobilelistitem6 '
+                       href="https://www.facebook.com/dialog/feed?app_id=117635671730897&link=https://www.facebook.com/DndManager&picture=http://fbrell.com/f8.jpg&name=DND%20Manager&caption=This%20is%20an%20app%20to%20block%20unwanted%20Calls%2FSMS.%20It%20sends%20an%20SMS%20to%201909%20in%20TRAI%20specified%20format%20to%20block%20these%20numbers.&description=User%20can%20initially%20block%2Funblock%20the%20categories%20as%20well.&redirect_uri=https%3A%2F%2Fgentle-plateau-3157.herokuapp.com">
+                        <h3>Share on Facebook</h3>
+                    </a>
+                </li>
+                <li class=' mobilelistitem7 '>
+                    <a id="j_43" name="mobilelistitem1_11" dsid="mobilelistitem1_11" tabIndex="1" class=' mobilelistitem7 '
+                       href="https://twitter.com/intent/tweet?text=Friends%2C%20I%20am%20using%20%23dndmanager%20to%20block%20pesky%20Calls%2FSMS.%20Download%20it%20http%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.webshrub.moonwalker.androidapp">
+                        <h3>Share on Twitter</h3>
+                    </a>
+                </li>
+                <li class=' mobilelistitem8 '>
+                    <a href="#faq" id="j_44" name="mobilelistitem1_12" dsid="mobilelistitem1_12" tabIndex="1" class=' mobilelistitem8 '>
+                        <h3>FAQ</h3>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-role="page" style="min-height:800px;" dsid="about" id="about" class="type-interior"
+     data-theme='a' data-add-back-btn="true" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
+         class='mobileHeader mobileheader7 '>
+        <h1 dsid="mobileheader">
+            About
+        </h1>
+    </div>
+    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer7" dsid="mobilecontainer" data-theme='a'>
+    </div>
+</div>
+<div data-role="page" style="min-height:800px;" dsid="settings" id="settings" class="type-interior"
+     data-theme='a' data-add-back-btn="true" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader2"
+         id="j_2" class='mobileHeader mobileheader6 '>
+        <h1 dsid="mobileheader2">
+            Edit Settings
+        </h1>
+    </div>
+    <div data-role="content" id="j_3" name="mobilecontainer2" class="mobileContent mobilecontainer6"
+         dsid="mobilecontainer2" data-theme='a'>
+        <div class="mobilegrid4_wrapper">
+            <table id="j_4" class="mobilegrid mobilegrid4" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:auto;">
+                <col style="width:30%;">
+                <tr class="mobilegrid4_row_0">
+                    <td id="j_5" name="mobilegridcell_c795" class="mobilegridcell6" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div name="mobilelabel1_5" id="j_46" dsid="mobilelabel1_5" data-role="tiggr_label"
+                                 class='labelClass mobilelabel2 '>
+                                Delete SMS/Call automatically after reporting?
+                            </div>
+                        </div>
+                    </td>
+                    <td id="j_25" name="mobilegridcell_c801" class="mobilegridcell7" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div data-role="fieldcontain" class="mobiletoggle1">
+                                <select data-role="slider" name="mobiletoggle1" id="deleteSmsToggleButton" dsid="mobiletoggle1" data-theme='a'
+                                        data-track-theme='a' class='toggleClass mobiletoggle1 '>
+                                    <option value="on">
+                                        On
+                                    </option>
+                                    <option value="off">
+                                        Off
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="mobilegrid4_row_1">
+                    <td id="j_7" name="mobilegridcell_c807" class="mobilegridcell8" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div name="mobilelabel1_7" id="j_48" dsid="mobilelabel1_7" data-role="tiggr_label"
+                                 class='labelClass mobilelabel3 '>
+                                Save outgoing messages in Sent folder?
+                            </div>
+                        </div>
+                    </td>
+                    <td id="j_49" name="mobilegridcell_c813" class="mobilegridcell9" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div data-role="fieldcontain" class="mobiletoggle2">
+                                <select data-role="slider" name="mobiletoggle1" id="saveMessageToggleButton" dsid="mobiletoggle1" data-theme='a'
+                                        data-track-theme='a' class='toggleClass mobiletoggle2 '>
+                                    <option value="on">
+                                        On
+                                    </option>
+                                    <option value="off">
+                                        Off
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <!--<tr class="mobilegrid4_row_2">-->
+                <!--<td id="j_51" name="mobilegridcell_c819" class="mobilegridcell10" colspan=1 rowspan=1>-->
+                <!--<div class="cell-wrapper">-->
+                <!--<div name="mobilelabel1_12" id="j_52" dsid="mobilelabel1_12" data-role="tiggr_label"-->
+                <!--class='labelClass mobilelabel4 '>-->
+                <!--Send anonymous data, help improve app?-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</td>-->
+                <!--<td id="j_53" name="mobilegridcell_c825" class="mobilegridcell11" colspan=1 rowspan=1>-->
+                <!--<div class="cell-wrapper">-->
+                <!--<div data-role="fieldcontain" class="mobiletoggle3">-->
+                <!--<select data-role="slider" name="mobiletoggle1" id="analyticsToggleButton" dsid="mobiletoggle1" data-theme='a'-->
+                <!--data-track-theme='a' class='toggleClass mobiletoggle3 '>-->
+                <!--<option value="on">-->
+                <!--On-->
+                <!--</option>-->
+                <!--<option value="off">-->
+                <!--Off-->
+                <!--</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</td>-->
+                <!--</tr>-->
+            </table>
+        </div>
+    </div>
+    <div data-role="footer" class="mobileFooter mobilefooter6" name="mobilefooter2"
+         dsid="mobilefooter2" data-position="fixed" id="j_9" data-theme='a'>
+    </div>
+</div>
+<div data-role="page" style="min-height:800px;" dsid="faq" id="faq" class="type-interior"
+     data-theme='a' data-add-back-btn="true" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
+         class='mobileHeader mobileheader2 '>
+        <h1 dsid="mobileheader">
+            FAQ
+        </h1>
+    </div>
+    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer2"
+         dsid="mobilecontainer" data-theme='a'>
+        <table>
+            <tr>
+                <h3>1. What does this app do?</h3>
+
+                <p>Reports a spam call/SMS,also known as Unsolicited Commercial Communication(UCC), to the concerned authority.</p>
+                <hr>
+            </tr>
+            <tr>
+                <h3>2. How it is different from other spam blockers apps?</h3>
+
+                <p>Other apps work locally.Which means they hide UCC from your phone. This app, however, offers something more permament.Reported number
+                    will
+                    never be able to send a UCC again.</p>
+                <hr>
+            </tr>
+            <tr>
+                <h3>3. How does it do that?</h3>
+
+                <p>It extracts these info - time,date and number. Formats them into a string and sends it to 1909(specified by TRAI)</p>
+                <hr>
+            </tr>
+            <tr>
+                <h3>4. Can i do this without this app?</h3>
+
+                <p>Sure But do keep a notebook handy to note down all details and then compose them into a formidable looking string.:)</p>
+                <hr>
+            </tr>
+            <tr>
+                <h3>5. What happens when I report to a UCC.</h3>
+
+                <p>First of all it gets deleted from your phone(you can turn off/on this feature under "Score" screen).After that, it depends on your
+                    operator. Here is what happens with Vodafone(Delhi).I get a confirmation from 1909 about my report. I also get a complaint number.Within
+                    next two days a customer care representative calls me and tells me that they have issued a warning to the sender to never send a UCC to my
+                    number. There are fines for a second incidence etc. </p>
+
+                <hr>
+            </tr>
+            <tr>
+                <h3>6. Does it cost me money?</h3>
+
+                <p>No. 1909 is toll-free.</p>
+                <hr>
+            </tr>
+            <tr>
+                <h3>7. Why do i keep getting errors about wrong format?</h3>
+
+                <p>Because each network operator implements there own format, even though TRAI has specified one universal format.</p>
+                <hr>
+            </tr>
+            <tr>
+                <h3>8. What are other common errors I can get?</h3>
+
+                <p>"Default not configured"
+                    "Generic failure error"
+                    "Service not available"
+                    I can't do any thing about it as they are errors on provider's side. Please contact your customer care.</p>
+                <hr>
+            </tr>
+            <tr>
+                <h3>9. Why don't I see all my calls/sms?</h3>
+
+                <p>This is a feature. TRAI directs that UCC should be reported within 3 days of receiving. So I hide SMS/calls older than three
+                    days.</p>
+                <hr>
+            </tr>
+            <tr>
+                <h3>10. Cool. I like your app. Is there something you expect in return?</h3>
+
+                <p>Yes,in fact. I hate spam as much as you do.That's why I created this app(notice, no ads).But for it to be effective, more people
+                    should start using it. So I urge you to spread the word.Use Facebook to tell your friends.</p>
+                <hr>
+            </tr>
+
+        </table>
+
+    </div>
+</div>
+<div data-role="dialog" style="min-height:480px;" dsid="reportDialog" id="reportDialog"
+     class="type-interior" data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
+         class='mobileHeader mobileheader8 '>
+        <h1 dsid="mobileheader">
+            Report Call/SMS?
+        </h1>
+    </div>
+    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer8"
+         dsid="mobilecontainer" data-theme='a'>
+        <div class="mobilegrid5_wrapper">
+            <table id="j_57" class="mobilegrid mobilegrid5" dsid="mobilegrid_2" name="mobilegrid_2"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:310px;">
+                <tr class="mobilegrid5_row_0">
+                    <td id="j_58" name="mobilegridcell_3" class="mobilegridcell12" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div name="mobilelabel1_11" id="j_59" dsid="mobilelabel1_11" data-role="tiggr_label"
+                                 class='labelClass mobilelabel5 '>
+                                SMS being sent
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="mobilegrid5_row_1">
+                    <td id="j_60" name="mobilegridcell_5" class="mobilegridcell13" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div data-role="fieldcontain" class="mobiletextarea1">
+                                <textarea name="mobiletextarea1_12" id="smsTextArea" tabIndex="1" dsid="mobiletextarea1_12"
+                                          data-theme='a' class='textarea mobiletextarea1 '>COMP TEL NO TD-HDFCBK;28/11/12</textarea>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="mobilegrid5_row_3">
+                    <td id="j_65" name="mobilegridcell_9" class="mobilegridcell15" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilegrid6_wrapper">
+                                <table id="j_66" class="mobilegrid mobilegrid6" dsid="mobilegrid_17" name="mobilegrid_17"
+                                       cellpadding=0 cellspacing=0>
+                                    <col style="width:auto;">
+                                    <col style="width:50%;">
+                                    <tr class="mobilegrid6_row_0">
+                                        <td id="j_67" name="mobilegridcell_18" class="mobilegridcell16" colspan=1 rowspan=1>
+                                            <div class="cell-wrapper">
+                                                <div class="mobilebutton3_wrapper ">
+                                                    <a data-direction="reverse" data-role="button" name="mobilebutton1_22" dsid="mobilebutton1_22"
+                                                       class=' button mobilebutton3'
+                                                       id='cancelButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='a'
+                                                       tabIndex="3">
+                                                        Cancel
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td id="j_69" name="mobilegridcell_19" class="mobilegridcell17" colspan=1 rowspan=1>
+                                            <div class="cell-wrapper">
+                                                <div class="mobilebutton4_wrapper ">
+                                                    <a data-role="button" name="mobilebutton1_23" dsid="mobilebutton1_23" class=' button mobilebutton4'
+                                                       id='sendSMSButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                                       tabIndex="4">
+                                                        Send
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div data-role="dialog" style="min-height:800px;" dsid="confirmDialog" id="confirmDialog"
+     class="type-interior" data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
+         id="j_13" class='mobileHeader mobileheader10 '>
+        <h1 dsid="mobileheader">
+            Please Confirm
+        </h1>
+    </div>
+    <div data-role="content" id="j_14" name="mobilecontainer" class="mobileContent mobilecontainer10"
+         dsid="mobilecontainer" data-theme='a'>
+        <div class="mobilegrid9_wrapper">
+            <table id="j_96" class="mobilegrid mobilegrid9" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:100%;">
+                <tr class="mobilegrid9_row_0">
+                    <td id="j_97" name="mobilegridcell_c968" class="mobilegridcell18" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div name="mobilelabel1_7" id="j_98" dsid="mobilelabel1_7" data-role="tiggr_label"
+                                 class='labelClass mobilelabel5 '>
+                                Are your sure to report these? This will send an SMS to 1909 about your request.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mobilegrid10_wrapper">
+            <table id="j_99" class="mobilegrid mobilegrid10" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:auto;">
+                <col style="width:50%;">
+                <tr class="mobilegrid10_row_0">
+                    <td id="j_100" name="mobilegridcell_c977" class="mobilegridcell19" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton6_wrapper ">
+                                <a data-role="button" name="mobilebutton1_13" dsid="mobilebutton1_13" class=' button mobilebutton6'
+                                   id='cancelConfirmDialogButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='a'
+                                   tabIndex="1">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="j_102" name="mobilegridcell_c983" class="mobilegridcell20" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton7_wrapper ">
+                                <a data-role="button" name="mobilebutton1_14" dsid="mobilebutton1_14" class=' button mobilebutton7'
+                                   id='sendConfirmDialogButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   tabIndex="1">
+                                    Send
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

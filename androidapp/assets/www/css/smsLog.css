@@ -124,36 +124,3 @@
     padding: 6px 0px 0px 0px;
     min-height: 32px;
 }
-
-/*Custom Moonwalker CSS Starts*/
-.ui-controlgroup-vertical .ui-btn, .ui-controlgroup-vertical .ui-checkbox, .ui-controlgroup-vertical .ui-radio {
-    border-bottom-width: 0;
-    margin: 0;
-    border: 0;
-}
-
-.ui-li-has-alt .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-alt {
-    padding: 0;
-}
-
-.ui-li-desc {
-    display: block;
-    font-size: 12px;
-    font-weight: normal;
-    margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-div.roundcorner .ui-corner-bottom {
-    border-bottom-left-radius: 1.1em;
-    border-bottom-right-radius: 1.1em;
-}
-
-div.roundcorner .ui-corner-top {
-    border-top-left-radius: 1.1em;
-    border-top-right-radius: 1.1em;
-}
-
-/*Custom Moonwalker CSS Ends*/

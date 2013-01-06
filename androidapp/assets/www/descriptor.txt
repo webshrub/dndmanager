@@ -1,1 +1,1 @@
-splash.html
+index.html

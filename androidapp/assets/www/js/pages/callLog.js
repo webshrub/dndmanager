@@ -1,4 +1,4 @@
-createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
+//createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 
 $("#callLog").die("pageshow").live("pageshow", function (event, ui) {
     clearCalls();

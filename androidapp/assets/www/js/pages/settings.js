@@ -1,4 +1,4 @@
-createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
+//createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 
 $("#settings").die("pageinit").live("pageinit", function (event, ui) {
     var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");

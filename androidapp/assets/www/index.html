@@ -69,7 +69,8 @@
         document.addEventListener("backbutton", backButtonHandler, false);
     }
     function backButtonHandler(e) {
-        if ($("#category").length > 0 || $("#callLog").length > 0 || $("#smsLog").length > 0 || $("#more").length > 0) {
+        var activePage = $.mobile.activePage[0].id;
+        if (activePage == "category" || activePage == "callLog" || activePage == "smsLog" || activePage == "more") {
             navigator.app.exitApp();
         } else {
             navigator.app.backHistory();

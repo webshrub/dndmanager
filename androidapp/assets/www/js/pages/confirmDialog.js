@@ -10,7 +10,7 @@ $("#confirmDialog").die("pageinit").live("pageinit", function (event, ui) {
         var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
         var reportType = moonwalkerStorage.getItem("reportType");
         var smsTextObjects = moonwalkerStorage.getItem("smsTextObjects");
-        var saveSMSFlag = moonwalkerStorage.getItem("saveMessageFlag");
+        var deleteSentSMSFlag = moonwalkerStorage.getItem("deleteSentSMSFlag");
 
         var totalCounter = smsTextObjects.length;
         var closeDialog = function () {
@@ -23,7 +23,7 @@ $("#confirmDialog").die("pageinit").live("pageinit", function (event, ui) {
         };
         for (var counter = 0; counter < smsTextObjects.length; counter++) {
             var smsText = "COMP TEL NO " + smsTextObjects[counter].number + ";" + smsTextObjects[counter].date + ";" + smsTextObjects[counter].text;
-            new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag, saveSMSFlag, smsTextObjects[counter].number,
+            new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag, deleteSentSMSFlag, smsTextObjects[counter].number,
                 closeDialog, function (e) {
                     alert('Message Failed:' + e);
                 }

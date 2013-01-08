@@ -8,10 +8,10 @@ $("#settings").die("pageinit").live("pageinit", function (event, ui) {
     });
 
 
-    var saveSMSFlag = moonwalkerStorage.getItem("saveMessageFlag");
-    $("#saveMessageToggleButton").val(saveSMSFlag).slider("refresh");
-    $("#saveMessageToggleButton").change(function (event, ui) {
-        moonwalkerStorage.setItem("saveMessageFlag", $(this).val());
+    var deleteSentSMSFlag = moonwalkerStorage.getItem("deleteSentSMSFlag");
+    $("#deleteSentSMSToggleButton").val(deleteSentSMSFlag).slider("refresh");
+    $("#deleteSentSMSToggleButton").change(function (event, ui) {
+        moonwalkerStorage.setItem("deleteSentSMSFlag", $(this).val());
     });
 
     var analyticsFlag = moonwalkerStorage.getItem("analyticsFlag");

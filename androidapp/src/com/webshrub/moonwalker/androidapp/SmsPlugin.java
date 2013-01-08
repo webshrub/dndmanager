@@ -38,7 +38,7 @@ public class SmsPlugin extends Plugin {
                 sendSMS(phoneNumber, message);
                 String reportType = arg1.getString(2);
                 String deleteSMSFlag = arg1.getString(3);
-                String saveSMSFlag = arg1.getString(4);
+                String deleteSentSMSFlag = arg1.getString(4);
                 String spamNumber = arg1.getString(5);
 
                 if (ON.equalsIgnoreCase(deleteSMSFlag)) {
@@ -48,7 +48,7 @@ public class SmsPlugin extends Plugin {
                         deleteSmsByNumber(spamNumber);
                     }
                 }
-                if (ON.equalsIgnoreCase(saveSMSFlag)) {
+                if (OFF.equalsIgnoreCase(deleteSentSMSFlag)) {
                     saveSentSms(phoneNumber, message);
                 }
 

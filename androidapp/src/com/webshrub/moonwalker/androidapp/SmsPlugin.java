@@ -31,7 +31,7 @@ public class SmsPlugin extends Plugin {
     @Override
     public PluginResult execute(String action, JSONArray arg1, String callbackId) {
         PluginResult result = new PluginResult(Status.INVALID_ACTION);
-        if (action.equals(ACTION_SEND_SMS)) {
+        if (action.equalsIgnoreCase(ACTION_SEND_SMS)) {
             try {
                 String phoneNumber = arg1.getString(0);
                 String message = arg1.getString(1);
@@ -39,17 +39,17 @@ public class SmsPlugin extends Plugin {
                 String reportType = arg1.getString(2);
                 String deleteSMSFlag = arg1.getString(3);
                 String saveSMSFlag = arg1.getString(4);
-                String number = arg1.getString(5);
+                String spamNumber = arg1.getString(5);
 
-                if (ON.equals(deleteSMSFlag)) {
-                    if (CALL.equals(reportType)) {
-                        deleteCallLogByNumber(number);
-                    } else if (SMS.equals(reportType)) {
-                        deleteSmsByNumber(number);
+                if (ON.equalsIgnoreCase(deleteSMSFlag)) {
+                    if (CALL.equalsIgnoreCase(reportType)) {
+                        deleteCallLogByNumber(spamNumber);
+                    } else if (SMS.equalsIgnoreCase(reportType)) {
+                        deleteSmsByNumber(spamNumber);
                     }
                 }
-                if (ON.equals(saveSMSFlag)) {
-                    saveSentSms(number, message);
+                if (ON.equalsIgnoreCase(saveSMSFlag)) {
+                    saveSentSms(phoneNumber, message);
                 }
 
                 result = new PluginResult(Status.OK);
@@ -64,7 +64,6 @@ public class SmsPlugin extends Plugin {
         SmsManager manager = SmsManager.getDefault();
         PendingIntent sentIntent = PendingIntent.getActivity(this.ctx.getContext(), 0, new Intent(), 0);
         manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
-        saveSentSms(phoneNumber, message);
     }
 
     public void deleteCallLogByNumber(String number) {

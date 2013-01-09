@@ -95,6 +95,9 @@ function registerUnregister(isRegister) {
             }
         }
     });
+    if (isAllChecked) {
+        smsText = isRegister ? "STOP " : "START ";
+    }
     smsText = isAllChecked ? smsText + "0" : smsText + values.toString();
     moonwalkerStorage.setItem("sendingSmsText", smsText);
 }

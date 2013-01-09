@@ -6,12 +6,12 @@ $("#category").die("pageshow").live("pageshow", function (event, ui) {
 
 $("#category").die("pageinit").live("pageinit", function (event, ui) {
     $('#registerButton').click(function () {
-        registerUnregister(true);
+        blockUnblock(true);
         $.mobile.changePage($("#reportDialog"));
     });
 
     $('#unregisterButton').click(function () {
-        registerUnregister(false);
+        blockUnblock(false);
         $.mobile.changePage($("#reportDialog"));
     });
 
@@ -83,7 +83,7 @@ function clearCategories() {
     $('#unregisterButton').addClass('ui-disabled');
 }
 
-function registerUnregister(isRegister) {
+function blockUnblock(isRegister) {
     var smsText = isRegister ? "START " : "STOP ";
     var values = [];
     var isAllChecked = false;

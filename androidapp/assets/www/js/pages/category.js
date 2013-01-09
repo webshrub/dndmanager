@@ -5,13 +5,13 @@ $("#category").die("pageshow").live("pageshow", function (event, ui) {
 });
 
 $("#category").die("pageinit").live("pageinit", function (event, ui) {
-    $('#registerButton').click(function () {
-        blockUnblock(true);
+    $('#unblockButton').click(function () {
+        blockUnblock(false);
         $.mobile.changePage($("#reportDialog"));
     });
 
-    $('#unregisterButton').click(function () {
-        blockUnblock(false);
+    $('#blockButton').click(function () {
+        blockUnblock(true);
         $.mobile.changePage($("#reportDialog"));
     });
 
@@ -29,8 +29,8 @@ $("#category").die("pageinit").live("pageinit", function (event, ui) {
 });
 
 function checkCategory() {
-    $('#registerButton').removeClass('ui-disabled');
-    $('#unregisterButton').removeClass('ui-disabled');
+    $('#unblockButton').removeClass('ui-disabled');
+    $('#blockButton').removeClass('ui-disabled');
     var allChecked = true;
     $('input[name="category"]').each(function () {
         if (allChecked) {
@@ -53,8 +53,8 @@ function uncheckCategory() {
         }
     });
     if (allUnchecked) {
-        $('#registerButton').addClass('ui-disabled');
-        $('#unregisterButton').addClass('ui-disabled');
+        $('#unblockButton').addClass('ui-disabled');
+        $('#blockButton').addClass('ui-disabled');
     }
 }
 
@@ -62,11 +62,11 @@ function checkUncheckAllCategories() {
     $('input[name="category"]').attr({checked:$('#selectAllCategory').is(':checked')});
     $('input[name="category"]').checkboxradio("refresh");
     if ($('#selectAllCategory').is(':checked')) {
-        $('#registerButton').removeClass('ui-disabled');
-        $('#unregisterButton').removeClass('ui-disabled');
+        $('#unblockButton').removeClass('ui-disabled');
+        $('#blockButton').removeClass('ui-disabled');
     } else {
-        $('#registerButton').addClass('ui-disabled');
-        $('#unregisterButton').addClass('ui-disabled');
+        $('#unblockButton').addClass('ui-disabled');
+        $('#blockButton').addClass('ui-disabled');
     }
 }
 
@@ -79,12 +79,12 @@ function clearCategories() {
     });
     $('input[name="category"]').checkboxradio('refresh');
 
-    $('#registerButton').addClass('ui-disabled');
-    $('#unregisterButton').addClass('ui-disabled');
+    $('#unblockButton').addClass('ui-disabled');
+    $('#blockButton').addClass('ui-disabled');
 }
 
-function blockUnblock(isRegister) {
-    var smsText = isRegister ? "START " : "STOP ";
+function blockUnblock(isBlock) {
+    var smsText = isBlock ? "STOP " : "START ";
     var values = [];
     var isAllChecked = false;
     $("input:checkbox").each(function () {
@@ -96,7 +96,7 @@ function blockUnblock(isRegister) {
         }
     });
     if (isAllChecked) {
-        smsText = isRegister ? "STOP " : "START ";
+        smsText = isBlock ? "START " : "STOP ";
     }
     smsText = isAllChecked ? smsText + "0" : smsText + values.toString();
     moonwalkerStorage.setItem("sendingSmsText", smsText);

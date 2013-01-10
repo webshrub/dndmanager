@@ -80,7 +80,7 @@ public class SMSReaderPlugin extends Plugin {
         data.put("messages", smsList);
         while (cur.moveToNext()) {
             String name = getContact(cur.getString(cur.getColumnIndex("address")));
-            if (name.isEmpty()) {
+            if (name.equals("")) {
                 JSONObject sms = new JSONObject();
                 sms.put("_id", cur.getString(cur.getColumnIndex("_id")));
                 sms.put("number", cur.getString(cur.getColumnIndex("address")));

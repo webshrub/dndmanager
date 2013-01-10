@@ -5,18 +5,3 @@ CallLogPlugin.prototype.list = function (params, successCallback, failureCallbac
     return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'list',
         [ params ]);
 };
-
-CallLogPlugin.prototype.delete = function (params, successCallback, failureCallback) {
-    return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'delete',
-        [ params ]);
-};
-
-CallLogPlugin.prototype.contact = function (params, successCallback, failureCallback) {
-    return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'contact',
-        [ params ]);
-};
-
-CallLogPlugin.prototype.show = function (params, successCallback, failureCallback) {
-    return cordova.exec(successCallback, failureCallback, 'CallLogPlugin', 'show',
-        [ params ]);
-};

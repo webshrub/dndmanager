@@ -35,3 +35,12 @@ var moonwalkerStorage = {
         return value;
     }
 };
+{
+    if (moonwalkerStorage.getItem("deleteSMSFlag") == null) {
+        moonwalkerStorage.setItem("deleteSMSFlag", "off");
+    }
+
+    if (moonwalkerStorage.getItem("deleteSentSMSFlag") == null) {
+        moonwalkerStorage.setItem("deleteSentSMSFlag", "off");
+    }
+}

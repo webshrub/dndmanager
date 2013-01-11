@@ -15,7 +15,7 @@ $("#category").die("pageinit").live("pageinit", function (event, ui) {
         $.mobile.changePage($("#reportDialog"));
     });
 
-    $('input[name="category"]').click(function () {
+    $('input:checkbox[name="category"]').click(function () {
         if ($(this).is(':checked')) {
             checkCategory();
         } else {

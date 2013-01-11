@@ -13,4 +13,11 @@ $("#settings").die("pageinit").live("pageinit", function (event, ui) {
     $("#deleteSentSMSToggleButton").change(function (event, ui) {
         moonwalkerStorage.setItem("deleteSentSMSFlag", $(this).val());
     });
+
+    var contactLogFlag = moonwalkerStorage.getItem("contactLogFlag");
+    $("#contactLogToggleButton").val(contactLogFlag).slider("refresh");
+
+    $("#contactLogToggleButton").change(function (event, ui) {
+        moonwalkerStorage.setItem("contactLogFlag", $(this).val());
+    });
 });

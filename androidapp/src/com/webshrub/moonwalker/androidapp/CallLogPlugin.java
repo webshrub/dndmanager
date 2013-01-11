@@ -29,18 +29,23 @@ public class CallLogPlugin extends Plugin {
     private static final String TAG = "CallLogPlugin";
     private static final String DATE_FORMAT = "dd/MM/yy;kk:mm";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
+    public final String ON = "on";
+    public final String OFF = "off";
 
     @Override
     public PluginResult execute(String action, JSONArray data, String callbackId) {
         Log.d(TAG, "Plugin Called");
         PluginResult result = null;
+
         if (ACTION.equals(action)) {
             try {
                 int limit = -1;
-
+                String contactLogFlag = "";
                 //obtain date to limit by
                 if (!data.isNull(0)) {
                     String d = data.getString(0);
+                    contactLogFlag = data.getString(1);
+
                     Log.d(TAG, "Time period is: " + d);
                     if (d.equals("3day"))
                         limit = -3;
@@ -60,7 +65,7 @@ public class CallLogPlugin extends Plugin {
                 String limiter = String.valueOf(limitDate.getTime());
 
                 //now do required search
-                JSONObject callInfo = getCallListing(limiter);
+                JSONObject callInfo = getCallListing(limiter, contactLogFlag);
                 Log.d(TAG, "Returning " + callInfo.toString());
                 result = new PluginResult(Status.OK, callInfo);
             } catch (JSONException jsonEx) {
@@ -114,7 +119,7 @@ public class CallLogPlugin extends Plugin {
      *         ,"isdir":false},{...}]}
      * @throws org.json.JSONException
      */
-    private JSONObject getCallListing(String period) throws JSONException {
+    private JSONObject getCallListing(String period, String contactLogFlag) throws JSONException {
 
         JSONObject callLog = new JSONObject();
 
@@ -151,6 +156,18 @@ public class CallLogPlugin extends Plugin {
                         callLogItem.put("duration", callLogCursor.getLong(3));
                         callLogItem.put("new", callLogCursor.getInt(4));
                         callLogItem.put("cachedName", "Unknown");
+                        callLogItem.put("cachedNumberType", callLogCursor.getInt(6));
+                        //callLogItem.put("name", getContactNameFromNumber(callLogCursor.getString(1))); //grab name too
+                        callLogItems.put(callLogItem);
+                        callLogItem = new JSONObject();
+                    } else if (ON.equalsIgnoreCase(contactLogFlag)) {
+
+                        callLogItem.put("date", SIMPLE_DATE_FORMAT.format(new Date(callLogCursor.getLong(0))));
+                        callLogItem.put("number", callLogCursor.getString(1));
+                        callLogItem.put("type", callLogCursor.getInt(2));
+                        callLogItem.put("duration", callLogCursor.getLong(3));
+                        callLogItem.put("new", callLogCursor.getInt(4));
+                        callLogItem.put("cachedName", callLogCursor.getString(5));
                         callLogItem.put("cachedNumberType", callLogCursor.getInt(6));
                         //callLogItem.put("name", getContactNameFromNumber(callLogCursor.getString(1))); //grab name too
                         callLogItems.put(callLogItem);

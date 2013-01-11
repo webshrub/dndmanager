@@ -1,10 +1,10 @@
 var SMSReaderPlugin = function () {
 };
 
-SMSReaderPlugin.prototype.getInbox = function (params, success, fail) {
+SMSReaderPlugin.prototype.getInbox = function (contactLogFlag, success, fail) {
     return cordova.exec(function (args) {
         success(args);
     }, function (args) {
         fail(args);
-    }, 'SMSReaderPlugin', 'inbox', [params]);
+    }, 'SMSReaderPlugin', 'inbox', [contactLogFlag]);
 };

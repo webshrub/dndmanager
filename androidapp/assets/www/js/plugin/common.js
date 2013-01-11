@@ -39,8 +39,10 @@ var moonwalkerStorage = {
     if (moonwalkerStorage.getItem("deleteSMSFlag") == null) {
         moonwalkerStorage.setItem("deleteSMSFlag", "off");
     }
-
     if (moonwalkerStorage.getItem("deleteSentSMSFlag") == null) {
         moonwalkerStorage.setItem("deleteSentSMSFlag", "off");
+    }
+    if (moonwalkerStorage.getItem("contactLogFlag") == null) {
+        moonwalkerStorage.setItem("contactLogFlag", "off");
     }
 }

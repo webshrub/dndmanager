@@ -20,15 +20,20 @@ public class SMSReaderPlugin extends Plugin {
     private static final String DATE_FORMAT = "dd/MM/yy;kk:mm";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
     private Map<String, String> contactMap = new HashMap<String, String>();
+    public final String ON = "on";
+    public final String OFF = "off";
+
 
     @Override
     public PluginResult execute(String action, JSONArray data, String callbackId) {
         Log.d("SMSReadPlugin", "Plugin Called");
         PluginResult result = null;
         JSONObject messages = new JSONObject();
+
         if (action.equals("inbox")) {
             try {
-                messages = readSMS("inbox");
+                String contactLogFlag = data.getString(0);
+                messages = readSMS("inbox", contactLogFlag);
                 result = new PluginResult(PluginResult.Status.OK, messages);
             } catch (JSONException jsonEx) {
                 Log.d("SMSReadPlugin", "Got JSON Exception " + jsonEx.getMessage());
@@ -36,7 +41,8 @@ public class SMSReaderPlugin extends Plugin {
             }
         } else if (action.equals("sent")) {
             try {
-                messages = readSMS("sent");
+                String contactLogFlag = data.getString(0);
+                messages = readSMS("sent", contactLogFlag);
                 Log.d("SMSReadPlugin", "Returning " + messages.toString());
                 result = new PluginResult(PluginResult.Status.OK, messages);
             } catch (JSONException jsonEx) {
@@ -59,7 +65,7 @@ public class SMSReaderPlugin extends Plugin {
     }
 
     //Read messages from inbox/or sent box.
-    private JSONObject readSMS(String folder) throws JSONException {
+    private JSONObject readSMS(String folder, String contactLogFlag) throws JSONException {
         JSONObject data = new JSONObject();
         Uri uriSMSURI = Uri.parse("");
         if (folder.equals("inbox")) {
@@ -81,6 +87,14 @@ public class SMSReaderPlugin extends Plugin {
         while (cur.moveToNext()) {
             String name = getContact(cur.getString(cur.getColumnIndex("address")));
             if (name.equals("")) {
+                JSONObject sms = new JSONObject();
+                sms.put("_id", cur.getString(cur.getColumnIndex("_id")));
+                sms.put("number", cur.getString(cur.getColumnIndex("address")));
+                sms.put("text", cur.getString(cur.getColumnIndex("body")));
+                sms.put("name", (name == null || name.equalsIgnoreCase("")) ? "Unknown" : name);
+                sms.put("date", SIMPLE_DATE_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
+                smsList.put(sms);
+            } else if (ON.equals(contactLogFlag)) {
                 JSONObject sms = new JSONObject();
                 sms.put("_id", cur.getString(cur.getColumnIndex("_id")));
                 sms.put("number", cur.getString(cur.getColumnIndex("address")));

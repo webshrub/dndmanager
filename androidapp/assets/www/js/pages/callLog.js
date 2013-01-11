@@ -10,7 +10,9 @@ $("#callLog").die("pageinit").live("pageinit", function (event, ui) {
 
 
 function fetchCallLog() {
-    new CallLogPlugin().list('3day',
+    var contactLogFlag = moonwalkerStorage.getItem("contactLogFlag");
+
+    new CallLogPlugin().list('3day', contactLogFlag,
         function (data) {
             $('#callLogDiv').html(getTemplate("callLog", data));
             $('#callLogDiv').trigger('create');

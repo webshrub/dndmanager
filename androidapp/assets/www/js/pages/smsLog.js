@@ -9,7 +9,9 @@ $("#smsLog").die("pageinit").live("pageinit", function (event, ui) {
 });
 
 function fetchSMSLog() {
-    new SMSReaderPlugin().getInbox('',
+    var contactLogFlag = moonwalkerStorage.getItem("contactLogFlag");
+
+    new SMSReaderPlugin().getInbox(contactLogFlag,
         function (data) {
             $('#smsLogDiv').html(getTemplate("smsLog", data));
             $('#smsLogDiv').trigger('create');

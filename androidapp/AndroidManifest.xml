@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.WRITE_SMS"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false">
         <activity android:name=".PhoneGapActivity" android:configChanges="orientation|keyboardHidden">

@@ -11,13 +11,13 @@
 .mobilegrid4 {
     height: auto;
     width: 100%;
-    margin: 4px 5px 4px 5px; /** 0 mobilecontainer2 without margin */
     border-collapse: collapse;
     table-layout: fixed;
 }
 
 .mobilegrid4 tr td {
     vertical-align: top;
+    text-align: right;
 }
 
 .mobilegrid4_row_0, .mobilegrid4_row_0 > td {

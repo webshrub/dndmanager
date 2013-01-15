@@ -14,7 +14,11 @@ function fetchCallLog() {
 
     new CallLogPlugin().list('3day', contactLogFlag,
         function (data) {
-            $('#callLogDiv').html(getTemplate("callLog", data));
+            if (data.rows.length == 0) {
+                $('#callLogDiv').html('<p align="center"><strong>Hurray!! You have no spam calls sent in last 3 days.</strong></p>');
+            } else {
+                $('#callLogDiv').html(getTemplate("callLog", data));
+            }
             $('#callLogDiv').trigger('create');
 
             $('input:checkbox[name=call]').change(function () {

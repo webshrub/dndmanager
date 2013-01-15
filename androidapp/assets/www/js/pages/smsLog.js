@@ -13,7 +13,11 @@ function fetchSMSLog() {
 
     new SMSReaderPlugin().getInbox(contactLogFlag,
         function (data) {
-            $('#smsLogDiv').html(getTemplate("smsLog", data));
+            if (data.messages.length == 0) {
+                $('#smsLogDiv').html('<p align="center"><strong>Hurray!! You have no spam SMS sent in last 3 days.</strong></p>');
+            } else {
+                $('#smsLogDiv').html(getTemplate("smsLog", data));
+            }
             $('#smsLogDiv').trigger('create');
 
             $('input:checkbox[name="sms"]').change(function () {

@@ -54,6 +54,7 @@
     <plugin name="SMSReaderPlugin" value="com.webshrub.moonwalker.androidapp.SMSReaderPlugin"/>
     <plugin name="CallLogPlugin" value="com.webshrub.moonwalker.androidapp.CallLogPlugin"/>
     <plugin name="SmsPlugin" value="com.webshrub.moonwalker.androidapp.SmsPlugin"/>
+    <plugin name="CellularNetworkPlugin" value="com.webshrub.moonwalker.androidapp.CellularNetworkPlugin"/>
 </plugins>
 </cordova>
 

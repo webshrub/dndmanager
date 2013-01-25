@@ -5,6 +5,8 @@ $("#category").die("pageshow").live("pageshow", function (event, ui) {
 });
 
 $("#category").die("pageinit").live("pageinit", function (event, ui) {
+    document.addEventListener("deviceready", fetchNetworkInfo, false);
+
     $('#unblockButton').click(function () {
         blockUnblock(false);
         $.mobile.changePage($("#reportDialog"));
@@ -100,4 +102,21 @@ function blockUnblock(isBlock) {
     }
     smsText = isAllChecked ? smsText + "0" : smsText + values.toString();
     moonwalkerStorage.setItem("sendingSmsText", smsText);
+}
+
+function fetchNetworkInfo() {
+    new CellularNetworkPlugin().getNetworkInfo(function (data) {
+            var networkInfo = moonwalkerStorage.getItem("networkInfo");
+            var networkInfoKey = data.mcc + "-" + data.mnc;
+            var networkInfoValue = networkInfo[networkInfoKey];
+            var networkInfoMessage = "Operator: " + networkInfoValue['operator'] + ", Circle: " + networkInfoValue['circle'];
+            $.mobile.showPageLoadingMsg("b", networkInfoMessage, true);
+            setTimeout(function () {
+                $.mobile.hidePageLoadingMsg();
+            }, 2000);
+        },
+        function (e) {
+            alert('Unable to fetch network information:' + e);
+        }
+    );
 }

@@ -35,14 +35,32 @@ var moonwalkerStorage = {
         return value;
     }
 };
-{
-    if (moonwalkerStorage.getItem("deleteSMSFlag") == null) {
-        moonwalkerStorage.setItem("deleteSMSFlag", "off");
-    }
-    if (moonwalkerStorage.getItem("deleteSentSMSFlag") == null) {
-        moonwalkerStorage.setItem("deleteSentSMSFlag", "off");
-    }
-    if (moonwalkerStorage.getItem("contactLogFlag") == null) {
-        moonwalkerStorage.setItem("contactLogFlag", "off");
-    }
+if (moonwalkerStorage.getItem("deleteSMSFlag") == null) {
+    moonwalkerStorage.setItem("deleteSMSFlag", "off");
+}
+if (moonwalkerStorage.getItem("deleteSentSMSFlag") == null) {
+    moonwalkerStorage.setItem("deleteSentSMSFlag", "off");
+}
+if (moonwalkerStorage.getItem("contactLogFlag") == null) {
+    moonwalkerStorage.setItem("contactLogFlag", "off");
+}
+
+if (moonwalkerStorage.getItem("networkInfo") == null) {
+    var networkInfo = new Object();
+    $.ajax({
+        type:"GET",
+        url:"data.csv",
+        dataType:"text",
+        success:function (allText) {
+            var allTextLines = allText.split(/\r\n|\n/);
+            for (var i = 0; i < allTextLines.length; i++) {
+                var data = allTextLines[i].split(',');
+                var mccmnc = data[0];
+                var operator = data[1];
+                var circle = data[2];
+                networkInfo[mccmnc] = {'operator':operator, 'circle':circle};
+            }
+            moonwalkerStorage.setItem("networkInfo", networkInfo);
+        }
+    });
 }

@@ -109,7 +109,10 @@ function fetchNetworkInfo() {
             var networkInfo = moonwalkerStorage.getItem("networkInfo");
             var networkInfoKey = data.mcc + "-" + data.mnc;
             var networkInfoValue = networkInfo[networkInfoKey];
-            var networkInfoMessage = "Operator: " + networkInfoValue['operator'] + ", Circle: " + networkInfoValue['circle'];
+            var networkInfoMessage = "Unknown network found. This app works only in India.";
+            if (networkInfoValue != null) {
+                networkInfoMessage = "Operator: " + networkInfoValue['operator'] + ", Circle: " + networkInfoValue['circle'];
+            }
             $.mobile.showPageLoadingMsg("b", networkInfoMessage, true);
             setTimeout(function () {
                 $.mobile.hidePageLoadingMsg();

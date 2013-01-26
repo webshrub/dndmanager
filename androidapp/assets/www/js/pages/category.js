@@ -119,7 +119,11 @@ function fetchNetworkInfo() {
             }, 2000);
         },
         function (e) {
-            alert('Unable to fetch network information:' + e);
+            var networkInfoMessage = "Unknown network found. This app works only in India.";
+            $.mobile.showPageLoadingMsg("b", networkInfoMessage, true);
+            setTimeout(function () {
+                $.mobile.hidePageLoadingMsg();
+            }, 2000);
         }
     );
 }

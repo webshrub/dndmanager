@@ -22,7 +22,10 @@ $("#confirmDialog").die("pageinit").live("pageinit", function (event, ui) {
             }
         };
         for (var counter = 0; counter < smsTextObjects.length; counter++) {
-            var smsText = "COMP TEL NO " + smsTextObjects[counter].number + ";" + smsTextObjects[counter].date + ";" + smsTextObjects[counter].text;
+            var smsText = smsTextObjects[counter].text.substring(0, 135);
+            smsText = smsText.replace(/,/g, " ");
+            smsText = smsText + ", " + smsTextObjects[counter].number + ", " + smsTextObjects[counter].date;
+            smsText = smsText.substring(0, 160);
             new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag, deleteSentSMSFlag, smsTextObjects[counter].number,
                 closeDialog, function (e) {
                     alert('Message Failed:' + e);

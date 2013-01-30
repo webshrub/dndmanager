@@ -39,7 +39,7 @@ function fetchCallLog() {
             });
 
             $('a[name=reportCallDialogLink]').click(function () {
-                var smsText = "COMP TEL NO " + $(this).attr("data-number") + ";" + $(this).attr("data-date") + ";" + "Unknown Company";
+                var smsText = "Unknown Company" + ", " + $(this).attr("data-number") + ", " + $(this).attr("data-date");
                 smsText = smsText.substring(0, 160);
                 moonwalkerStorage.setItem("sendingSmsText", smsText);
                 moonwalkerStorage.setItem("reportType", "call");

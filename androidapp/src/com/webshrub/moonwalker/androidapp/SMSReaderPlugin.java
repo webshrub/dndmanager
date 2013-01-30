@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SMSReaderPlugin extends Plugin {
-    private static final String DATE_FORMAT = "dd/MM/yy;kk:mm";
+    private static final String DATE_FORMAT = "dd/MM/yy";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
     private Map<String, String> contactMap = new HashMap<String, String>();
     public final String ON = "on";

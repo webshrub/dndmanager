@@ -1,11 +1,11 @@
 //createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 
 $("#smsLog").die("pageshow").live("pageshow", function (event, ui) {
-    clearSMS()
+    clearSMS();
+    document.addEventListener("deviceready", fetchSMSLog, false);
 });
 
 $("#smsLog").die("pageinit").live("pageinit", function (event, ui) {
-    document.addEventListener("deviceready", fetchSMSLog, false);
 });
 
 function fetchSMSLog() {
@@ -20,7 +20,7 @@ function fetchSMSLog() {
             }
             $('#smsLogDiv').trigger('create');
 
-            $('input:checkbox[name="sms"]').change(function () {
+            $('input:checkbox[name="sms"]').unbind().bind('change', function () {
                 if ($(this).is(':checked')) {
                     checkSMS();
                 } else {
@@ -28,16 +28,16 @@ function fetchSMSLog() {
                 }
             });
 
-            $('#selectAllSMS').click(function () {
+            $('#selectAllSMS').unbind().bind('click', function () {
                 checkUncheckAllSMS();
             });
 
-            $('#reportAllSMSButton').click(function () {
+            $('#reportAllSMSButton').unbind().bind('click', function () {
                 prepareSmsTextObjectsFromSmsLog();
                 $.mobile.changePage($('#confirmDialog'));
             });
 
-            $('a[name=reportSMSDialogLink]').click(function () {
+            $('a[name=reportSMSDialogLink]').unbind().bind('click', function () {
                 var smsText = $(this).attr("data-text").substring(0, 135);
                 smsText = smsText.replace(/,/g, " ");
                 smsText = smsText + ", " + $(this).attr("data-number") + ", " + $(this).attr("data-date");

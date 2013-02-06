@@ -77,7 +77,7 @@ public class SmsPlugin extends Plugin {
 
     public void deleteSmsByNumber(String number) {
         try {
-            String queryString = "address" + " = " + number;
+            String queryString = "address" + " = '" + number + "'";
             ctx.getContext().getContentResolver().delete(Uri.parse("content://sms"), queryString, null);
         } catch (Exception e) {
             e.printStackTrace();

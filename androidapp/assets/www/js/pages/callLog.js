@@ -2,10 +2,10 @@
 
 $("#callLog").die("pageshow").live("pageshow", function (event, ui) {
     clearCalls();
+    document.addEventListener("deviceready", fetchCallLog, false);
 });
 
 $("#callLog").die("pageinit").live("pageinit", function (event, ui) {
-    document.addEventListener("deviceready", fetchCallLog, false);
 });
 
 
@@ -21,7 +21,7 @@ function fetchCallLog() {
             }
             $('#callLogDiv').trigger('create');
 
-            $('input:checkbox[name=call]').change(function () {
+            $('input:checkbox[name=call]').unbind().bind('change', function () {
                 if ($(this).is(':checked')) {
                     checkCall();
                 } else {
@@ -29,16 +29,16 @@ function fetchCallLog() {
                 }
             });
 
-            $('#selectAllCall').click(function () {
+            $('#selectAllCall').unbind().bind('click', function () {
                 checkUncheckAllCalls();
             });
 
-            $('#reportAllCallButton').click(function () {
+            $('#reportAllCallButton').unbind().bind('click', function () {
                 prepareSmsTextObjectsFromCallLog();
                 $.mobile.changePage($('#confirmDialog'));
             });
 
-            $('a[name=reportCallDialogLink]').click(function () {
+            $('a[name=reportCallDialogLink]').unbind().bind('click', function () {
                 var smsText = "Unknown Company" + ", " + $(this).attr("data-number") + ", " + $(this).attr("data-date");
                 smsText = smsText.substring(0, 160);
                 moonwalkerStorage.setItem("sendingSmsText", smsText);

@@ -102,6 +102,7 @@ function blockUnblock(isBlock) {
     }
     smsText = isAllChecked ? smsText + "0" : smsText + values.toString();
     moonwalkerStorage.setItem("sendingSmsText", smsText);
+    moonwalkerStorage.setItem('spamNumber', '');
 }
 
 function fetchNetworkInfo() {

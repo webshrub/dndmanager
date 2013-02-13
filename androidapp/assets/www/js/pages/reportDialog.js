@@ -1,8 +1,7 @@
 //createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 
 $("#reportDialog").die("pageshow").live("pageshow", function (event, ui) {
-    var smsText = moonwalkerStorage.getItem("sendingSmsText");
-    $('#smsTextArea').val(smsText);
+    $('#smsTextArea').val(moonwalkerStorage.getItem("sendingSmsText"));
 });
 
 $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
@@ -13,8 +12,8 @@ $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
     $('#sendSMSButton').click(function () {
         $.mobile.showPageLoadingMsg("b", "Sending message to 1909.", true);
         var smsText = $('#smsTextArea').val();
-        var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
         var reportType = moonwalkerStorage.getItem("reportType");
+        var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
         var deleteSentSMSFlag = moonwalkerStorage.getItem("deleteSentSMSFlag");
         var spamNumber = moonwalkerStorage.getItem("spamNumber");
 

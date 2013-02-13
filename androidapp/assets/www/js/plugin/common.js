@@ -13,6 +13,41 @@ function getTemplate(templateName, json) {
     return ich[templateName](json, true);
 }
 
+function prepareSmsTextObjectsFromLog(reportDialogLinks, reportType) {
+    var smsTextObjects = [];
+    $(reportDialogLinks).each(function () {
+        var reportDialogLink = $(this);
+        var number = reportDialogLink.attr('data-number');
+        var date = reportDialogLink.attr('data-date');
+        var text = reportDialogLink.attr('data-text');
+        var smsTextObject = {"number":number, "date":date, "text":text};
+        smsTextObjects.push(smsTextObject);
+    });
+    moonwalkerStorage.setItem("reportType", reportType);
+    moonwalkerStorage.setItem("smsTextObjects", smsTextObjects);
+}
+
+function prepareSmsText(reportDialogLink, reportType) {
+    var number = reportDialogLink.attr('data-number');
+    var date = reportDialogLink.attr('data-date');
+    var text = reportDialogLink.attr('data-text');
+    var smsText = text.substring(0, 135);
+    smsText = smsText.replace(/,/g, " ");
+    smsText = smsText + ", " + number + ", " + date;
+    smsText = smsText.substring(0, 160);
+    moonwalkerStorage.setItem('sendingSmsText', smsText);
+    moonwalkerStorage.setItem('spamNumber', number);
+    moonwalkerStorage.setItem("reportType", reportType);
+}
+
+function prepareSmsTextFromObject(smsTextObject) {
+    var smsText = smsTextObject.text.substring(0, 135);
+    smsText = smsText.replace(/,/g, " ");
+    smsText = smsText + ", " + smsTextObject.number + ", " + smsTextObject.date;
+    smsText = smsText.substring(0, 160);
+    return smsText;
+}
+
 var moonwalkerStorage = {
     setItem:function (key, value) {
         if (!key || !value) {

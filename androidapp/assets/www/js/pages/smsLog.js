@@ -33,18 +33,17 @@ function fetchSMSLog() {
             });
 
             $('#reportAllSMSButton').unbind().bind('click', function () {
-                prepareSmsTextObjectsFromSmsLog();
+                var reportSMSDialogLinks = [];
+                $('input:checkbox[name=sms]').filter(':checked').each(function () {
+                    var reportSMSDialogLink = $(this).closest('li').children('a[name=reportSMSDialogLink]');
+                    reportSMSDialogLinks.push(reportSMSDialogLink);
+                });
+                prepareSmsTextObjectsFromLog(reportSMSDialogLinks, 'sms');
                 $.mobile.changePage($('#confirmDialog'));
             });
 
             $('a[name=reportSMSDialogLink]').unbind().bind('click', function () {
-                var smsText = $(this).attr("data-text").substring(0, 135);
-                smsText = smsText.replace(/,/g, " ");
-                smsText = smsText + ", " + $(this).attr("data-number") + ", " + $(this).attr("data-date");
-                smsText = smsText.substring(0, 160);
-                moonwalkerStorage.setItem("sendingSmsText", smsText);
-                moonwalkerStorage.setItem("reportType", "sms");
-                moonwalkerStorage.setItem("spamNumber", $(this).attr("data-number"));
+                prepareSmsText($(this), 'sms');
                 $.mobile.changePage($('#reportDialog'));
             });
         },
@@ -102,18 +101,4 @@ function clearSMS() {
     $('input:checkbox[name="sms"]').checkboxradio('refresh');
 
     $('#reportAllSMSButton').addClass('ui-disabled');
-}
-
-function prepareSmsTextObjectsFromSmsLog() {
-    var smsTextObjects = [];
-    $('input:checkbox[name=sms]').filter(':checked').each(function () {
-        var reportSMSDialogLink = $(this).closest('li').children('a[name=reportSMSDialogLink]');
-        var number = reportSMSDialogLink.attr('data-number');
-        var date = reportSMSDialogLink.attr('data-date');
-        var text = reportSMSDialogLink.attr('data-text');
-        var smsTextObject = {"number":number, "date":date, "text":text};
-        smsTextObjects.push(smsTextObject);
-    });
-    moonwalkerStorage.setItem("reportType", "sms");
-    moonwalkerStorage.setItem("smsTextObjects", smsTextObjects);
 }

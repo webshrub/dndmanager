@@ -156,6 +156,7 @@ public class CallLogPlugin extends Plugin {
                         callLogItem.put("duration", callLogCursor.getLong(3));
                         callLogItem.put("new", callLogCursor.getInt(4));
                         callLogItem.put("cachedName", "Unknown");
+                        callLogItem.put("text", "<Please write calling company name here before sending>");
                         callLogItem.put("cachedNumberType", callLogCursor.getInt(6));
                         //callLogItem.put("name", getContactNameFromNumber(callLogCursor.getString(1))); //grab name too
                         callLogItems.put(callLogItem);
@@ -168,6 +169,7 @@ public class CallLogPlugin extends Plugin {
                         callLogItem.put("duration", callLogCursor.getLong(3));
                         callLogItem.put("new", callLogCursor.getInt(4));
                         callLogItem.put("cachedName", callLogCursor.getString(5));
+                        callLogItem.put("text", "<Please write calling company name here before sending>");
                         callLogItem.put("cachedNumberType", callLogCursor.getInt(6));
                         //callLogItem.put("name", getContactNameFromNumber(callLogCursor.getString(1))); //grab name too
                         callLogItems.put(callLogItem);

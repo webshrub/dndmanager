@@ -34,16 +34,17 @@ function fetchCallLog() {
             });
 
             $('#reportAllCallButton').unbind().bind('click', function () {
-                prepareSmsTextObjectsFromCallLog();
+                var reportCallDialogLinks = [];
+                $('input:checkbox[name=call]').filter(':checked').each(function () {
+                    var reportCallDialogLink = $(this).closest('li').children('a[name=reportCallDialogLink]');
+                    reportCallDialogLinks.push(reportCallDialogLink);
+                });
+                prepareSmsTextObjectsFromLog(reportCallDialogLinks, 'call');
                 $.mobile.changePage($('#confirmDialog'));
             });
 
             $('a[name=reportCallDialogLink]').unbind().bind('click', function () {
-                var smsText = "Unknown Company" + ", " + $(this).attr("data-number") + ", " + $(this).attr("data-date");
-                smsText = smsText.substring(0, 160);
-                moonwalkerStorage.setItem("sendingSmsText", smsText);
-                moonwalkerStorage.setItem("reportType", "call");
-                moonwalkerStorage.setItem("spamNumber", $(this).attr("data-number"));
+                prepareSmsText($(this), 'call');
                 $.mobile.changePage($('#reportDialog'));
             });
         },
@@ -101,18 +102,4 @@ function clearCalls() {
     $('input:checkbox[name="call"]').checkboxradio('refresh');
 
     $('#reportAllCallButton').addClass('ui-disabled');
-}
-
-function prepareSmsTextObjectsFromCallLog() {
-    var smsTextObjects = [];
-    $('input:checkbox[name=call]').filter(':checked').each(function () {
-        var reportCallDialogLink = $(this).closest('li').children('a[name=reportCallDialogLink]');
-        var number = reportCallDialogLink.attr('data-number');
-        var date = reportCallDialogLink.attr('data-date');
-        var text = reportCallDialogLink.attr('data-text');
-        var smsTextObject = {"number":number, "date":date, "text":text};
-        smsTextObjects.push(smsTextObject);
-    });
-    moonwalkerStorage.setItem("reportType", "call");
-    moonwalkerStorage.setItem("smsTextObjects", smsTextObjects);
 }

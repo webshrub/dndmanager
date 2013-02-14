@@ -27,8 +27,8 @@ public class CallLogPlugin extends Plugin {
     private static final String CONTACT_ACTION = "contact";
     private static final String SHOW_ACTION = "show";
     private static final String TAG = "CallLogPlugin";
-    private static final String DATE_FORMAT = "dd/MM/yy";
-    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd/MM/yy");
+    private static final SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("dd/MM/yy;kk:mm");
     public final String ON = "on";
     public final String OFF = "off";
 
@@ -151,6 +151,7 @@ public class CallLogPlugin extends Plugin {
                 do {
                     if (callLogCursor.getString(5) == null) {
                         callLogItem.put("date", SIMPLE_DATE_FORMAT.format(new Date(callLogCursor.getLong(0))));
+                        callLogItem.put("datetime", SIMPLE_DATE_TIME_FORMAT.format(new Date(callLogCursor.getLong(0))));
                         callLogItem.put("number", callLogCursor.getString(1));
                         callLogItem.put("type", callLogCursor.getInt(2));
                         callLogItem.put("duration", callLogCursor.getLong(3));
@@ -162,8 +163,8 @@ public class CallLogPlugin extends Plugin {
                         callLogItems.put(callLogItem);
                         callLogItem = new JSONObject();
                     } else if (ON.equalsIgnoreCase(contactLogFlag)) {
-
                         callLogItem.put("date", SIMPLE_DATE_FORMAT.format(new Date(callLogCursor.getLong(0))));
+                        callLogItem.put("datetime", SIMPLE_DATE_TIME_FORMAT.format(new Date(callLogCursor.getLong(0))));
                         callLogItem.put("number", callLogCursor.getString(1));
                         callLogItem.put("type", callLogCursor.getInt(2));
                         callLogItem.put("duration", callLogCursor.getLong(3));

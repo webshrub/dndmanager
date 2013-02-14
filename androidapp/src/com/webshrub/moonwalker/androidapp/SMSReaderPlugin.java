@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SMSReaderPlugin extends Plugin {
-    private static final String DATE_FORMAT = "dd/MM/yy";
-    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd/MM/yy");
+    private static final SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("dd/MM/yy;kk:mm");
     private Map<String, String> contactMap = new HashMap<String, String>();
     public final String ON = "on";
     public final String OFF = "off";
@@ -90,17 +90,19 @@ public class SMSReaderPlugin extends Plugin {
                 JSONObject sms = new JSONObject();
                 sms.put("_id", cur.getString(cur.getColumnIndex("_id")));
                 sms.put("number", cur.getString(cur.getColumnIndex("address")));
-                sms.put("text", cur.getString(cur.getColumnIndex("body")));
+                sms.put("text", stripText(cur.getString(cur.getColumnIndex("body"))));
                 sms.put("name", (name == null || name.equalsIgnoreCase("")) ? "Unknown" : name);
                 sms.put("date", SIMPLE_DATE_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
+                sms.put("datetime", SIMPLE_DATE_TIME_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
                 smsList.put(sms);
             } else if (ON.equals(contactLogFlag)) {
                 JSONObject sms = new JSONObject();
                 sms.put("_id", cur.getString(cur.getColumnIndex("_id")));
                 sms.put("number", cur.getString(cur.getColumnIndex("address")));
-                sms.put("text", cur.getString(cur.getColumnIndex("body")));
+                sms.put("text", stripText(cur.getString(cur.getColumnIndex("body"))));
                 sms.put("name", (name == null || name.equalsIgnoreCase("")) ? "Unknown" : name);
                 sms.put("date", SIMPLE_DATE_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
+                sms.put("datetime", SIMPLE_DATE_TIME_FORMAT.format(new Date(cur.getLong(cur.getColumnIndex("date")))));
                 smsList.put(sms);
             }
         }
@@ -146,5 +148,12 @@ public class SMSReaderPlugin extends Plugin {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String stripText(String input) {
+        if (input.length() < 115) {
+            return input;
+        }
+        return input.substring(0, 115);
     }
 }

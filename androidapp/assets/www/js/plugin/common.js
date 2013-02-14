@@ -19,8 +19,9 @@ function prepareSmsTextObjectsFromLog(reportDialogLinks, reportType) {
         var reportDialogLink = $(this);
         var number = reportDialogLink.attr('data-number');
         var date = reportDialogLink.attr('data-date');
+        var datetime = reportDialogLink.attr('data-datetime');
         var text = reportDialogLink.attr('data-text');
-        var smsTextObject = {"number":number, "date":date, "text":text};
+        var smsTextObject = {"number":number, "date":date, "datetime":datetime, "text":text};
         smsTextObjects.push(smsTextObject);
     });
     moonwalkerStorage.setItem("reportType", reportType);
@@ -30,21 +31,26 @@ function prepareSmsTextObjectsFromLog(reportDialogLinks, reportType) {
 function prepareSmsText(reportDialogLink, reportType) {
     var number = reportDialogLink.attr('data-number');
     var date = reportDialogLink.attr('data-date');
+    var datetime = reportDialogLink.attr('data-datetime');
     var text = reportDialogLink.attr('data-text');
-    var smsText = text.substring(0, 135);
-    smsText = smsText.replace(/,/g, " ");
-    smsText = smsText + ", " + number + ", " + date;
-    smsText = smsText.substring(0, 160);
+    var smsText = prepareSmsTextFromFormat(number, date, datetime, text);
     moonwalkerStorage.setItem('sendingSmsText', smsText);
     moonwalkerStorage.setItem('spamNumber', number);
     moonwalkerStorage.setItem("reportType", reportType);
 }
 
 function prepareSmsTextFromObject(smsTextObject) {
-    var smsText = smsTextObject.text.substring(0, 135);
-    smsText = smsText.replace(/,/g, " ");
-    smsText = smsText + ", " + smsTextObject.number + ", " + smsTextObject.date;
-    smsText = smsText.substring(0, 160);
+    return prepareSmsTextFromFormat(smsTextObject.number, smsTextObject.date, smsTextObject.datetime, smsTextObject.text);
+}
+
+function prepareSmsTextFromFormat(number, date, datetime, text) {
+    text = text.replace(/,/g, " ");
+    var networkInfoValue = moonwalkerStorage.getItem('networkInfoValue');
+    var format = networkInfoValue['format'];
+    var smsText = format.replace('~~number~~', number);
+    smsText = smsText.replace('~~date~~', date);
+    smsText = smsText.replace('~~datetime~~', datetime);
+    smsText = smsText.replace('~~text~~', text);
     return smsText;
 }
 
@@ -89,11 +95,12 @@ if (moonwalkerStorage.getItem("networkInfo") == null) {
         success:function (allText) {
             var allTextLines = allText.split(/\r\n|\n/);
             for (var i = 0; i < allTextLines.length; i++) {
-                var data = allTextLines[i].split(',');
+                var data = allTextLines[i].split('###');
                 var mccmnc = data[0];
                 var operator = data[1];
                 var circle = data[2];
-                networkInfo[mccmnc] = {'operator':operator, 'circle':circle};
+                var format = data[3];
+                networkInfo[mccmnc] = {'operator':operator, 'circle':circle, 'format':format};
             }
             moonwalkerStorage.setItem("networkInfo", networkInfo);
         }

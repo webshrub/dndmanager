@@ -9,6 +9,7 @@ $("#smsLog").die("pageinit").live("pageinit", function (event, ui) {
 });
 
 function fetchSMSLog() {
+    $.mobile.showPageLoadingMsg("b", "Loading SMS logs...", true);
     var contactLogFlag = moonwalkerStorage.getItem("contactLogFlag");
 
     new SMSReaderPlugin().getInbox(contactLogFlag,
@@ -46,6 +47,7 @@ function fetchSMSLog() {
                 prepareSmsText($(this), 'sms');
                 $.mobile.changePage($('#reportDialog'));
             });
+            $.mobile.hidePageLoadingMsg();
         },
         function (e) {
             alert('Fetching of list failed.' + e);

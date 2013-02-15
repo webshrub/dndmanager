@@ -10,6 +10,7 @@ $("#callLog").die("pageinit").live("pageinit", function (event, ui) {
 
 
 function fetchCallLog() {
+    $.mobile.showPageLoadingMsg("b", "Loading Call logs...", true);
     var contactLogFlag = moonwalkerStorage.getItem("contactLogFlag");
 
     new CallLogPlugin().list('3day', contactLogFlag,
@@ -47,6 +48,7 @@ function fetchCallLog() {
                 prepareSmsText($(this), 'call');
                 $.mobile.changePage($('#reportDialog'));
             });
+            $.mobile.hidePageLoadingMsg();
         },
         function (e) {
             alert('Fetching of list failed.' + e);

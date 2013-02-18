@@ -13,28 +13,28 @@
 404-14###IDEA###Punjab###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-15###Vodafone###Uttar Pradesh (East)###~~text~~, ~~number~~, ~~date~~
 404-16###Airtel ###North East###~~text~~, ~~number~~, ~~date~~
-404-17###Aircel###West Bengal###~~text~~, ~~number~~, ~~date~~
+404-17###Aircel###West Bengal###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-18###Reliance Telecom###Himachal Pradesh###~~text~~, ~~number~~, ~~date~~
 404-19###IDEA###Kerala###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-20###Vodafone###Mumbai###~~text~~, ~~number~~, ~~date~~
 404-21###LOOP###Mumbai###~~text~~, ~~number~~, ~~date~~
 404-22###IDEA###Maharashtra###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-24###IDEA###Gujarat###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
-404-25###Aircel###Bihar###~~text~~, ~~number~~, ~~date~~
+404-25###Aircel###Bihar###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-27###Vodafone###Maharashtra###~~text~~, ~~number~~, ~~date~~
-404-28###Aircel###Orissa###~~text~~, ~~number~~, ~~date~~
-404-29###Aircel###Assam###~~text~~, ~~number~~, ~~date~~
+404-28###Aircel###Orissa###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+404-29###Aircel###Assam###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-30###Vodafone###Kolkata###~~text~~, ~~number~~, ~~date~~
 404-31###AIRTEL###Kolkata###~~text~~, ~~number~~, ~~date~~
-404-33###Aircel###North East###~~text~~, ~~number~~, ~~date~~
+404-33###Aircel###North East###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-34###BSNL###Haryana###~~text~~, ~~number~~, ~~date~~
-404-35###Aircel###Himachal Pradesh###~~text~~, ~~number~~, ~~date~~
+404-35###Aircel###Himachal Pradesh###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-36###Reliance Telecom###Bihar###~~text~~, ~~number~~, ~~date~~
-404-37###Aircel###Jammu & Kashmir###~~text~~, ~~number~~, ~~date~~
+404-37###Aircel###Jammu & Kashmir###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-38###BSNL###Assam###~~text~~, ~~number~~, ~~date~~
 404-40###AIRTEL###Chennai###~~text~~, ~~number~~, ~~date~~
-404-41###AIRCEL###Chennai###~~text~~, ~~number~~, ~~date~~
-404-42###AIRCEL###Tamilnadu###~~text~~, ~~number~~, ~~date~~
+404-41###AIRCEL###Chennai###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+404-42###AIRCEL###Tamilnadu###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-43###Vodafone###Tamilnadu###~~text~~, ~~number~~, ~~date~~
 404-44###IDEA###Karnataka###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-45###Airtel ###Karnataka###~~text~~, ~~number~~, ~~date~~
@@ -78,7 +78,7 @@
 404-88###Vodafone###Punjab###~~text~~, ~~number~~, ~~date~~
 404-89###IDEA###Uttar Pradesh (East)###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-90###AIRTEL###Maharashtra###~~text~~, ~~number~~, ~~date~~
-404-91###Aircel###Kolkata###~~text~~, ~~number~~, ~~date~~
+404-91###Aircel###Kolkata###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 404-92###AIRTEL###Mumbai###~~text~~, ~~number~~, ~~date~~
 404-93###AIRTEL###Madhya Pradesh###~~text~~, ~~number~~, ~~date~~
 404-94###AIRTEL###Tamilnadu###~~text~~, ~~number~~, ~~date~~
@@ -149,19 +149,19 @@
 405-755###Vodafone###North East###~~text~~, ~~number~~, ~~date~~
 405-756###Vodafone###Madhya Pradesh###~~text~~, ~~number~~, ~~date~~
 405-799###IDEA###Mumbai###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
-405-800###AIRCEL###Delhi###~~text~~, ~~number~~, ~~date~~
-405-801###AIRCEL###Andhra Pradesh###~~text~~, ~~number~~, ~~date~~
-405-802###AIRCEL###Gujarat###~~text~~, ~~number~~, ~~date~~
-405-803###AIRCEL###Karnataka###~~text~~, ~~number~~, ~~date~~
-405-804###AIRCEL###Maharashtra###~~text~~, ~~number~~, ~~date~~
-405-805###AIRCEL###Mumbai###~~text~~, ~~number~~, ~~date~~
-405-806###AIRCEL###Rajasthan###~~text~~, ~~number~~, ~~date~~
-405-807###AIRCEL###Haryana###~~text~~, ~~number~~, ~~date~~
-405-808###AIRCEL###Madhya Pradesh###~~text~~, ~~number~~, ~~date~~
-405-809###AIRCEL###Kerala###~~text~~, ~~number~~, ~~date~~
-405-810###AIRCEL###Uttar Pradesh (East)###~~text~~, ~~number~~, ~~date~~
-405-811###AIRCEL###Uttar Pradesh (West)###~~text~~, ~~number~~, ~~date~~
-405-812###AIRCEL###Punjab###~~text~~, ~~number~~, ~~date~~
+405-800###AIRCEL###Delhi###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-801###AIRCEL###Andhra Pradesh###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-802###AIRCEL###Gujarat###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-803###AIRCEL###Karnataka###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-804###AIRCEL###Maharashtra###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-805###AIRCEL###Mumbai###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-806###AIRCEL###Rajasthan###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-807###AIRCEL###Haryana###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-808###AIRCEL###Madhya Pradesh###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-809###AIRCEL###Kerala###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-810###AIRCEL###Uttar Pradesh (East)###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-811###AIRCEL###Uttar Pradesh (West)###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
+405-812###AIRCEL###Punjab###COMP TEL NO ~~number~~;~~datetime~~;~~text~~
 405-813###Unitech Wireless###Haryana###~~text~~, ~~number~~, ~~date~~
 405-814###Unitech Wireless###Himachal Pradesh###~~text~~, ~~number~~, ~~date~~
 405-815###Unitech Wireless###Jammu & Kashmir###~~text~~, ~~number~~, ~~date~~

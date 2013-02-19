@@ -108,7 +108,7 @@ function blockUnblock(isBlock) {
 function fetchNetworkInfo() {
     new CellularNetworkPlugin().getNetworkInfo(function (data) {
             var networkInfo = moonwalkerStorage.getItem("networkInfo");
-            var networkInfoKey = data.mcc + "-" + data.mnc;
+            var networkInfoKey = parseInt(data.mcc).toString() + '-' + parseInt(data.mnc).toString();
             var networkInfoValue = networkInfo[networkInfoKey];
             moonwalkerStorage.setItem('networkInfoValue', networkInfoValue);
             var networkInfoMessage = "Unknown network found. This app works only in India.";

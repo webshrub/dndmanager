@@ -44,14 +44,18 @@ function prepareSmsTextFromObject(smsTextObject) {
 }
 
 function prepareSmsTextFromFormat(number, date, datetime, text) {
-    text = text.replace(/,/g, " ");
-    var networkInfoValue = moonwalkerStorage.getItem('networkInfoValue');
-    var format = networkInfoValue['format'];
-    var smsText = format.replace('~~number~~', number);
-    smsText = smsText.replace('~~date~~', date);
-    smsText = smsText.replace('~~datetime~~', datetime);
-    smsText = smsText.replace('~~text~~', text);
-    return smsText;
+    try {
+        text = text.replace(/,/g, " ");
+        var networkInfoValue = moonwalkerStorage.getItem('networkInfoValue');
+        var format = networkInfoValue['format'];
+        var smsText = format.replace('~~number~~', number);
+        smsText = smsText.replace('~~date~~', date);
+        smsText = smsText.replace('~~datetime~~', datetime);
+        smsText = smsText.replace('~~text~~', text);
+        return smsText;
+    } catch (e) {
+        return 'COMP TEL NO ' + number + ';' + datetime + ';' + text;
+    }
 }
 
 var moonwalkerStorage = {
@@ -96,10 +100,12 @@ if (moonwalkerStorage.getItem("networkInfo") == null) {
             var allTextLines = allText.split(/\r\n|\n/);
             for (var i = 0; i < allTextLines.length; i++) {
                 var data = allTextLines[i].split('###');
-                var mccmnc = data[0];
+                var mcc = parseInt(data[0].split('-')[0]);
+                var mnc = parseInt(data[0].split('-')[1]);
                 var operator = data[1];
                 var circle = data[2];
                 var format = data[3];
+                var mccmnc = mcc.toString() + '-' + mnc.toString();
                 networkInfo[mccmnc] = {'operator':operator, 'circle':circle, 'format':format};
             }
             moonwalkerStorage.setItem("networkInfo", networkInfo);

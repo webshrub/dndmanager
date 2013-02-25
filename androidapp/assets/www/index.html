@@ -483,7 +483,7 @@
         <div class="logoText">
             <h2>DND Manager</h2>
 
-            <h3>v1.0.6 beta</h3>
+            <h3>v1.1.1 beta</h3>
         </div>
     </div>
     <div data-role="footer" class="mobileFooter mobilefooter6" name="mobilefooter2" dsid="mobilefooter2" data-position="fixed" data-theme='a'>
@@ -506,6 +506,26 @@
          dsid="mobilecontainer2" data-theme='a'>
         <div class="mobilegrid4_wrapper">
             <table class="mobilegrid mobilegrid4" dsid="mobilegrid" name="mobilegrid" cellpadding=0 cellspacing=0 border="1">
+                <tr class="mobilegrid4_row_0">
+                    <td name="mobilegridcell_c795" class="mobilegridcell6" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div name="mobilelabel1_5" dsid="mobilelabel1_5" data-role="tiggr_label"
+                                 class='labelClass mobilelabel2 '>
+                                Choose the format of SMS being sent:
+                            </div>
+                        </div>
+                    </td>
+                    <td name="mobilegridcell_c801" class="mobilegridcell7" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div data-role="fieldcontain">
+                                <select id="smsFormat" data-mini="true" data-native-menu="false" data-theme='a'>
+                                    <option value="1" data-format="~~text~~, ~~number~~, ~~date~~">Short Description, XXXXXXXXXX, dd/mm/yy</option>
+                                    <option value="2" data-format="COMP TEL NO ~~number~~;~~datetime~~;~~text~~">COMP TEL NO XXXXXXXXXX;dd/mm/yy;hh:mm;Short Description</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
                 <tr class="mobilegrid4_row_0">
                     <td name="mobilegridcell_c795" class="mobilegridcell6" colspan=1 rowspan=1>
                         <div class="cell-wrapper">
@@ -672,7 +692,7 @@
             <tr>
                 <h3>10. I sent a message, Now I am getting errors about wrong format?</h3>
 
-                <p>Even though TRAI has specified one universal format, different operators have implemented their own format for reporting UCC. You let us know
+                <p>Please retry by changing the format in settings page drop down. Even though TRAI has specified one universal format, different operators have implemented their own format for reporting UCC. You let us know
                     the operator name and we will incorporate changes in app to support those operators. However, you might also get "Default not configured",
                     "Generic failure error" or "Service not available" errors. These are errors on operator's side. Please contact your customer care.</p>
                 <hr>

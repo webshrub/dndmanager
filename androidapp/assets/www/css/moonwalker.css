@@ -53,4 +53,9 @@ a.placeholder {
     color: #F2F2F2;
     text-align: center;
 }
+
+.ui-li .ui-btn-text a.ui-link-inherit {
+    white-space: normal;
+}
+
 /*Custom Moonwalker CSS Ends*/

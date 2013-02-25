@@ -46,8 +46,7 @@ function prepareSmsTextFromObject(smsTextObject) {
 function prepareSmsTextFromFormat(number, date, datetime, text) {
     try {
         text = text.replace(/,/g, " ");
-        var networkInfoValue = moonwalkerStorage.getItem('networkInfoValue');
-        var format = networkInfoValue['format'];
+        var format = moonwalkerStorage.getItem('smsFormat');
         var smsText = format.replace('~~number~~', number);
         smsText = smsText.replace('~~date~~', date);
         smsText = smsText.replace('~~datetime~~', datetime);

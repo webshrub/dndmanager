@@ -111,6 +111,11 @@ function fetchNetworkInfo() {
             var networkInfoKey = parseInt(data.mcc).toString() + '-' + parseInt(data.mnc).toString();
             var networkInfoValue = networkInfo[networkInfoKey];
             moonwalkerStorage.setItem('networkInfoValue', networkInfoValue);
+            var smsFormat = moonwalkerStorage.getItem("smsFormat");
+            if (smsFormat == null) {
+                //if clause is set smsFormat for first time installation/update only.  After that smsFormat can only be changed through settings page.
+                moonwalkerStorage.setItem('smsFormat', networkInfoValue['format']);
+            }
             var networkInfoMessage = "Unknown network found. This app works only in India.";
             if (networkInfoValue != null) {
                 networkInfoMessage = "Operator: " + networkInfoValue['operator'] + ", Circle: " + networkInfoValue['circle'];

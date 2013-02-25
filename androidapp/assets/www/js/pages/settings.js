@@ -1,5 +1,14 @@
 //createSpinner("res/lib/jquerymobile/images/ajax-loader.gif");
 $("#settings").die("pageinit").live("pageinit", function (event, ui) {
+    var smsFormat = moonwalkerStorage.getItem("smsFormat");
+    $('#smsFormat option[data-format="' + smsFormat + '"]').attr('selected', 'selected');
+    $('#smsFormat').selectmenu('refresh');
+
+    $("#smsFormat").change(function (event, ui) {
+        var smsFormat = $(this).find('option:selected').attr('data-format');
+        moonwalkerStorage.setItem("smsFormat", smsFormat);
+    });
+
     var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
     $("#deleteSmsToggleButton").val(deleteSMSFlag).slider("refresh");
 

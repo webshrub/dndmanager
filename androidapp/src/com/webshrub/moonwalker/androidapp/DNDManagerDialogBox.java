@@ -15,8 +15,6 @@ import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.TRAI_CONTAC
 public class DNDManagerDialogBox extends FragmentActivity {
     private ViewPager viewPager;
     private DNDManagerItemPagerAdapter pagerAdapter;
-    private Button cancelButton;
-    private Button reportSpamButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,9 +23,9 @@ public class DNDManagerDialogBox extends FragmentActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new DNDManagerItemPagerAdapter(this, getContactLogFlag());
         viewPager.setAdapter(pagerAdapter);
-        cancelButton = (Button) findViewById(R.id.cancel);
+        Button cancelButton = (Button) findViewById(R.id.cancel);
         cancelButton.setOnClickListener(new CancelButtonOnClickListener());
-        reportSpamButton = (Button) findViewById(R.id.reportSpam);
+        Button reportSpamButton = (Button) findViewById(R.id.reportSpam);
         reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener());
     }
 

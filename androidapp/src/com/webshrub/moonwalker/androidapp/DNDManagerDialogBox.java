@@ -66,7 +66,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
             }
             viewPager.setCurrentItem(pageIndex);
             if (pageIndex < 0) {
-                reportSpamButton.setEnabled(false);
+                finish();
             }
         }
 

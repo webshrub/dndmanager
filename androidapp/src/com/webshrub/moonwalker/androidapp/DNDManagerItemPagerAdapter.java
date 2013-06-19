@@ -97,6 +97,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
             while (cursor.moveToNext()) {
                 String name = getContact(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ADDRESS_COLUMN)));
                 if (name.equals("")) {
+                    dndManagerItem.setItemType(DNDManagerItemType.SMS);
                     dndManagerItem.setId(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ID_COLUMN)));
                     dndManagerItem.setNumber(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ADDRESS_COLUMN)));
                     dndManagerItem.setCachedName(DNDManagerConstants.UNKNOWN_COLUMN);
@@ -106,6 +107,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
                     dndManagerItemList.add(dndManagerItem);
                     dndManagerItem = new DNDManagerItem();
                 } else if (contactLogFlag) {
+                    dndManagerItem.setItemType(DNDManagerItemType.SMS);
                     dndManagerItem.setId(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ID_COLUMN)));
                     dndManagerItem.setNumber(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ADDRESS_COLUMN)));
                     dndManagerItem.setCachedName(name);
@@ -175,6 +177,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
                     cursor.moveToFirst();
                     do {
                         if (cursor.getString(5) == null) {
+                            callLogItem.setItemType(DNDManagerItemType.CALL);
                             callLogItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(0))));
                             callLogItem.setDateTime(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(0))));
                             callLogItem.setNumber(cursor.getString(1));
@@ -187,6 +190,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
                             callLogList.add(callLogItem);
                             callLogItem = new DNDManagerItem();
                         } else if (contactLogFlag) {
+                            callLogItem.setItemType(DNDManagerItemType.CALL);
                             callLogItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(0))));
                             callLogItem.setDate(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(0))));
                             callLogItem.setNumber(cursor.getString(1));

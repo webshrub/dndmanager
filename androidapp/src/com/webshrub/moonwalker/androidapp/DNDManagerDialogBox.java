@@ -1,6 +1,9 @@
 package com.webshrub.moonwalker.androidapp;
 
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.telephony.SmsManager;
@@ -10,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.TRAI_CONTACT_NUMBER;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.*;
 
 public class DNDManagerDialogBox extends FragmentActivity {
     private ViewPager viewPager;
@@ -42,6 +45,9 @@ public class DNDManagerDialogBox extends FragmentActivity {
             String shortDescription = DNDManagerUtil.stripText(dndManagerItem.getText());
             String messageText = DNDManagerUtil.getMessageText(number, dateTime, shortDescription);
             sendSMS(TRAI_CONTACT_NUMBER, messageText);
+            if (!getDeleteSentSMSFlag()) {
+                saveSentSms(TRAI_CONTACT_NUMBER, messageText);
+            }
             if (getDeleteDNDManagerItemFlag()) {
                 deleteDNDManagerItem(viewPager.getCurrentItem());
             }
@@ -54,9 +60,26 @@ public class DNDManagerDialogBox extends FragmentActivity {
             SmsManager.getDefault().sendMultipartTextMessage(number, null, messages, null, null);
         }
 
+        private void saveSentSms(String phoneNumber, String message) {
+            ContentValues values = new ContentValues();
+            values.put(ADDRESS, phoneNumber);
+            values.put(DATE, System.currentTimeMillis());
+            values.put(READ, 1);
+            values.put(STATUS, -1);
+            values.put(TYPE, 2);
+            values.put(BODY, message);
+            getContentResolver().insert(Uri.parse("content://sms"), values);
+        }
+
         private void deleteDNDManagerItem(int position) {
             viewPager.setAdapter(null);
-            pagerAdapter.removeDNDManagerItem(position);
+            DNDManagerItem removedItem = pagerAdapter.removeDNDManagerItem(position);
+            DNDManagerItemType itemType = removedItem.getItemType();
+            if (itemType.equals(DNDManagerItemType.CALL)) {
+                deleteCallLogByNumber(removedItem.getNumber());
+            } else {
+                deleteSmsByNumber(removedItem.getNumber());
+            }
             viewPager.setAdapter(pagerAdapter);
             int pageIndex = position;
             if (pageIndex == pagerAdapter.getCount()) {
@@ -65,6 +88,24 @@ public class DNDManagerDialogBox extends FragmentActivity {
             viewPager.setCurrentItem(pageIndex);
             if (pageIndex < 0) {
                 finish();
+            }
+        }
+
+        public void deleteCallLogByNumber(String number) {
+            try {
+                String queryString = CallLog.Calls.NUMBER + " = '" + number + "'";
+                getContentResolver().delete(CallLog.Calls.CONTENT_URI, queryString, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void deleteSmsByNumber(String number) {
+            try {
+                String queryString = "address" + " = '" + number + "'";
+                getContentResolver().delete(Uri.parse("content://sms"), queryString, null);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

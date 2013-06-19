@@ -22,6 +22,7 @@ public class DNDManagerItem implements Comparable<DNDManagerItem> {
     private int cachedNumberType;
     private String text;
     private String id;
+    private DNDManagerItemType itemType;
 
     public String getId() {
         return id;
@@ -101,6 +102,14 @@ public class DNDManagerItem implements Comparable<DNDManagerItem> {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public DNDManagerItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(DNDManagerItemType itemType) {
+        this.itemType = itemType;
     }
 
     @Override

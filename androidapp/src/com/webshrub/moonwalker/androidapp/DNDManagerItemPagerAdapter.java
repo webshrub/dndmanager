@@ -60,8 +60,9 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
         View layout = ((Activity) context).getLayoutInflater().inflate(R.layout.message_item_details, view, false);
-        EditText messageTextView = (EditText) layout.findViewById(R.id.messageText);
-        messageTextView.setText(dndManagerItems.get(position).getText());
+        EditText messageText = (EditText) layout.findViewById(R.id.messageText);
+        messageText.setText(dndManagerItems.get(position).getText());
+        messageText.setTag(dndManagerItems.get(position).getDateTime());
         view.addView(layout, 0);
         return layout;
     }

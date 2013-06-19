@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class DNDManagerDialogBox extends FragmentActivity {
         cancelButton.setOnClickListener(new CancelButtonOnClickListener());
         Button reportSpamButton = (Button) findViewById(R.id.reportSpam);
         reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener());
+        if (pagerAdapter.getCount() == 0) {
+            reportSpamButton.setEnabled(false);
+        }
     }
 
     private boolean getContactLogFlag() {
@@ -42,17 +46,24 @@ public class DNDManagerDialogBox extends FragmentActivity {
             DNDManagerItem dndManagerItem = pagerAdapter.getDNDManagerItem(viewPager.getCurrentItem());
             String number = dndManagerItem.getNumber();
             String dateTime = dndManagerItem.getDateTime();
-            String shortDescription = DNDManagerUtil.stripText(dndManagerItem.getText());
-            String messageText = DNDManagerUtil.getMessageText(number, dateTime, shortDescription);
-            sendSMS(TRAI_CONTACT_NUMBER, messageText);
-            if (!getDeleteSentSMSFlag()) {
-                saveSentSms(TRAI_CONTACT_NUMBER, messageText);
+            EditText editText = (EditText) viewPager.findViewWithTag(dateTime);
+            String messageText = editText.getText().toString().trim();
+            if (messageText.equals("")) {
+                Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Please type short description of the call/spam your received.", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                messageText = DNDManagerUtil.stripText(messageText);
+                messageText = DNDManagerUtil.getMessageText(number, dateTime, messageText);
+                sendSMS(TRAI_CONTACT_NUMBER, messageText);
+                if (!getDeleteSentSMSFlag()) {
+                    saveSentSms(TRAI_CONTACT_NUMBER, messageText);
+                }
+                if (getDeleteDNDManagerItemFlag()) {
+                    deleteDNDManagerItem(viewPager.getCurrentItem());
+                }
+                Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Your request has been submitted successfully.", Toast.LENGTH_SHORT);
+                toast.show();
             }
-            if (getDeleteDNDManagerItemFlag()) {
-                deleteDNDManagerItem(viewPager.getCurrentItem());
-            }
-            Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Your request has been submitted successfully.", Toast.LENGTH_SHORT);
-            toast.show();
         }
 
         private void sendSMS(String number, String message) {
@@ -114,7 +125,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
         }
 
         private boolean getDeleteSentSMSFlag() {
-            return true;
+            return false;
         }
     }
 

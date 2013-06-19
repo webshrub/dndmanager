@@ -11,7 +11,7 @@ import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import java.util.*;
 
@@ -38,7 +38,9 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         String limiter = String.valueOf(limitDate.getTime());
         dndManagerItems = getCallListing(limiter, contactLogFlag);
         dndManagerItems.addAll(getSMSListing(limiter, contactLogFlag));
-        Collections.sort(dndManagerItems);
+        if (dndManagerItems.size() > 0) {
+            Collections.sort(dndManagerItems);
+        }
     }
 
     @Override
@@ -57,11 +59,11 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
-        View imageLayout = ((Activity) context).getLayoutInflater().inflate(R.layout.message_item_details, view, false);
-        TextView messageTextView = (TextView) imageLayout.findViewById(R.id.messageTextView);
+        View layout = ((Activity) context).getLayoutInflater().inflate(R.layout.message_item_details, view, false);
+        EditText messageTextView = (EditText) layout.findViewById(R.id.messageText);
         messageTextView.setText(dndManagerItems.get(position).getText());
-        view.addView(imageLayout, 0);
-        return imageLayout;
+        view.addView(layout, 0);
+        return layout;
     }
 
     @Override

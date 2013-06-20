@@ -65,7 +65,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         from.setText(dndManagerItem.getCachedName() + " (" + dndManagerItem.getNumber() + ")");
         EditText shortDescription = (EditText) layout.findViewById(R.id.shortDescription);
         shortDescription.setText(dndManagerItem.getText());
-        shortDescription.setHighlightColor(0);
+        shortDescription.selectAll();
         shortDescription.setTag(dndManagerItem.getDateTime());
         EditText messageText = (EditText) layout.findViewById(R.id.messageText);
         messageText.setText(dndManagerItem.getText());

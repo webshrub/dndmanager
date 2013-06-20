@@ -33,6 +33,9 @@ public class DNDManagerDialogBox extends FragmentActivity {
         reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener());
         if (pagerAdapter.getCount() == 0) {
             reportSpamButton.setEnabled(false);
+            Toast.makeText(DNDManagerDialogBox.this, "Hurray! No spam calls/sms in your inbox.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(DNDManagerDialogBox.this, "Showing only last 3 day's calls and sms as per TRAI guidelines.", Toast.LENGTH_SHORT).show();
         }
     }
 

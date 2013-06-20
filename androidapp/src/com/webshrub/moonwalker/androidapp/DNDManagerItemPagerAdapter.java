@@ -11,6 +11,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.*;
 
@@ -58,10 +59,16 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
+        DNDManagerItem dndManagerItem = dndManagerItems.get(position);
         View layout = ((Activity) context).getLayoutInflater().inflate(R.layout.message_item_details, view, false);
+        TextView from = (TextView) layout.findViewById(R.id.from);
+        from.setText(dndManagerItem.getCachedName() + " (" + dndManagerItem.getNumber() + ")");
+        EditText shortDescription = (EditText) layout.findViewById(R.id.shortDescription);
+        shortDescription.setText(dndManagerItem.getText());
+        shortDescription.setHighlightColor(0);
+        shortDescription.setTag(dndManagerItem.getDateTime());
         EditText messageText = (EditText) layout.findViewById(R.id.messageText);
-        messageText.setText(dndManagerItems.get(position).getText());
-        messageText.setTag(dndManagerItems.get(position).getDateTime());
+        messageText.setText(dndManagerItem.getText());
         view.addView(layout, 0);
         return layout;
     }

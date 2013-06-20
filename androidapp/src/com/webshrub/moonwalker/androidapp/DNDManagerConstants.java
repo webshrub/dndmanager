@@ -14,6 +14,8 @@ public class DNDManagerConstants {
     public static final String UNKNOWN_COLUMN = "Unknown";
     public static final String ADDRESS = "address";
     public static final String DATE = "date";
+    public static final String NUMBER = "number";
+    public static final String CACHED_NAME = "name";
     public static final String READ = "read";
     public static final String STATUS = "status";
     public static final String TYPE = "type";

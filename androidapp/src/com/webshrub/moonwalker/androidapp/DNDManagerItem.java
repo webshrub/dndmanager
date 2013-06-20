@@ -15,22 +15,9 @@ public class DNDManagerItem implements Comparable<DNDManagerItem> {
     private String date;
     private String dateTime;
     private String number;
-    private int type;
-    private long duration;
-    private int newFlag;
     private String cachedName;
-    private int cachedNumberType;
     private String text;
-    private String id;
     private DNDManagerItemType itemType;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getDate() {
         return date;
@@ -56,44 +43,12 @@ public class DNDManagerItem implements Comparable<DNDManagerItem> {
         this.number = number;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(long duration) {
-        this.duration = duration;
-    }
-
-    public int getNewFlag() {
-        return newFlag;
-    }
-
-    public void setNewFlag(int newFlag) {
-        this.newFlag = newFlag;
-    }
-
     public String getCachedName() {
         return cachedName;
     }
 
     public void setCachedName(String cachedName) {
         this.cachedName = cachedName;
-    }
-
-    public int getCachedNumberType() {
-        return cachedNumberType;
-    }
-
-    public void setCachedNumberType(int cachedNumberType) {
-        this.cachedNumberType = cachedNumberType;
     }
 
     public String getText() {

@@ -65,14 +65,22 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         View layout = ((Activity) context).getLayoutInflater().inflate(R.layout.message_item_details, view, false);
         TextView from = (TextView) layout.findViewById(R.id.from);
         from.setText(dndManagerItem.getCachedName() + " (" + dndManagerItem.getNumber() + ")");
-        EditText shortDescription = (EditText) layout.findViewById(R.id.shortDescription);
+        final EditText shortDescription = (EditText) layout.findViewById(R.id.shortDescription);
         shortDescription.setText(dndManagerItem.getText());
-        shortDescription.setSelection(dndManagerItem.getText().length());
-        shortDescription.extendSelection(0);
-        EditText messageText = (EditText) layout.findViewById(R.id.messageText);
+        final EditText messageText = (EditText) layout.findViewById(R.id.messageText);
         messageText.setText(DNDManagerUtil.getMessageText(dndManagerItem.getNumber(), dndManagerItem.getDateTime(), dndManagerItem.getText()));
         messageText.setTag(dndManagerItem.getDateTime());
         shortDescription.addTextChangedListener(new DNDManagerMessageTextWatcher(dndManagerItem, shortDescription, messageText));
+        if (dndManagerItem.getItemType().equals(DNDManagerItemType.CALL)) {
+            shortDescription.setSelection(dndManagerItem.getText().length());
+            shortDescription.extendSelection(0);
+            shortDescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    shortDescription.setText("");
+                }
+            });
+        }
         view.addView(layout, 0);
         return layout;
     }

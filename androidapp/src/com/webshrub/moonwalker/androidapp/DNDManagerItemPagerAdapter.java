@@ -65,21 +65,16 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         View layout = ((Activity) context).getLayoutInflater().inflate(R.layout.message_item_details, view, false);
         TextView from = (TextView) layout.findViewById(R.id.from);
         from.setText(dndManagerItem.getCachedName() + " (" + dndManagerItem.getNumber() + ")");
-        final EditText shortDescription = (EditText) layout.findViewById(R.id.shortDescription);
+        EditText shortDescription = (EditText) layout.findViewById(R.id.shortDescription);
         shortDescription.setText(dndManagerItem.getText());
-        final EditText messageText = (EditText) layout.findViewById(R.id.messageText);
+        EditText messageText = (EditText) layout.findViewById(R.id.messageText);
         messageText.setText(DNDManagerUtil.getMessageText(dndManagerItem.getNumber(), dndManagerItem.getDateTime(), dndManagerItem.getText()));
         messageText.setTag(dndManagerItem.getDateTime());
         shortDescription.addTextChangedListener(new DNDManagerMessageTextWatcher(dndManagerItem, shortDescription, messageText));
         if (dndManagerItem.getItemType().equals(DNDManagerItemType.CALL)) {
             shortDescription.setSelection(dndManagerItem.getText().length());
             shortDescription.extendSelection(0);
-            shortDescription.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    shortDescription.setText("");
-                }
-            });
+            shortDescription.setOnClickListener(new DNDManagerDescriptionOnClickListener(shortDescription));
         }
         view.addView(layout, 0);
         return layout;
@@ -226,6 +221,19 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
             String message = DNDManagerUtil.stripText(shortDescription.getText().toString());
             message = DNDManagerUtil.getMessageText(dndManagerItem.getNumber(), dndManagerItem.getDateTime(), message);
             messageText.setText(message);
+        }
+    }
+
+    private static class DNDManagerDescriptionOnClickListener implements View.OnClickListener {
+        private EditText shortDescription;
+
+        public DNDManagerDescriptionOnClickListener(EditText shortDescription) {
+            this.shortDescription = shortDescription;
+        }
+
+        @Override
+        public void onClick(View view) {
+            shortDescription.setText("");
         }
     }
 }

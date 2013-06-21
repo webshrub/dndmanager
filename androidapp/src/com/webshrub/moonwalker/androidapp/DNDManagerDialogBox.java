@@ -35,7 +35,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
             reportSpamButton.setEnabled(false);
             Toast.makeText(DNDManagerDialogBox.this, "Hurray! No spam calls/sms in your inbox.", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(DNDManagerDialogBox.this, "Showing only last 3 day's calls and sms as per TRAI guidelines.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DNDManagerDialogBox.this, "Showing only last 3 day's calls and sms as per TRAI guidelines.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -52,7 +52,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
             EditText editText = (EditText) viewPager.findViewWithTag(dateTime);
             String messageText = editText.getText().toString().trim();
             if (messageText.equals("")) {
-                Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Please type short description of the call/spam your received.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Please type short description of the call/spam your received.", Toast.LENGTH_LONG);
                 toast.show();
             } else {
                 messageText = DNDManagerUtil.stripText(messageText);
@@ -64,7 +64,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 if (getDeleteDNDManagerItemFlag()) {
                     deleteDNDManagerItem(viewPager.getCurrentItem());
                 }
-                Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Your request has been submitted successfully.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Your request has been submitted successfully.", Toast.LENGTH_LONG);
                 toast.show();
             }
         }

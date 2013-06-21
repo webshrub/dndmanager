@@ -8,12 +8,8 @@ public class DNDManagerUtil {
         return input.substring(0, 115);
     }
 
-    public static String getMessageFormat() {
-        return "COMP TEL NO {number};{dateTime};{shortDescription}";
-    }
-
     public static String getMessageText(String number, String dateTime, String shortDescription) {
-        String messageText = getMessageFormat().replaceAll("\\{number\\}", number);
+        String messageText = DNDManagerHtmlHelper.getMessageFormat().replaceAll("\\{number\\}", number);
         messageText = messageText.replaceAll("\\{dateTime\\}", dateTime);
         messageText = messageText.replaceAll("\\{shortDescription\\}", shortDescription);
         return messageText;

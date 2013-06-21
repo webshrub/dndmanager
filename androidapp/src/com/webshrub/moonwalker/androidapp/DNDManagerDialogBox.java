@@ -25,7 +25,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialogbox);
         viewPager = (ViewPager) findViewById(R.id.pager);
-        pagerAdapter = new DNDManagerItemPagerAdapter(this, getContactLogFlag());
+        pagerAdapter = new DNDManagerItemPagerAdapter(this, DNDManagerHtmlHelper.getContactLogFlag());
         viewPager.setAdapter(pagerAdapter);
         Button cancelButton = (Button) findViewById(R.id.cancel);
         cancelButton.setOnClickListener(new CancelButtonOnClickListener());
@@ -37,10 +37,6 @@ public class DNDManagerDialogBox extends FragmentActivity {
         } else {
             Toast.makeText(DNDManagerDialogBox.this, "Showing only last 3 day's calls and sms as per TRAI guidelines.", Toast.LENGTH_LONG).show();
         }
-    }
-
-    private boolean getContactLogFlag() {
-        return true;
     }
 
     private class ReportSpamButtonOnClickListener implements View.OnClickListener {
@@ -55,10 +51,10 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 toast.show();
             } else {
                 sendSMS(TRAI_CONTACT_NUMBER, messageText);
-                if (!getDeleteSentSMSFlag()) {
+                if (!DNDManagerHtmlHelper.getDeleteSentSMSFlag()) {
                     saveSentSms(TRAI_CONTACT_NUMBER, messageText);
                 }
-                if (getDeleteDNDManagerItemFlag()) {
+                if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag()) {
                     deleteDNDManagerItem(viewPager.getCurrentItem());
                 }
                 Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Your request has been submitted successfully.", Toast.LENGTH_LONG);
@@ -120,13 +116,6 @@ public class DNDManagerDialogBox extends FragmentActivity {
             }
         }
 
-        private boolean getDeleteDNDManagerItemFlag() {
-            return true;
-        }
-
-        private boolean getDeleteSentSMSFlag() {
-            return false;
-        }
     }
 
     private class CancelButtonOnClickListener implements View.OnClickListener {

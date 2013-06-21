@@ -175,7 +175,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
                 callLogItem.setNumber(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.NUMBER)));
                 callLogItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DNDManagerConstants.DATE)))));
                 callLogItem.setDateTime(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DNDManagerConstants.DATE)))));
-                callLogItem.setText(" <Please write calling company name here before sending>");
+                callLogItem.setText("<Please write calling company name here before sending>");
                 callLogList.add(callLogItem);
                 callLogItem = new DNDManagerItem();
             }

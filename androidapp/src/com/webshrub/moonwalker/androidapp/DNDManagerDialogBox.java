@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.viewpagerindicator.UnderlinePageIndicator;
+
 import java.util.ArrayList;
 
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.*;
@@ -27,6 +29,9 @@ public class DNDManagerDialogBox extends FragmentActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new DNDManagerItemPagerAdapter(this, DNDManagerHtmlHelper.getContactLogFlag());
         viewPager.setAdapter(pagerAdapter);
+        UnderlinePageIndicator pageIndicator = (UnderlinePageIndicator) findViewById(R.id.titles);
+        pageIndicator.setViewPager(viewPager);
+        pageIndicator.setFades(false);
         Button cancelButton = (Button) findViewById(R.id.cancel);
         cancelButton.setOnClickListener(new CancelButtonOnClickListener());
         Button reportSpamButton = (Button) findViewById(R.id.reportSpam);

@@ -47,7 +47,6 @@ public class DNDManagerDialogBox extends FragmentActivity {
         @Override
         public void onClick(View view) {
             DNDManagerItem dndManagerItem = pagerAdapter.getDNDManagerItem(viewPager.getCurrentItem());
-            String number = dndManagerItem.getNumber();
             String dateTime = dndManagerItem.getDateTime();
             EditText editText = (EditText) viewPager.findViewWithTag(dateTime);
             String messageText = editText.getText().toString().trim();
@@ -55,8 +54,6 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Please type short description of the call/spam your received.", Toast.LENGTH_LONG);
                 toast.show();
             } else {
-                messageText = DNDManagerUtil.stripText(messageText);
-                messageText = DNDManagerUtil.getMessageText(number, dateTime, messageText);
                 sendSMS(TRAI_CONTACT_NUMBER, messageText);
                 if (!getDeleteSentSMSFlag()) {
                     saveSentSms(TRAI_CONTACT_NUMBER, messageText);

@@ -8,6 +8,8 @@ import android.os.Parcelable;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.support.v4.view.PagerAdapter;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -66,9 +68,10 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         EditText shortDescription = (EditText) layout.findViewById(R.id.shortDescription);
         shortDescription.setText(dndManagerItem.getText());
         shortDescription.selectAll();
-        shortDescription.setTag(dndManagerItem.getDateTime());
         EditText messageText = (EditText) layout.findViewById(R.id.messageText);
-        messageText.setText(dndManagerItem.getText());
+        messageText.setText(DNDManagerUtil.getMessageText(dndManagerItem.getNumber(), dndManagerItem.getDateTime(), dndManagerItem.getText()));
+        messageText.setTag(dndManagerItem.getDateTime());
+        shortDescription.addTextChangedListener(new DNDManagerMessageTextWatcher(dndManagerItem, shortDescription, messageText));
         view.addView(layout, 0);
         return layout;
     }
@@ -186,5 +189,34 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
 
     public DNDManagerItem getDNDManagerItem(int position) {
         return dndManagerItems.get(position);
+    }
+
+    private static class DNDManagerMessageTextWatcher implements TextWatcher {
+        private DNDManagerItem dndManagerItem;
+        private EditText shortDescription;
+        private EditText messageText;
+
+        public DNDManagerMessageTextWatcher(DNDManagerItem dndManagerItem, EditText shortDescription, EditText messageText) {
+            this.dndManagerItem = dndManagerItem;
+            this.shortDescription = shortDescription;
+            this.messageText = messageText;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String message = DNDManagerUtil.stripText(shortDescription.getText().toString());
+            message = DNDManagerUtil.getMessageText(dndManagerItem.getNumber(), dndManagerItem.getDateTime(), message);
+            messageText.setText(message);
+        }
     }
 }

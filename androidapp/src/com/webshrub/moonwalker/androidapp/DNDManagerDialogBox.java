@@ -49,7 +49,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
             case REPORT_SPAM_DIALOG: {
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.dialogbox);
-                dialog.setCancelable(true);
+                dialog.setCancelable(false);
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.setTitle("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
                 viewPager = (ViewPager) dialog.findViewById(R.id.pager);

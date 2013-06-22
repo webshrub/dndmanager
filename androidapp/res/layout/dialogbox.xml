@@ -11,7 +11,7 @@
             android:layout_weight="1"/>
 
     <com.viewpagerindicator.UnderlinePageIndicator
-            android:id="@+id/titles"
+            android:id="@+id/pageIndicator"
             android:layout_height="2dp"
             android:layout_width="fill_parent"/>
 

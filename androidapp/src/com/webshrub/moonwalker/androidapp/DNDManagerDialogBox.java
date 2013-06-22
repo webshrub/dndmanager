@@ -1,5 +1,6 @@
 package com.webshrub.moonwalker.androidapp;
 
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,31 +18,57 @@ import com.viewpagerindicator.UnderlinePageIndicator;
 
 import java.util.ArrayList;
 
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.*;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.ADDRESS;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.BODY;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.DATE;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.READ;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.STATUS;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.TRAI_CONTACT_NUMBER;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.TYPE;
 
 public class DNDManagerDialogBox extends FragmentActivity {
+    private static final int REPORT_SPAM_DIALOG = 0;
     private ViewPager viewPager;
     private DNDManagerItemPagerAdapter pagerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialogbox);
-        viewPager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new DNDManagerItemPagerAdapter(this, DNDManagerHtmlHelper.getContactLogFlag());
-        viewPager.setAdapter(pagerAdapter);
-        UnderlinePageIndicator pageIndicator = (UnderlinePageIndicator) findViewById(R.id.titles);
-        pageIndicator.setViewPager(viewPager);
-        pageIndicator.setFades(false);
-        Button cancelButton = (Button) findViewById(R.id.cancel);
-        cancelButton.setOnClickListener(new CancelButtonOnClickListener());
-        Button reportSpamButton = (Button) findViewById(R.id.reportSpam);
-        reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener());
         if (pagerAdapter.getCount() == 0) {
-            reportSpamButton.setEnabled(false);
             Toast.makeText(DNDManagerDialogBox.this, "Hurray! No spam calls/sms in your inbox.", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(DNDManagerDialogBox.this, "Showing only last 3 day's calls and sms as per TRAI guidelines.", Toast.LENGTH_LONG).show();
+        }
+        showDialog(REPORT_SPAM_DIALOG);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case REPORT_SPAM_DIALOG: {
+                Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.dialogbox);
+                dialog.setCancelable(true);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setTitle("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
+                viewPager = (ViewPager) dialog.findViewById(R.id.pager);
+                viewPager.setAdapter(pagerAdapter);
+                UnderlinePageIndicator pageIndicator = (UnderlinePageIndicator) dialog.findViewById(R.id.pageIndicator);
+                pageIndicator.setViewPager(viewPager);
+                pageIndicator.setFades(false);
+                viewPager.setOnPageChangeListener(new DNDManagerOnPageChangeListener(dialog));
+                Button reportSpamButton = (Button) dialog.findViewById(R.id.reportSpam);
+                if (pagerAdapter.getCount() == 0) {
+                    reportSpamButton.setEnabled(false);
+                } else {
+                    reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener());
+                }
+                dialog.findViewById(R.id.cancel).setOnClickListener(new CancelButtonOnClickListener());
+                return dialog;
+            }
+            default:
+                return null;
         }
     }
 
@@ -120,13 +148,34 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
     private class CancelButtonOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             finish();
+        }
+    }
+
+    private class DNDManagerOnPageChangeListener implements ViewPager.OnPageChangeListener {
+        private Dialog dialog;
+
+        public DNDManagerOnPageChangeListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            int currentIndex = position + 1;
+            dialog.setTitle("DND Manager " + "(Showing " + currentIndex + "/" + pagerAdapter.getCount() + ")");
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
         }
     }
 }

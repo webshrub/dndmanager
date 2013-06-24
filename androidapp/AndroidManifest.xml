@@ -53,6 +53,7 @@
         <activity
                 android:name="com.webshrub.moonwalker.androidapp.DNDManagerDialogBox"
                 android:label="@string/app_name"
+                android:exported="true"
                 android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
         </activity>
     </application>

@@ -116,6 +116,8 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
                     dndManagerItem.setCachedName(DNDManagerConstants.UNKNOWN_COLUMN);
                 } else if (contactLogFlag) {
                     dndManagerItem.setCachedName(name);
+                } else {
+                    continue;
                 }
                 dndManagerItem.setItemType(DNDManagerItemType.SMS);
                 dndManagerItem.setNumber(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ADDRESS_COLUMN)));
@@ -141,10 +143,12 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         DNDManagerItem callLogItem = new DNDManagerItem();
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                if (cursor.getString(2) == null) {
+                if (cursor.getString(cursor.getColumnIndex(DNDManagerConstants.CACHED_NAME)) == null) {
                     callLogItem.setCachedName(DNDManagerConstants.UNKNOWN_COLUMN);
                 } else if (contactLogFlag) {
                     callLogItem.setCachedName(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.CACHED_NAME)));
+                } else {
+                    continue;
                 }
                 callLogItem.setItemType(DNDManagerItemType.CALL);
                 callLogItem.setNumber(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.NUMBER)));

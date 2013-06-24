@@ -57,7 +57,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 UnderlinePageIndicator pageIndicator = (UnderlinePageIndicator) dialog.findViewById(R.id.pageIndicator);
                 pageIndicator.setViewPager(viewPager);
                 pageIndicator.setFades(false);
-                viewPager.setOnPageChangeListener(new DNDManagerOnPageChangeListener(dialog));
+                pageIndicator.setOnPageChangeListener(new DNDManagerOnPageChangeListener(dialog));
                 Button reportSpamButton = (Button) dialog.findViewById(R.id.reportSpam);
                 if (pagerAdapter.getCount() == 0) {
                     reportSpamButton.setEnabled(false);

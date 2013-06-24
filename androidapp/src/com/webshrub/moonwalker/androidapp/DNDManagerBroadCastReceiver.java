@@ -7,15 +7,27 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Zia khalid
- * Date: 4/9/13
- * Time: 10:14 AM
- */
-public class DNDManagerSmsBroadCastReceiver extends BroadcastReceiver {
+public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
+    private static final String ANDROID_PROVIDER_TELEPHONY_SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
+    private static final String ANDROID_INTENT_ACTION_PHONE_STATE = "android.intent.action.PHONE_STATE";
+
+    @Override
     public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        if (action != null && action.equals("")) {
+            if (action.equals(ANDROID_PROVIDER_TELEPHONY_SMS_RECEIVED)) {
+                buildNotification(context);
+            } else if (action.equals(ANDROID_INTENT_ACTION_PHONE_STATE)) {
+                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                telephonyManager.listen(new DNDManagerPhoneStateListener(context), PhoneStateListener.LISTEN_CALL_STATE);
+            }
+        }
+    }
+
+    public void buildNotification(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             Intent notificationIntent = new Intent(context, DNDManagerDialogBox.class);
@@ -33,6 +45,23 @@ public class DNDManagerSmsBroadCastReceiver extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
             notification.setLatestEventInfo(context, "DND Manager", "You have spam calls and sms in your inbox. Report now?", pendingIntent);
             notificationManager.notify(1, notification);
+        }
+    }
+
+    private class DNDManagerPhoneStateListener extends PhoneStateListener {
+        private Context context;
+
+        public DNDManagerPhoneStateListener(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onCallStateChanged(int state, String incomingNumber) {
+            switch (state) {
+                case TelephonyManager.CALL_STATE_RINGING:
+                    buildNotification(context);
+                    break;
+            }
         }
     }
 }

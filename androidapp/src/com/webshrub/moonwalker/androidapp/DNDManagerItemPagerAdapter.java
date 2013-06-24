@@ -15,7 +15,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_FORMAT;
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT;
@@ -226,14 +232,19 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
 
     private static class DNDManagerDescriptionOnClickListener implements View.OnClickListener {
         private EditText shortDescription;
+        private int textEraseCount;
 
         public DNDManagerDescriptionOnClickListener(EditText shortDescription) {
             this.shortDescription = shortDescription;
+            this.textEraseCount = 0;
         }
 
         @Override
         public void onClick(View view) {
-            shortDescription.setText("");
+            if (textEraseCount == 0) {
+                shortDescription.setText("");
+                textEraseCount = 1;
+            }
         }
     }
 }

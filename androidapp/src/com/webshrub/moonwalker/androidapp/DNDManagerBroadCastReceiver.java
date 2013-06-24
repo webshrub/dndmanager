@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
@@ -22,8 +21,11 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
                 String incomingNumber = DNDManagerUtil.getIncomingNumberFromSms(intent);
                 checkAndShowNotification(context, incomingNumber);
             } else if (action.equals(ANDROID_INTENT_ACTION_PHONE_STATE)) {
-                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                telephonyManager.listen(new DNDManagerPhoneStateListener(context), PhoneStateListener.LISTEN_CALL_STATE);
+                String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+                String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
+                    checkAndShowNotification(context, incomingNumber);
+                }
             }
         }
     }
@@ -56,23 +58,6 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
             notification.setLatestEventInfo(context, "DND Manager", "You have spam calls and sms in your inbox. Report now?", pendingIntent);
             notificationManager.notify(1, notification);
-        }
-    }
-
-    private class DNDManagerPhoneStateListener extends PhoneStateListener {
-        private Context context;
-
-        public DNDManagerPhoneStateListener(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void onCallStateChanged(int state, String incomingNumber) {
-            switch (state) {
-                case TelephonyManager.CALL_STATE_RINGING:
-                    checkAndShowNotification(context, incomingNumber);
-                    break;
-            }
         }
     }
 }

@@ -2,6 +2,7 @@ package com.webshrub.moonwalker.androidapp;
 
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
@@ -49,7 +50,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
             case REPORT_SPAM_DIALOG: {
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.dialogbox);
-                dialog.setCancelable(false);
+                dialog.setOnCancelListener(new DNDManagerOnCancelListener());
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.setTitle("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
                 viewPager = (ViewPager) dialog.findViewById(R.id.pager);
@@ -176,6 +177,14 @@ public class DNDManagerDialogBox extends FragmentActivity {
 
         @Override
         public void onPageScrollStateChanged(int state) {
+        }
+    }
+
+    private class DNDManagerOnCancelListener implements DialogInterface.OnCancelListener {
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            removeDialog(REPORT_SPAM_DIALOG);
+            finish();
         }
     }
 }

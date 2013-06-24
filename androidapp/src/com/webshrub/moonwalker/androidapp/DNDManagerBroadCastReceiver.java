@@ -17,13 +17,24 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if (action != null && action.equals("")) {
+        if (action != null && !action.equals("")) {
             if (action.equals(ANDROID_PROVIDER_TELEPHONY_SMS_RECEIVED)) {
-                buildNotification(context);
+                String incomingNumber = DNDManagerUtil.getIncomingNumberFromSms(intent);
+                checkAndShowNotification(context, incomingNumber);
             } else if (action.equals(ANDROID_INTENT_ACTION_PHONE_STATE)) {
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 telephonyManager.listen(new DNDManagerPhoneStateListener(context), PhoneStateListener.LISTEN_CALL_STATE);
             }
+        }
+    }
+
+
+    public void checkAndShowNotification(Context context, String incomingNumber) {
+        String contactName = DNDManagerUtil.getContactName(context, incomingNumber);
+        if (contactName.equals("")) {
+            buildNotification(context);
+        } else if (DNDManagerHtmlHelper.getContactLogFlag()) {
+            buildNotification(context);
         }
     }
 
@@ -59,7 +70,7 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
         public void onCallStateChanged(int state, String incomingNumber) {
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
-                    buildNotification(context);
+                    checkAndShowNotification(context, incomingNumber);
                     break;
             }
         }

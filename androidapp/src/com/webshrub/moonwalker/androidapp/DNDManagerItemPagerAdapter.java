@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.provider.CallLog;
-import android.provider.ContactsContract;
 import android.support.v4.view.PagerAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,9 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_FORMAT;
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT;
@@ -35,7 +32,6 @@ import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE
 class DNDManagerItemPagerAdapter extends PagerAdapter {
     private Context context;
     private List<DNDManagerItem> dndManagerItems;
-    private Map<String, String> contactMap = new HashMap<String, String>();
 
     public DNDManagerItemPagerAdapter(Context context, boolean contactLogFlag) {
         this.context = context;
@@ -115,7 +111,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         DNDManagerItem dndManagerItem = new DNDManagerItem();
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                String name = getContact(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ADDRESS_COLUMN)));
+                String name = DNDManagerUtil.getContactName(context, cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ADDRESS_COLUMN)));
                 if (name.equals("")) {
                     dndManagerItem.setCachedName(DNDManagerConstants.UNKNOWN_COLUMN);
                 } else if (contactLogFlag) {
@@ -132,36 +128,6 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
             cursor.close();
         }
         return dndManagerItemList;
-    }
-
-    private String getContact(String number) {
-        String returnName = "";
-        try {
-            String[] projection = new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME, ContactsContract.PhoneLookup.NUMBER};
-            String selection = ContactsContract.PhoneLookup.NUMBER + "=?";
-            String[] selectionArgs = new String[]{number};
-            String sortOrder = null;
-            if (contactMap.get(number) != null) {
-                returnName = contactMap.get(number);
-                return returnName;
-            } else {
-                Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-                Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-                if (cursor != null) {
-                    if (cursor.getCount() > 0) {
-                        cursor.moveToFirst();
-                        returnName = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                        contactMap.put(number, returnName);
-                    }
-                }
-            }
-            if (returnName != null && returnName.equals("")) {
-                contactMap.put(number, returnName);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return returnName;
     }
 
     private List<DNDManagerItem> getCallListing(String limiter, boolean contactLogFlag) {

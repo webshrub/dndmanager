@@ -54,8 +54,9 @@
                 android:textColor="#362B25"
                 android:textSize="18sp"
 
-                android:layout_width="240dp"
-                android:layout_height="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/cancel_button_shape"
                 android:shadowColor="#f6f6f6"
                 android:shadowDx="0"
@@ -69,8 +70,9 @@
                 android:textColor="#3F4613"
                 android:textSize="18sp"
 
-                android:layout_width="240dp"
-                android:layout_height="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/send_button_shape"
                 android:shadowColor="#eeeeee"
                 android:shadowDx="0"

@@ -11,8 +11,10 @@ import android.support.v4.view.ViewPager;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.viewpagerindicator.UnderlinePageIndicator;
@@ -48,11 +50,12 @@ public class DNDManagerDialogBox extends FragmentActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case REPORT_SPAM_DIALOG: {
-                Dialog dialog = new Dialog(this);
+                Dialog dialog = new Dialog(this, R.style.dialog);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialogbox);
                 dialog.setOnCancelListener(new DNDManagerOnCancelListener());
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.setTitle("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
+                ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
                 viewPager = (ViewPager) dialog.findViewById(R.id.pager);
                 viewPager.setAdapter(pagerAdapter);
                 UnderlinePageIndicator pageIndicator = (UnderlinePageIndicator) dialog.findViewById(R.id.pageIndicator);
@@ -66,6 +69,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                     reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener());
                 }
                 dialog.findViewById(R.id.cancel).setOnClickListener(new CancelButtonOnClickListener());
+                dialog.findViewById(R.id.cancel_title).setOnClickListener(new CancelButtonOnClickListener());
                 return dialog;
             }
             default:
@@ -172,7 +176,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
         @Override
         public void onPageSelected(int position) {
             int currentIndex = position + 1;
-            dialog.setTitle("DND Manager " + "(Showing " + currentIndex + "/" + pagerAdapter.getCount() + ")");
+            ((TextView) (dialog.findViewById(R.id.title))).setText("DND Manager " + "(Showing " + currentIndex + "/" + pagerAdapter.getCount() + ")");
         }
 
         @Override

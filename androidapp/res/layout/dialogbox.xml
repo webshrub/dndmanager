@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            style="@style/titlebar"
+            >
+
+        <Button
+                android:id="@+id/cancel_title"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/round_button"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/close"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:layout_marginLeft="10dp"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/title"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                style="@style/title"
+                />
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="220dp"
             android:layout_weight="1"/>
 
     <com.viewpagerindicator.UnderlinePageIndicator
@@ -17,23 +44,39 @@
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
         <Button
                 android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Cancel"
-                android:layout_marginBottom="5dp"/>
+                android:text="@string/cancel"
+                android:textColor="#362B25"
+                android:textSize="18sp"
+
+                android:layout_width="240dp"
+                android:layout_height="45dp"
+                android:background="@drawable/cancel_button_shape"
+                android:shadowColor="#f6f6f6"
+                android:shadowDx="0"
+                android:shadowDy="1"
+                android:shadowRadius="5"
+                android:layout_margin="10dp"/>
 
         <Button
                 android:id="@+id/reportSpam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Report Spam"
-                android:layout_marginBottom="5dp"
-                />
+                android:text="@string/send"
+                android:textColor="#3F4613"
+                android:textSize="18sp"
+
+                android:layout_width="240dp"
+                android:layout_height="45dp"
+                android:background="@drawable/send_button_shape"
+                android:shadowColor="#eeeeee"
+                android:shadowDx="0"
+                android:shadowDy="1"
+                android:shadowRadius="5"
+                android:layout_margin="10dp"/>
     </LinearLayout>
+
 </LinearLayout>

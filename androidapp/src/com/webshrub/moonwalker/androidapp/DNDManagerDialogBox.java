@@ -55,7 +55,11 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 dialog.setContentView(R.layout.dialogbox);
                 dialog.setOnCancelListener(new DNDManagerOnCancelListener());
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
+                if (pagerAdapter.getCount() == 0) {
+                    ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  0/0)");
+                } else {
+                    ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
+                }
                 viewPager = (ViewPager) dialog.findViewById(R.id.pager);
                 viewPager.setAdapter(pagerAdapter);
                 UnderlinePageIndicator pageIndicator = (UnderlinePageIndicator) dialog.findViewById(R.id.pageIndicator);

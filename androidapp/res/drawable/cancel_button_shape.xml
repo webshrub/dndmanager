@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-       android:shape="rectangle">
-    <corners
-            android:radius="20dp"
-            />
-    <solid
-            android:color="#F7F7EA"
-            />
-    <padding
-            android:left="0dp"
-            android:top="0dp"
-            android:right="0dp"
-            android:bottom="0dp"
-            />
-    <size
-            android:width="240dp"
-            android:height="45dp"
-            />
-    <stroke
-            android:width="1dp"
-            android:color="#979C6D"
-            />
-</shape>
+<selector
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners
+                    android:radius="20dp"
+                    />
+            <solid
+                    android:color="#EAEDD8"
+                    />
+            <size android:height="45dp" android:width="240dp"/>
+            <stroke
+                    android:width="1dp"
+                    android:color="#94A176"
+                    />
+        </shape>
+    </item>
+
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <corners
+                    android:radius="20dp"
+                    />
+            <solid
+                    android:color="#fff"
+                    />
+            <size android:height="45dp" android:width="240dp"/>
+            <stroke
+                    android:width="1dp"
+                    android:color="#99a249"
+                    />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <corners
+                    android:radius="20dp"
+                    />
+            <solid
+                    android:color="#F7F7EA"
+                    />
+            <size android:height="45dp" android:width="240dp"/>
+            <stroke
+                    android:width="1dp"
+                    android:color="#979c6d"
+                    />
+        </shape>
+    </item>
+</selector>

@@ -66,6 +66,7 @@ var moonwalkerStorage = {
             value = JSON.stringify(value);
         }
         localStorage.setItem(key, value);
+        new SettingsPlugin().set(key,value, function(){},function(){});
     },
     getItem:function (key) {
         var value = localStorage.getItem(key);

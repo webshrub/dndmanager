@@ -3,6 +3,7 @@ package com.webshrub.moonwalker.androidapp;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
@@ -39,9 +40,9 @@ public class DNDManagerDialogBox extends FragmentActivity {
         super.onCreate(savedInstanceState);
         pagerAdapter = new DNDManagerItemPagerAdapter(this, DNDManagerHtmlHelper.getContactLogFlag());
         if (pagerAdapter.getCount() == 0) {
-            Toast.makeText(DNDManagerDialogBox.this, "Hurray! No spam calls/sms in your inbox.", Toast.LENGTH_LONG).show();
+            toastMessage("Hurray! No spam calls/sms in your inbox.");
         } else {
-            Toast.makeText(DNDManagerDialogBox.this, "Showing only last 3 day's calls and sms as per TRAI guidelines.", Toast.LENGTH_LONG).show();
+            toastMessage("Showing only last 3 day's calls and sms as per TRAI guidelines.");
         }
         showDialog(REPORT_SPAM_DIALOG);
     }
@@ -81,6 +82,15 @@ public class DNDManagerDialogBox extends FragmentActivity {
         }
     }
 
+    private void toastMessage(String toastMessage) {
+        Toast toast = Toast.makeText(DNDManagerDialogBox.this, toastMessage, Toast.LENGTH_LONG);
+        View view = toast.getView();
+        view.setBackgroundResource(R.drawable.toast_background);
+        TextView textView = (TextView) view.findViewById(android.R.id.message);
+        textView.setTextColor(Color.BLACK);
+        toast.show();
+    }
+
     private class ReportSpamButtonOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -89,8 +99,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
             EditText editText = (EditText) viewPager.findViewWithTag(dateTime);
             String messageText = editText.getText().toString().trim();
             if (messageText.equals("")) {
-                Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Please type short description of the call/spam your received.", Toast.LENGTH_LONG);
-                toast.show();
+                toastMessage("Please type short description of the call/spam your received.");
             } else {
                 sendSMS(TRAI_CONTACT_NUMBER, messageText);
                 if (!DNDManagerHtmlHelper.getDeleteSentSMSFlag()) {
@@ -99,8 +108,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag()) {
                     deleteDNDManagerItem(viewPager.getCurrentItem());
                 }
-                Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Your request has been submitted successfully.", Toast.LENGTH_LONG);
-                toast.show();
+                toastMessage("Your request has been submitted successfully.");
             }
         }
 

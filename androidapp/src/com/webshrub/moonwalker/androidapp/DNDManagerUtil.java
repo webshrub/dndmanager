@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.SmsMessage;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_FORMAT;
+import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT;
 
 public class DNDManagerUtil {
     private static Map<String, String> contactMap = new HashMap<String, String>();
@@ -21,11 +25,17 @@ public class DNDManagerUtil {
         return input.substring(0, 115);
     }
 
-    public static String getMessageText(String number, String dateTime, String shortDescription) {
-        String messageText = DNDManagerHtmlHelper.getMessageFormat().replaceAll("\\{number\\}", number);
-        messageText = messageText.replaceAll("\\{dateTime\\}", dateTime);
-        messageText = messageText.replaceAll("\\{shortDescription\\}", shortDescription);
-        return messageText;
+    public static String getMessageText(Context context, String number, String dateTime, String shortDescription) {
+        try {
+            String messageText = DNDManagerHtmlHelper.getMessageFormat(context).replaceAll("~~number~~", number);
+            messageText = messageText.replaceAll("~~date~~", SIMPLE_DATE_FORMAT.format(SIMPLE_DATE_TIME_FORMAT.parse(dateTime)));
+            messageText = messageText.replaceAll("~~datetime~~", dateTime);
+            messageText = messageText.replaceAll("~~text~~", shortDescription);
+            return messageText;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public static String getIncomingNumberFromSms(Intent intent) {

@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_FORMAT;
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT;
 
 /**
@@ -70,9 +69,9 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         EditText shortDescription = (EditText) layout.findViewById(R.id.shortDescription);
         shortDescription.setText(dndManagerItem.getText());
         EditText messageText = (EditText) layout.findViewById(R.id.messageText);
-        messageText.setText(DNDManagerUtil.getMessageText(dndManagerItem.getNumber(), dndManagerItem.getDateTime(), dndManagerItem.getText()));
+        messageText.setText(DNDManagerUtil.getMessageText(context, dndManagerItem.getNumber(), dndManagerItem.getDateTime(), dndManagerItem.getText()));
         messageText.setTag(dndManagerItem.getDateTime());
-        shortDescription.addTextChangedListener(new DNDManagerMessageTextWatcher(dndManagerItem, shortDescription, messageText));
+        shortDescription.addTextChangedListener(new DNDManagerMessageTextWatcher(context, dndManagerItem, shortDescription, messageText));
         if (dndManagerItem.getItemType().equals(DNDManagerItemType.CALL)) {
             shortDescription.setSelection(dndManagerItem.getText().length());
             shortDescription.extendSelection(0);
@@ -121,7 +120,6 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
                 }
                 dndManagerItem.setItemType(DNDManagerItemType.SMS);
                 dndManagerItem.setNumber(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.ADDRESS_COLUMN)));
-                dndManagerItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DNDManagerConstants.DATE_COLUMN)))));
                 dndManagerItem.setDateTime(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DNDManagerConstants.DATE_COLUMN)))));
                 dndManagerItem.setText(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.BODY_COLUMN)));
                 dndManagerItemList.add(dndManagerItem);
@@ -152,7 +150,6 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
                 }
                 callLogItem.setItemType(DNDManagerItemType.CALL);
                 callLogItem.setNumber(cursor.getString(cursor.getColumnIndex(DNDManagerConstants.NUMBER)));
-                callLogItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DNDManagerConstants.DATE)))));
                 callLogItem.setDateTime(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DNDManagerConstants.DATE)))));
                 callLogItem.setText("<Please write calling company name here before sending>");
                 callLogList.add(callLogItem);
@@ -172,11 +169,13 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
     }
 
     private static class DNDManagerMessageTextWatcher implements TextWatcher {
+        private Context context;
         private DNDManagerItem dndManagerItem;
         private EditText shortDescription;
         private EditText messageText;
 
-        public DNDManagerMessageTextWatcher(DNDManagerItem dndManagerItem, EditText shortDescription, EditText messageText) {
+        public DNDManagerMessageTextWatcher(Context context, DNDManagerItem dndManagerItem, EditText shortDescription, EditText messageText) {
+            this.context = context;
             this.dndManagerItem = dndManagerItem;
             this.shortDescription = shortDescription;
             this.messageText = messageText;
@@ -195,7 +194,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         @Override
         public void afterTextChanged(Editable editable) {
             String message = DNDManagerUtil.stripText(shortDescription.getText().toString());
-            message = DNDManagerUtil.getMessageText(dndManagerItem.getNumber(), dndManagerItem.getDateTime(), message);
+            message = DNDManagerUtil.getMessageText(context, dndManagerItem.getNumber(), dndManagerItem.getDateTime(), message);
             messageText.setText(message);
         }
     }

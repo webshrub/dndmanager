@@ -37,7 +37,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pagerAdapter = new DNDManagerItemPagerAdapter(this, DNDManagerHtmlHelper.getContactLogFlag());
+        pagerAdapter = new DNDManagerItemPagerAdapter(this, DNDManagerHtmlHelper.getContactLogFlag(this));
         if (pagerAdapter.getCount() == 0) {
             Toast.makeText(DNDManagerDialogBox.this, "Hurray! No spam calls/sms in your inbox.", Toast.LENGTH_LONG).show();
         } else {
@@ -93,10 +93,10 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 toast.show();
             } else {
                 sendSMS(TRAI_CONTACT_NUMBER, messageText);
-                if (!DNDManagerHtmlHelper.getDeleteSentSMSFlag()) {
+                if (!DNDManagerHtmlHelper.getDeleteSentSMSFlag(DNDManagerDialogBox.this)) {
                     saveSentSms(TRAI_CONTACT_NUMBER, messageText);
                 }
-                if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag()) {
+                if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag(DNDManagerDialogBox.this)) {
                     deleteDNDManagerItem(viewPager.getCurrentItem());
                 }
                 Toast toast = Toast.makeText(DNDManagerDialogBox.this, "Your request has been submitted successfully.", Toast.LENGTH_LONG);

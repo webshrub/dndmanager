@@ -81,7 +81,7 @@ var moonwalkerStorage = {
     }
 };
 if (moonwalkerStorage.getItem("deleteSMSFlag") == null) {
-    moonwalkerStorage.setItem("deleteSMSFlag", "off");
+    moonwalkerStorage.setItem("deleteSMSFlag", "on");
 }
 if (moonwalkerStorage.getItem("deleteSentSMSFlag") == null) {
     moonwalkerStorage.setItem("deleteSentSMSFlag", "off");

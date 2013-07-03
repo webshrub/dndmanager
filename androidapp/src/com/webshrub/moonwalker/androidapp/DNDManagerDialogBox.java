@@ -10,6 +10,8 @@ import android.provider.CallLog;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.telephony.SmsManager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -83,11 +85,14 @@ public class DNDManagerDialogBox extends FragmentActivity {
     }
 
     private void toastMessage(String toastMessage) {
-        Toast toast = Toast.makeText(DNDManagerDialogBox.this, toastMessage, Toast.LENGTH_LONG);
-        View view = toast.getView();
-        view.setBackgroundResource(R.drawable.toast_background);
-        TextView textView = (TextView) view.findViewById(android.R.id.message);
+        Toast toast = new Toast(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View toastRoot = inflater.inflate(R.layout.toast, null);
+        toast.setView(toastRoot);
+        TextView textView = (TextView) toastRoot.findViewById(R.id.toastMessage);
+        textView.setText(toastMessage);
         textView.setTextColor(Color.BLACK);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
     }
 

@@ -8,7 +8,7 @@ public class DNDManagerHtmlHelper {
     public static final String CONTACT_LOG_FLAG_KEY = "contactLogFlag";
     public static final String CONTACT_LOG_FLAG_DEFAULT_VALUE = "off";
     public static final String DELETE_SMS_FLAG_KEY = "deleteSMSFlag";
-    public static final String DELETE_SMS_FLAG_DEFAULT_VALUE = "off";
+    public static final String DELETE_SMS_FLAG_DEFAULT_VALUE = "on";
     public static final String DELETE_SENT_SMS_FLAG_KEY = "deleteSentSMSFlag";
     public static final String DELETE_SENT_SMS_FLAG_DEFAULT_VALUE = "off";
     public static final String SMS_FORMAT_KEY = "smsFormat";

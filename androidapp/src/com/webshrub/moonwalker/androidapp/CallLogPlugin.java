@@ -7,6 +7,7 @@ import android.provider.CallLog;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.util.Log;
+
 import org.apache.cordova.api.Plugin;
 import org.apache.cordova.api.PluginResult;
 import org.apache.cordova.api.PluginResult.Status;
@@ -178,6 +179,8 @@ public class CallLogPlugin extends Plugin {
                     }
                 } while (callLogCursor.moveToNext());
                 callLog.put("rows", callLogItems);
+            } else {
+                callLog.put("rows", new JSONArray());
             }
 
             callLogCursor.close();

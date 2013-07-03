@@ -93,6 +93,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
         textView.setText(toastMessage);
         textView.setTextColor(Color.BLACK);
         toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
     }
 

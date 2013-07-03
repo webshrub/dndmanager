@@ -49,14 +49,14 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
             Notification notification = new Notification.Builder(context)
                     .setSmallIcon(R.drawable.dnd_icon)
                     .setContentTitle("DND Manager")
-                    .setContentText("You have spam calls and sms in your inbox. Report now?")
+                    .setContentText("Got spam calls/sms! Report to TRAI.")
                     .setContentIntent(pendingIntent).build();
             notificationManager.notify(notificationId, notification);
         } else {
-            Notification notification = new Notification(R.drawable.dnd_icon, "You have spam calls and sms in your inbox. Report now?", System.currentTimeMillis());
+            Notification notification = new Notification(R.drawable.dnd_icon, "Got spam calls/sms! Report to TRAI.", System.currentTimeMillis());
             Intent notificationIntent = new Intent(context, DNDManagerDialogBox.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-            notification.setLatestEventInfo(context, "DND Manager", "You have spam calls and sms in your inbox. Report now?", pendingIntent);
+            notification.setLatestEventInfo(context, "DND Manager", "Got spam calls/sms! Report to TRAI.", pendingIntent);
             notificationManager.notify(1, notification);
         }
     }

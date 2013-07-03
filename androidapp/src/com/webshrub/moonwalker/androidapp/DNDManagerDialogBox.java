@@ -71,7 +71,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 if (pagerAdapter.getCount() == 0) {
                     reportSpamButton.setEnabled(false);
                 } else {
-                    reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener());
+                    reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener(dialog));
                 }
                 dialog.findViewById(R.id.cancel).setOnClickListener(new CancelButtonOnClickListener());
                 dialog.findViewById(R.id.cancel_title).setOnClickListener(new CancelButtonOnClickListener());
@@ -92,6 +92,12 @@ public class DNDManagerDialogBox extends FragmentActivity {
     }
 
     private class ReportSpamButtonOnClickListener implements View.OnClickListener {
+        private Dialog dialog;
+
+        public ReportSpamButtonOnClickListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+
         @Override
         public void onClick(View view) {
             DNDManagerItem dndManagerItem = pagerAdapter.getDNDManagerItem(viewPager.getCurrentItem());
@@ -107,6 +113,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 }
                 if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag(DNDManagerDialogBox.this)) {
                     deleteDNDManagerItem(viewPager.getCurrentItem());
+                    ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  " + (viewPager.getCurrentItem() + 1) + "/" + pagerAdapter.getCount() + ")");
                 }
                 toastMessage("Your request has been submitted successfully.");
             }

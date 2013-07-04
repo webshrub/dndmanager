@@ -16,7 +16,6 @@ import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT;
 
 public class DNDManagerUtil {
-    private static Map<String, String> contactMap = new HashMap<String, String>();
 
     public static String stripText(String input) {
         if (input.length() < 115) {
@@ -58,22 +57,13 @@ public class DNDManagerUtil {
             String selection = ContactsContract.PhoneLookup.NUMBER + "=?";
             String[] selectionArgs = new String[]{number};
             String sortOrder = null;
-            if (contactMap.get(number) != null) {
-                returnName = contactMap.get(number);
-                return returnName;
-            } else {
-                Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-                Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-                if (cursor != null) {
-                    if (cursor.getCount() > 0) {
-                        cursor.moveToFirst();
-                        returnName = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                        contactMap.put(number, returnName);
-                    }
+            Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+            Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+            if (cursor != null) {
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    returnName = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
                 }
-            }
-            if (returnName != null && returnName.equals("")) {
-                contactMap.put(number, returnName);
             }
         } catch (Exception e) {
             e.printStackTrace();

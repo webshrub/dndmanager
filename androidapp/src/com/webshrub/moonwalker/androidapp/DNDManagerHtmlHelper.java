@@ -23,7 +23,7 @@ public class DNDManagerHtmlHelper {
     public static boolean getDeleteDNDManagerItemFlag(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String deleteSMSFLag = sharedPreferences.getString(DELETE_SMS_FLAG_KEY, DELETE_SMS_FLAG_DEFAULT_VALUE);
-        return !deleteSMSFLag.equals(DELETE_SMS_FLAG_DEFAULT_VALUE);
+        return deleteSMSFLag.equals(DELETE_SMS_FLAG_DEFAULT_VALUE);
     }
 
     public static boolean getDeleteSentSMSFlag(Context context) {

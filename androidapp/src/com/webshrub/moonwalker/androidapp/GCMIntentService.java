@@ -23,7 +23,6 @@ import android.content.Intent;
 import com.google.android.gcm.GCMBaseIntentService;
 import com.phonegap.plugins.pushnotifications.gcm.PushEventsTransmitter;
 import com.phonegap.plugins.pushnotifications.gcm.PushManager;
-import com.webshrub.moonwalker.androidapp.R;
 
 /**
  * IntentService responsible for handling GCM messages.

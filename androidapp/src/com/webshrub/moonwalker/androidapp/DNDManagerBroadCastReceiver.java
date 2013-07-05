@@ -6,7 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 
 public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
@@ -40,24 +40,20 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
         }
     }
 
-    public void buildNotification(Context context) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            Intent notificationIntent = new Intent(context, DNDManagerDialogBox.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-            int notificationId = 1;
-            Notification notification = new Notification.Builder(context)
-                    .setSmallIcon(R.drawable.dnd_icon)
-                    .setContentTitle("DND Manager")
-                    .setContentText("Got spam calls/sms! Report to TRAI.")
-                    .setContentIntent(pendingIntent).build();
-            notificationManager.notify(notificationId, notification);
-        } else {
-            Notification notification = new Notification(R.drawable.dnd_icon, "Got spam calls/sms! Report to TRAI.", System.currentTimeMillis());
-            Intent notificationIntent = new Intent(context, DNDManagerDialogBox.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-            notification.setLatestEventInfo(context, "DND Manager", "Got spam calls/sms! Report to TRAI.", pendingIntent);
-            notificationManager.notify(1, notification);
-        }
+    public static void buildNotification(Context context) {
+        NotificationManager mgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent notificationIntent = new Intent(context, DNDManagerDialogBox.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle("DND Manager")
+                .setContentText("Got spam calls/sms! Report to TRAI.")
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.drawable.dnd_icon)
+                .setTicker("Got spam calls/sms! Report to TRAI.")
+                .setPriority(Notification.PRIORITY_HIGH);
+        mgr.notify(1337, builder.build());
     }
 }

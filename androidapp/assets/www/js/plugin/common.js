@@ -89,6 +89,9 @@ if (moonwalkerStorage.getItem("deleteSentSMSFlag") == null) {
 if (moonwalkerStorage.getItem("contactLogFlag") == null) {
     moonwalkerStorage.setItem("contactLogFlag", "off");
 }
+if (moonwalkerStorage.getItem("showNotificationFlag") == null) {
+    moonwalkerStorage.setItem("showNotificationFlag", "on");
+}
 
 if (moonwalkerStorage.getItem("networkInfo") == null) {
     var networkInfo = new Object();

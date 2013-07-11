@@ -29,4 +29,11 @@ $("#settings").die("pageinit").live("pageinit", function (event, ui) {
     $("#contactLogToggleButton").change(function (event, ui) {
         moonwalkerStorage.setItem("contactLogFlag", $(this).val());
     });
+
+    var showNotificationFlag = moonwalkerStorage.getItem("showNotificationFlag");
+    $("#showNotificationToggleButton").val(showNotificationFlag).slider("refresh");
+
+    $("#showNotificationToggleButton").change(function (event, ui) {
+        moonwalkerStorage.setItem("showNotificationFlag", $(this).val());
+    });
 });

@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 public class DNDManagerHtmlHelper {
     public static final String CONTACT_LOG_FLAG_KEY = "contactLogFlag";
     public static final String CONTACT_LOG_FLAG_DEFAULT_VALUE = "off";
+    public static final String SHOW_NOTIFICATION_FLAG_KEY = "showNotificationFlag";
+    public static final String SHOW_NOTIFICATION_FLAG_DEFAULT_VALUE = "on";
     public static final String DELETE_SMS_FLAG_KEY = "deleteSMSFlag";
     public static final String DELETE_SMS_FLAG_DEFAULT_VALUE = "on";
     public static final String DELETE_SENT_SMS_FLAG_KEY = "deleteSentSMSFlag";
@@ -18,6 +20,12 @@ public class DNDManagerHtmlHelper {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String contactLogFLag = sharedPreferences.getString(CONTACT_LOG_FLAG_KEY, CONTACT_LOG_FLAG_DEFAULT_VALUE);
         return !contactLogFLag.equals(CONTACT_LOG_FLAG_DEFAULT_VALUE);
+    }
+
+    public static boolean getShowNotificationFlag(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String showNotificationFLag = sharedPreferences.getString(SHOW_NOTIFICATION_FLAG_KEY, SHOW_NOTIFICATION_FLAG_DEFAULT_VALUE);
+        return showNotificationFLag.equals(SHOW_NOTIFICATION_FLAG_DEFAULT_VALUE);
     }
 
     public static boolean getDeleteDNDManagerItemFlag(Context context) {

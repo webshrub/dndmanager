@@ -1,7 +1,6 @@
 package com.webshrub.moonwalker.androidapp;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -11,7 +10,6 @@ import java.util.Date;
  * Time: 3:26 PM
  */
 public class DNDManagerItem implements Comparable<DNDManagerItem> {
-    private static final SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("dd/MM/yy;kk:mm");
     private String date;
     private String dateTime;
     private String number;
@@ -70,8 +68,8 @@ public class DNDManagerItem implements Comparable<DNDManagerItem> {
     @Override
     public int compareTo(DNDManagerItem item) {
         try {
-            Date date1 = SIMPLE_DATE_TIME_FORMAT.parse(dateTime);
-            Date date2 = SIMPLE_DATE_TIME_FORMAT.parse(item.getDateTime());
+            Date date1 = DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT.parse(dateTime);
+            Date date2 = DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT.parse(item.getDateTime());
             return date2.compareTo(date1);
         } catch (ParseException e) {
             e.printStackTrace();

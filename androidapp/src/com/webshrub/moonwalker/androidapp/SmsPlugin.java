@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.CallLog;
 import android.telephony.SmsManager;
+
 import org.apache.cordova.api.Plugin;
 import org.apache.cordova.api.PluginResult;
 import org.apache.cordova.api.PluginResult.Status;
@@ -13,20 +14,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class SmsPlugin extends Plugin {
-    public final String ACTION_SEND_SMS = "SendSMS";
-    public final String CALL = "call";
-    public final String SMS = "sms";
-    public final String ON = "on";
-    public final String OFF = "off";
-    public static final String ADDRESS = "address";
-    public static final String PERSON = "person";
-    public static final String DATE = "date";
-    public static final String READ = "read";
-    public static final String STATUS = "status";
-    public static final String TYPE = "type";
-    public static final String BODY = "body";
-    public static final int MESSAGE_TYPE_INBOX = 1;
-    public static final int MESSAGE_TYPE_SENT = 2;
+    private static final String ACTION_SEND_SMS = "SendSMS";
+    private static final String CALL = "call";
+    private static final String SMS = "sms";
+    private static final String ON = "on";
+    private static final String OFF = "off";
+    private static final String ADDRESS = "address";
+    private static final String DATE = "date";
+    private static final String READ = "read";
+    private static final String STATUS = "status";
+    private static final String TYPE = "type";
+    private static final String BODY = "body";
 
     @Override
     public PluginResult execute(String action, JSONArray arg1, String callbackId) {

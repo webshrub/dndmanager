@@ -40,7 +40,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pagerAdapter = new DNDManagerItemPagerAdapter(this, DNDManagerHtmlHelper.getContactLogFlag(this));
+        pagerAdapter = new DNDManagerItemPagerAdapter(this);
         if (pagerAdapter.getCount() == 0) {
             toastMessage("Hurray! No spam calls/sms in your inbox.");
         } else {

@@ -2,6 +2,7 @@ package com.webshrub.moonwalker.androidapp;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+
 import org.apache.cordova.api.Plugin;
 import org.apache.cordova.api.PluginResult;
 import org.json.JSONArray;
@@ -12,8 +13,8 @@ public class CellularNetworkPlugin extends Plugin {
 
     @Override
     public PluginResult execute(String action, JSONArray data, String callbackId) {
-        JSONObject messages = getOperatorInfo();
-        return new PluginResult(PluginResult.Status.OK, messages);
+        JSONObject operatorInfo = getOperatorInfo();
+        return new PluginResult(PluginResult.Status.OK, operatorInfo);
     }
 
 

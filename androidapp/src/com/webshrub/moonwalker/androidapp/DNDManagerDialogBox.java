@@ -1,15 +1,11 @@
 package com.webshrub.moonwalker.androidapp;
 
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CallLog;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.telephony.SmsManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +18,7 @@ import android.widget.Toast;
 
 import com.viewpagerindicator.UnderlinePageIndicator;
 
-import java.util.ArrayList;
-
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.ADDRESS;
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.BODY;
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.DATE;
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.READ;
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.STATUS;
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.TRAI_CONTACT_NUMBER;
-import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.TYPE;
 
 public class DNDManagerDialogBox extends FragmentActivity {
     private static final int REPORT_SPAM_DIALOG = 0;
@@ -113,9 +101,9 @@ public class DNDManagerDialogBox extends FragmentActivity {
             if (messageText.equals("")) {
                 toastMessage("Please type short description of the call/spam your received.");
             } else {
-                sendSMS(TRAI_CONTACT_NUMBER, messageText);
+                DNDManagerUtil.sendSMS(DNDManagerDialogBox.this, TRAI_CONTACT_NUMBER, messageText);
                 if (!DNDManagerHtmlHelper.getDeleteSentSMSFlag(DNDManagerDialogBox.this)) {
-                    saveSentSms(TRAI_CONTACT_NUMBER, messageText);
+                    DNDManagerUtil.saveSentSms(DNDManagerDialogBox.this, TRAI_CONTACT_NUMBER, messageText);
                 }
                 if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag(DNDManagerDialogBox.this)) {
                     deleteDNDManagerItem(viewPager.getCurrentItem());
@@ -125,30 +113,14 @@ public class DNDManagerDialogBox extends FragmentActivity {
             }
         }
 
-        private void sendSMS(String number, String message) {
-            ArrayList<String> messages = SmsManager.getDefault().divideMessage(message);
-            SmsManager.getDefault().sendMultipartTextMessage(number, null, messages, null, null);
-        }
-
-        private void saveSentSms(String phoneNumber, String message) {
-            ContentValues values = new ContentValues();
-            values.put(ADDRESS, phoneNumber);
-            values.put(DATE, System.currentTimeMillis());
-            values.put(READ, 1);
-            values.put(STATUS, -1);
-            values.put(TYPE, 2);
-            values.put(BODY, message);
-            getContentResolver().insert(Uri.parse("content://sms"), values);
-        }
-
         private void deleteDNDManagerItem(int position) {
             viewPager.setAdapter(null);
             DNDManagerItem removedItem = pagerAdapter.removeDNDManagerItem(position);
             DNDManagerItemType itemType = removedItem.getItemType();
             if (itemType.equals(DNDManagerItemType.CALL)) {
-                deleteCallLogByNumber(removedItem.getNumber());
+                DNDManagerUtil.deleteCallLogByNumber(DNDManagerDialogBox.this, removedItem.getNumber());
             } else {
-                deleteSmsByNumber(removedItem.getNumber());
+                DNDManagerUtil.deleteSmsByNumber(DNDManagerDialogBox.this, removedItem.getNumber());
             }
             viewPager.setAdapter(pagerAdapter);
             int pageIndex = position;
@@ -158,24 +130,6 @@ public class DNDManagerDialogBox extends FragmentActivity {
             viewPager.setCurrentItem(pageIndex);
             if (pageIndex < 0) {
                 finish();
-            }
-        }
-
-        public void deleteCallLogByNumber(String number) {
-            try {
-                String queryString = CallLog.Calls.NUMBER + " = '" + number + "'";
-                getContentResolver().delete(CallLog.Calls.CONTENT_URI, queryString, null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void deleteSmsByNumber(String number) {
-            try {
-                String queryString = "address" + " = '" + number + "'";
-                getContentResolver().delete(Uri.parse("content://sms"), queryString, null);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }

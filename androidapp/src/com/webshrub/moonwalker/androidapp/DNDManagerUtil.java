@@ -1,16 +1,18 @@
 package com.webshrub.moonwalker.androidapp;
 
+import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.provider.ContactsContract;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_FORMAT;
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT;
@@ -69,5 +71,40 @@ public class DNDManagerUtil {
             e.printStackTrace();
         }
         return returnName;
+    }
+
+    public static void sendSMS(Context context, String phoneNumber, String message) {
+        SmsManager manager = SmsManager.getDefault();
+        PendingIntent sentIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+        manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
+    }
+
+    public static void deleteCallLogByNumber(Context context, String number) {
+        try {
+            String queryString = CallLog.Calls.NUMBER + " = '" + number + "'";
+            context.getContentResolver().delete(CallLog.Calls.CONTENT_URI, queryString, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteSmsByNumber(Context context, String number) {
+        try {
+            String queryString = "address" + " = '" + number + "'";
+            context.getContentResolver().delete(Uri.parse("content://sms"), queryString, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveSentSms(Context context, String phoneNumber, String message) {
+        ContentValues values = new ContentValues();
+        values.put("address", phoneNumber);
+        values.put("date", System.currentTimeMillis());
+        values.put("read", 1);
+        values.put("status", -1);
+        values.put("type", 2);
+        values.put("body", message);
+        Uri inserted = context.getContentResolver().insert(Uri.parse("content://sms"), values);
     }
 }

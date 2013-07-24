@@ -29,11 +29,6 @@ public class DNDManagerDialogBox extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pagerAdapter = new DNDManagerItemPagerAdapter(this);
-        if (pagerAdapter.getCount() == 0) {
-            toastMessage("Hurray! No spam calls/sms in your inbox.");
-        } else {
-            toastMessage("Showing only last 3 day's calls and sms as per TRAI guidelines.");
-        }
         showDialog(REPORT_SPAM_DIALOG);
     }
 
@@ -46,11 +41,6 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 dialog.setContentView(R.layout.dialogbox);
                 dialog.setOnCancelListener(new DNDManagerOnCancelListener());
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                if (pagerAdapter.getCount() == 0) {
-                    ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  0/0)");
-                } else {
-                    ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
-                }
                 viewPager = (ViewPager) dialog.findViewById(R.id.pager);
                 viewPager.setAdapter(pagerAdapter);
                 UnderlinePageIndicator pageIndicator = (UnderlinePageIndicator) dialog.findViewById(R.id.pageIndicator);
@@ -58,13 +48,17 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 pageIndicator.setFades(false);
                 pageIndicator.setOnPageChangeListener(new DNDManagerOnPageChangeListener(dialog));
                 Button reportSpamButton = (Button) dialog.findViewById(R.id.reportSpam);
-                if (pagerAdapter.getCount() == 0) {
-                    reportSpamButton.setEnabled(false);
-                } else {
-                    reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener(dialog));
-                }
                 dialog.findViewById(R.id.cancel).setOnClickListener(new CancelButtonOnClickListener());
                 dialog.findViewById(R.id.cancel_title).setOnClickListener(new CancelButtonOnClickListener());
+                if (pagerAdapter.getCount() == 0) {
+                    ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  0/0)");
+                    dialog.findViewById(R.id.noSpamGreeting).setVisibility(View.VISIBLE);
+                    reportSpamButton.setEnabled(false);
+                } else {
+                    ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
+                    reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener(dialog));
+                    toastMessage("Showing only last 3 day's calls and sms as per TRAI guidelines.");
+                }
                 return dialog;
             }
             default:

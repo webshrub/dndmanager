@@ -48,15 +48,17 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 pageIndicator.setFades(false);
                 pageIndicator.setOnPageChangeListener(new DNDManagerOnPageChangeListener(dialog));
                 Button reportSpamButton = (Button) dialog.findViewById(R.id.reportSpam);
+                Button ignoreButton = (Button) dialog.findViewById(R.id.ignore);
                 dialog.findViewById(R.id.cancel).setOnClickListener(new CancelButtonOnClickListener());
-                dialog.findViewById(R.id.ignore).setOnClickListener(new IgnoreButtonOnClickListener());
                 if (pagerAdapter.getCount() == 0) {
                     ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  0/0)");
                     dialog.findViewById(R.id.noSpamGreeting).setVisibility(View.VISIBLE);
                     reportSpamButton.setEnabled(false);
+                    ignoreButton.setEnabled(false);
                 } else {
                     ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
                     reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener(dialog));
+                    ignoreButton.setOnClickListener(new IgnoreButtonOnClickListener());
                     toastMessage("Showing only last 3 day's calls and sms as per TRAI guidelines.");
                 }
                 return dialog;

@@ -32,7 +32,7 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
 
 
     public void checkAndShowNotification(Context context, String incomingNumber) {
-        if (DNDManagerHtmlHelper.getShowNotificationFlag(context)) {
+        if (DNDManagerHtmlHelper.getShowNotificationFlag(context) && !DNDManagerDataSource.getInstance(context).isIgnoredNumber(incomingNumber)) {
             String contactName = DNDManagerUtil.getContactName(context, incomingNumber);
             if (contactName.equals("")) {
                 buildNotification(context);

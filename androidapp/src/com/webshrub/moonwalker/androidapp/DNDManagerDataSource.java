@@ -63,6 +63,16 @@ public class DNDManagerDataSource {
         return ignoredContacts;
     }
 
+    public boolean isIgnoredNumber(String incomingNumber) {
+        Cursor cursor = database.query(TABLE_IGNORED_CONTACT, COLUMNS_IGNORED_CONTACT, COLUMN_NUMBER + "=?", new String[]{incomingNumber}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            DNDManagerIgnoredContact ignoredContact = cursorToIgnoredContact(cursor);
+            cursor.close();
+            return ignoredContact != null;
+        }
+        return false;
+    }
+
     private DNDManagerIgnoredContact cursorToIgnoredContact(Cursor cursor) {
         DNDManagerIgnoredContact ignoredContact = new DNDManagerIgnoredContact();
         ignoredContact.setId(cursor.getLong(0));

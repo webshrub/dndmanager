@@ -87,20 +87,22 @@ public class DNDManagerItemManager {
         DNDManagerItem callLogItem = new DNDManagerItem();
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                if (cursor.getString(cursor.getColumnIndex(CACHED_NAME)) == null) {
-                    callLogItem.setCachedName(UNKNOWN_COLUMN);
-                } else if (DNDManagerHtmlHelper.getContactLogFlag(context)) {
-                    callLogItem.setCachedName(cursor.getString(cursor.getColumnIndex(CACHED_NAME)));
-                } else {
-                    continue;
+                if (!DNDManagerDataSource.getInstance(context).isIgnoredNumber(cursor.getString(cursor.getColumnIndex(NUMBER)))) {
+                    if (cursor.getString(cursor.getColumnIndex(CACHED_NAME)) == null) {
+                        callLogItem.setCachedName(UNKNOWN_COLUMN);
+                    } else if (DNDManagerHtmlHelper.getContactLogFlag(context)) {
+                        callLogItem.setCachedName(cursor.getString(cursor.getColumnIndex(CACHED_NAME)));
+                    } else {
+                        continue;
+                    }
+                    callLogItem.setItemType(DNDManagerItemType.CALL);
+                    callLogItem.setNumber(cursor.getString(cursor.getColumnIndex(NUMBER)));
+                    callLogItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DATE)))));
+                    callLogItem.setDateTime(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DATE)))));
+                    callLogItem.setText("<Please write calling company name here before sending>");
+                    callLogList.add(callLogItem);
+                    callLogItem = new DNDManagerItem();
                 }
-                callLogItem.setItemType(DNDManagerItemType.CALL);
-                callLogItem.setNumber(cursor.getString(cursor.getColumnIndex(NUMBER)));
-                callLogItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DATE)))));
-                callLogItem.setDateTime(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DATE)))));
-                callLogItem.setText("<Please write calling company name here before sending>");
-                callLogList.add(callLogItem);
-                callLogItem = new DNDManagerItem();
             }
             cursor.close();
         }
@@ -118,21 +120,23 @@ public class DNDManagerItemManager {
         DNDManagerItem dndManagerItem = new DNDManagerItem();
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                String name = DNDManagerUtil.getContactName(context, cursor.getString(cursor.getColumnIndex(ADDRESS_COLUMN)));
-                if (name.equals("")) {
-                    dndManagerItem.setCachedName(UNKNOWN_COLUMN);
-                } else if (DNDManagerHtmlHelper.getContactLogFlag(context)) {
-                    dndManagerItem.setCachedName(name);
-                } else {
-                    continue;
+                if (!DNDManagerDataSource.getInstance(context).isIgnoredNumber(cursor.getString(cursor.getColumnIndex(ADDRESS_COLUMN)))) {
+                    String name = DNDManagerUtil.getContactName(context, cursor.getString(cursor.getColumnIndex(ADDRESS_COLUMN)));
+                    if (name.equals("")) {
+                        dndManagerItem.setCachedName(UNKNOWN_COLUMN);
+                    } else if (DNDManagerHtmlHelper.getContactLogFlag(context)) {
+                        dndManagerItem.setCachedName(name);
+                    } else {
+                        continue;
+                    }
+                    dndManagerItem.setItemType(DNDManagerItemType.SMS);
+                    dndManagerItem.setNumber(cursor.getString(cursor.getColumnIndex(ADDRESS_COLUMN)));
+                    dndManagerItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DATE)))));
+                    dndManagerItem.setDateTime(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DATE_COLUMN)))));
+                    dndManagerItem.setText(cursor.getString(cursor.getColumnIndex(BODY_COLUMN)));
+                    dndManagerItemList.add(dndManagerItem);
+                    dndManagerItem = new DNDManagerItem();
                 }
-                dndManagerItem.setItemType(DNDManagerItemType.SMS);
-                dndManagerItem.setNumber(cursor.getString(cursor.getColumnIndex(ADDRESS_COLUMN)));
-                dndManagerItem.setDate(SIMPLE_DATE_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DATE)))));
-                dndManagerItem.setDateTime(SIMPLE_DATE_TIME_FORMAT.format(new Date(cursor.getLong(cursor.getColumnIndex(DATE_COLUMN)))));
-                dndManagerItem.setText(cursor.getString(cursor.getColumnIndex(BODY_COLUMN)));
-                dndManagerItemList.add(dndManagerItem);
-                dndManagerItem = new DNDManagerItem();
             }
             cursor.close();
         }

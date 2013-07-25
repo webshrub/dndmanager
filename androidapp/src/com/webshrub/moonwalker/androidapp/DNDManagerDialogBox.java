@@ -58,7 +58,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 } else {
                     ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
                     reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener(dialog));
-                    ignoreButton.setOnClickListener(new IgnoreButtonOnClickListener());
+                    ignoreButton.setOnClickListener(new IgnoreButtonOnClickListener(dialog));
                     toastMessage("Showing only last 3 day's calls and sms as per TRAI guidelines.");
                 }
                 return dialog;
@@ -79,6 +79,30 @@ public class DNDManagerDialogBox extends FragmentActivity {
         toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    private DNDManagerItem removeItemFromViewPager(int position) {
+        viewPager.setAdapter(null);
+        DNDManagerItem removedItem = pagerAdapter.removeDNDManagerItem(position);
+        viewPager.setAdapter(pagerAdapter);
+        int pageIndex = position;
+        if (pageIndex == pagerAdapter.getCount()) {
+            pageIndex--;
+        }
+        viewPager.setCurrentItem(pageIndex);
+        if (pageIndex < 0) {
+            finish();
+        }
+        return removedItem;
+    }
+
+    private void deleteDNDManagerItem(DNDManagerItem removedItem) {
+        DNDManagerItemType itemType = removedItem.getItemType();
+        if (itemType.equals(DNDManagerItemType.CALL)) {
+            DNDManagerUtil.deleteCallLogByNumber(DNDManagerDialogBox.this, removedItem.getNumber());
+        } else {
+            DNDManagerUtil.deleteSmsByNumber(DNDManagerDialogBox.this, removedItem.getNumber());
+        }
     }
 
     private class ReportSpamButtonOnClickListener implements View.OnClickListener {
@@ -102,30 +126,11 @@ public class DNDManagerDialogBox extends FragmentActivity {
                     DNDManagerUtil.saveSentSms(DNDManagerDialogBox.this, TRAI_CONTACT_NUMBER, messageText);
                 }
                 if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag(DNDManagerDialogBox.this)) {
-                    deleteDNDManagerItem(viewPager.getCurrentItem());
+                    DNDManagerItem removedItem = removeItemFromViewPager(viewPager.getCurrentItem());
+                    deleteDNDManagerItem(removedItem);
                     ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  " + (viewPager.getCurrentItem() + 1) + "/" + pagerAdapter.getCount() + ")");
                 }
                 toastMessage("Your request has been submitted successfully.");
-            }
-        }
-
-        private void deleteDNDManagerItem(int position) {
-            viewPager.setAdapter(null);
-            DNDManagerItem removedItem = pagerAdapter.removeDNDManagerItem(position);
-            DNDManagerItemType itemType = removedItem.getItemType();
-            if (itemType.equals(DNDManagerItemType.CALL)) {
-                DNDManagerUtil.deleteCallLogByNumber(DNDManagerDialogBox.this, removedItem.getNumber());
-            } else {
-                DNDManagerUtil.deleteSmsByNumber(DNDManagerDialogBox.this, removedItem.getNumber());
-            }
-            viewPager.setAdapter(pagerAdapter);
-            int pageIndex = position;
-            if (pageIndex == pagerAdapter.getCount()) {
-                pageIndex--;
-            }
-            viewPager.setCurrentItem(pageIndex);
-            if (pageIndex < 0) {
-                finish();
             }
         }
     }
@@ -138,6 +143,12 @@ public class DNDManagerDialogBox extends FragmentActivity {
     }
 
     private class IgnoreButtonOnClickListener implements View.OnClickListener {
+        private Dialog dialog;
+
+        public IgnoreButtonOnClickListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+
         @Override
         public void onClick(View view) {
             DNDManagerItem dndManagerItem = pagerAdapter.getDNDManagerItem(viewPager.getCurrentItem());
@@ -145,6 +156,8 @@ public class DNDManagerDialogBox extends FragmentActivity {
             ignoredContact.setNumber(dndManagerItem.getNumber());
             ignoredContact.setCachedName(dndManagerItem.getCachedName());
             DNDManagerDataSource.getInstance(DNDManagerDialogBox.this).createIgnoredContact(ignoredContact);
+            removeItemFromViewPager(viewPager.getCurrentItem());
+            ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  " + (viewPager.getCurrentItem() + 1) + "/" + pagerAdapter.getCount() + ")");
             toastMessage("Number successfully added to ignored list. You will not receive notification for this number again.");
         }
     }

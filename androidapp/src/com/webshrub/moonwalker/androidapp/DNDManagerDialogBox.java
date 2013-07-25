@@ -49,7 +49,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                 pageIndicator.setOnPageChangeListener(new DNDManagerOnPageChangeListener(dialog));
                 Button reportSpamButton = (Button) dialog.findViewById(R.id.reportSpam);
                 dialog.findViewById(R.id.cancel).setOnClickListener(new CancelButtonOnClickListener());
-                dialog.findViewById(R.id.cancel_title).setOnClickListener(new CancelButtonOnClickListener());
+                dialog.findViewById(R.id.ignore).setOnClickListener(new IgnoreButtonOnClickListener());
                 if (pagerAdapter.getCount() == 0) {
                     ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  0/0)");
                     dialog.findViewById(R.id.noSpamGreeting).setVisibility(View.VISIBLE);
@@ -132,6 +132,18 @@ public class DNDManagerDialogBox extends FragmentActivity {
         @Override
         public void onClick(View view) {
             finish();
+        }
+    }
+
+    private class IgnoreButtonOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            DNDManagerItem dndManagerItem = pagerAdapter.getDNDManagerItem(viewPager.getCurrentItem());
+            DNDManagerIgnoredContact ignoredContact = new DNDManagerIgnoredContact();
+            ignoredContact.setNumber(dndManagerItem.getNumber());
+            ignoredContact.setCachedName(dndManagerItem.getCachedName());
+            DNDManagerDataSource.getInstance(DNDManagerDialogBox.this).createIgnoredContact(ignoredContact);
+            toastMessage("Number successfully added to ignored list. You will not receive notification for this number again.");
         }
     }
 

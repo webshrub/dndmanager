@@ -32,6 +32,7 @@
     <script type="text/javascript" src="js/plugin/smsReaderPlugin.js"></script>
     <script type="text/javascript" src="js/plugin/callLogPlugin.js"></script>
     <script type="text/javascript" src="js/plugin/cellularNetworkPlugin.js"></script>
+    <script type="text/javascript" src="js/plugin/ignoredPlugin.js"></script>
     <link href="css/category.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/pages/category.js"></script>
     <link href="css/callLog.css" rel="stylesheet" type="text/css"/>
@@ -41,6 +42,8 @@
     <link href="css/more.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/pages/more.js"></script>
     <link href="css/about.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/pages/ignored.js"></script>
+    <link href="css/ignored.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/pages/about.js"></script>
     <link href="css/settings.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/pages/settings.js"></script>
@@ -51,6 +54,7 @@
     <link href="css/confirmDialog.css" rel="stylesheet" type="text/css"/>
     <link href="css/moonwalker.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/pages/confirmDialog.js"></script>
+    <script type="text/javascript" src="js/pages/removeIgnoredDialog.js"></script>
 </head>
 
 <body>
@@ -430,8 +434,8 @@
                 data-filter-placeholder='' data-theme='a' data-divider-theme='b' data-count-theme='b'
                 style="">
                 <li class=' mobilelistitem4 '>
-                    <a href="#about" name="mobilelistitem1_8" dsid="mobilelistitem1_8" tabIndex="1" class=' mobilelistitem4 '>
-                        <h3>About</h3>
+                    <a href="#ignored" name="mobilelistitem1_8" dsid="mobilelistitem1_8" tabIndex="1" class=' mobilelistitem4 '>
+                        <h3>Ignored List</h3>
                     </a>
                 </li>
                 <li class=' mobilelistitem5 '>
@@ -469,29 +473,68 @@
                         <h3>FAQ</h3>
                     </a>
                 </li>
+                <li class=' mobilelistitem4 '>
+                    <a href="#about" dsid="mobilelistitem1_8" tabIndex="1" class=' mobilelistitem4 '>
+                        <h3>About</h3>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
-<div data-role="page" style="min-height:800px;" dsid="about" id="about" class="type-interior"
+<div data-role="page" style="min-height:800px;" dsid="ignored" id="ignored" class="type-interior"
      data-theme='a' data-add-back-btn="true" data-back-btn-text="Back">
-    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader" class='mobileHeader mobileheader7 '>
-        <h1 dsid="mobileheader"> About </h1>
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader2"
+         id="ignoredHeader" class='mobileHeader mobileheader4 '>
+        <h1 dsid="mobileheader2">
+            Ignored List
+        </h1>
     </div>
-    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer7" dsid="mobilecontainer" data-theme='a'>
-        <div class="logo"><a href="index.html"><img src="images/logo.png"/></a></div>
-        <div class="clear"></div>
-        <div class="logoText">
-            <h2>DND Manager</h2>
-
-            <h3>v1.1.3</h3>
+    <div data-role="content" id="ignoredContent" name="mobilecontainer2" class="mobileContent mobilecontainer4"
+         dsid="mobilecontainer2" data-theme='a'>
+        <div class="mobilegrid2_wrapper">
+            <table class="mobilegrid mobilegrid2" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:auto;">
+                <col style="width:50%;">
+                <tr class="mobilegrid2_row_0">
+                    <td name="mobilegridcell_c902" class="mobilegridcell3" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div data-role="fieldcontain" class="mobileselectmenu1 roundcorner">
+                                <fieldset data-role="controlgroup">
+                                    <input type="checkbox" id="selectAllIgnored" class="custom"/>
+                                    <label for="selectAllIgnored">Select All</label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </td>
+                    <td name="mobilegridcell_c908" class="mobilegridcell4" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton2_wrapper ">
+                                <a data-role="button" name="mobilebutton1_111" dsid="mobilebutton1_11" class=' button mobilebutton2'
+                                   id='removeAllIgnoredButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   tabIndex="2">
+                                    Remove All
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-    </div>
-    <div data-role="footer" class="mobileFooter mobilefooter6" name="mobilefooter2" dsid="mobilefooter2" data-position="fixed" data-theme='a'>
-        <div class="footerText">
-            <p>Copyright &copy; 2013 <a href="http://www.webshrub.com">WebShrub Solutions Private Limited</a></p>
-
-            <p>All Rights Reserved</p>
+        <div class="mobilegrid3_wrapper">
+            <table class="mobilegrid mobilegrid3" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:267px;">
+                <tr class="mobilegrid3_row_0">
+                    <td name="mobilegridcell_c917" class="mobilegridcell5" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilelist1_wrapper" id="ignoredDiv">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -726,6 +769,28 @@
         </table>
     </div>
 </div>
+<div data-role="page" style="min-height:800px;" dsid="about" id="about" class="type-interior"
+     data-theme='a' data-add-back-btn="true" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader" class='mobileHeader mobileheader7 '>
+        <h1 dsid="mobileheader"> About </h1>
+    </div>
+    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer7" dsid="mobilecontainer" data-theme='a'>
+        <div class="logo"><a href="index.html"><img src="images/logo.png"/></a></div>
+        <div class="clear"></div>
+        <div class="logoText">
+            <h2>DND Manager</h2>
+
+            <h3>v1.1.3</h3>
+        </div>
+    </div>
+    <div data-role="footer" class="mobileFooter mobilefooter6" name="mobilefooter2" dsid="mobilefooter2" data-position="fixed" data-theme='a'>
+        <div class="footerText">
+            <p>Copyright &copy; 2013 <a href="http://www.webshrub.com">WebShrub Solutions Private Limited</a></p>
+
+            <p>All Rights Reserved</p>
+        </div>
+    </div>
+</div>
 <div data-role="dialog" style="min-height:800px;" dsid="reportDialog" id="reportDialog"
      class="type-interior" data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
     <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
@@ -852,6 +917,65 @@
                                    id='sendConfirmDialogButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
                                    tabIndex="1">
                                     Send
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div data-role="dialog" style="min-height:800px;" dsid="removeIgnoredDialog" id="removeIgnoredDialog"
+     class="type-interior" data-theme='a' data-add-back-btn="false" data-back-btn-text="Back">
+    <div data-role="header" data-position='fixed' data-theme='a' name="mobileheader"
+         class='mobileHeader mobileheader10 '>
+        <h1 dsid="mobileheader">
+            Please Confirm
+        </h1>
+    </div>
+    <div data-role="content" name="mobilecontainer" class="mobileContent mobilecontainer10"
+         dsid="mobilecontainer" data-theme='a'>
+        <div class="mobilegrid9_wrapper">
+            <table class="mobilegrid mobilegrid9" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:100%;">
+                <tr class="mobilegrid9_row_0">
+                    <td name="mobilegridcell_c968" class="mobilegridcell18" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div name="mobilelabel1_7" dsid="mobilelabel1_7" data-role="tiggr_label"
+                                 class='labelClass mobilelabel5 '>
+                                Are your sure to remove these? You can add the numbers to ignore list again by notification dialog.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mobilegrid10_wrapper">
+            <table class="mobilegrid mobilegrid10" dsid="mobilegrid" name="mobilegrid"
+                   cellpadding=0 cellspacing=0>
+                <col style="width:auto;">
+                <col style="width:50%;">
+                <tr class="mobilegrid10_row_0">
+                    <td name="mobilegridcell_c977" class="mobilegridcell19" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton6_wrapper ">
+                                <a data-role="button" dsid="mobilebutton1_13" class=' button mobilebutton6'
+                                   id='cancelRemoveIgnoredDialogButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='a'
+                                   tabIndex="1">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td name="mobilegridcell_c983" class="mobilegridcell20" colspan=1 rowspan=1>
+                        <div class="cell-wrapper">
+                            <div class="mobilebutton7_wrapper ">
+                                <a data-role="button" dsid="mobilebutton1_14" class=' button mobilebutton7'
+                                   id='confirmRemoveIgnoredDialogButton' data-corners='true' data-iconpos='left' data-inline='false' data-theme='b'
+                                   tabIndex="1">
+                                    Remove
                                 </a>
                             </div>
                         </div>

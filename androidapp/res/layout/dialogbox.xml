@@ -12,7 +12,7 @@
             >
 
         <Button
-                android:id="@+id/cancel_title"
+                android:id="@+id/cancel"
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/round_button"
@@ -72,15 +72,15 @@
             android:gravity="center">
 
         <Button
-                android:id="@+id/cancel"
-                android:text="@string/cancel"
+                android:id="@+id/ignore"
+                android:text="@string/ignore"
                 android:textColor="#362B25"
                 android:textSize="18sp"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/cancel_button_shape"
+                android:background="@drawable/ignore_button_shape"
                 android:shadowColor="#f6f6f6"
                 android:shadowDx="0"
                 android:shadowDy="1"

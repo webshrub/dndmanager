@@ -18,7 +18,7 @@ $("#removeIgnoredDialog").die("pageinit").live("pageinit", function (event, ui) 
             }
         };
         for (var counter = 0; counter < removeIgnoredIds.length; counter++) {
-            new IgnoredContactsPlugin().delete(removeIgnoredIds[counter], closeDialog, function (e) {
+            new IgnoredContactsPlugin().remove(removeIgnoredIds[counter], closeDialog, function (e) {
                     alert('Remove Ignored Contacts Failed:' + e);
                 }
             );

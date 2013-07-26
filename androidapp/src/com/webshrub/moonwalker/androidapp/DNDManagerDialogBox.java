@@ -90,10 +90,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
             pageIndex--;
         }
         viewPager.setCurrentItem(pageIndex);
-        if (pageIndex < 0) {
-            finish();
-        }
-        if (pagerAdapter.getCount() == 0) {
+        if (pagerAdapter.getCount() <= 0) {
             ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  0/0)");
             dialog.findViewById(R.id.noSpamGreeting).setVisibility(View.VISIBLE);
             dialog.findViewById(R.id.reportSpam).setEnabled(false);

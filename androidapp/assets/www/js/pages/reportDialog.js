@@ -12,12 +12,9 @@ $("#reportDialog").die("pageinit").live("pageinit", function (event, ui) {
     $('#sendSMSButton').click(function () {
         $.mobile.showPageLoadingMsg("b", "Sending message to 1909.", true);
         var smsText = $('#smsTextArea').val();
-        var reportType = moonwalkerStorage.getItem("reportType");
-        var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
-        var deleteSentSMSFlag = moonwalkerStorage.getItem("deleteSentSMSFlag");
         var spamNumber = moonwalkerStorage.getItem("spamNumber");
 
-        new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag, deleteSentSMSFlag, spamNumber,
+        new SmsPlugin().send(smsText, spamNumber,
             function () {
                 $.mobile.hidePageLoadingMsg();
                 $.mobile.showPageLoadingMsg("b", "Message sent.", true);

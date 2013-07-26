@@ -16,9 +16,9 @@ public class SmsPlugin extends Plugin {
         PluginResult result = new PluginResult(Status.INVALID_ACTION);
         if (action.equalsIgnoreCase(ACTION_SEND_SMS)) {
             try {
-                String message = arg1.getString(1);
+                String message = arg1.getString(0);
                 DNDManagerUtil.sendSMS(this.cordova.getActivity(), TRAI_CONTACT_NUMBER, message);
-                String spamNumber = arg1.getString(5);
+                String spamNumber = arg1.getString(1);
                 if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag(this.cordova.getActivity())) {
                     DNDManagerUtil.deleteCallLogByNumber(this.cordova.getActivity(), spamNumber);
                     DNDManagerUtil.deleteSmsByNumber(this.cordova.getActivity(), spamNumber);

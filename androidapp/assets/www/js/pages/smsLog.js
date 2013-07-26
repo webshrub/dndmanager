@@ -10,9 +10,8 @@ $("#smsLog").die("pageinit").live("pageinit", function (event, ui) {
 
 function fetchSMSLog() {
     $.mobile.showPageLoadingMsg("b", "Loading SMS logs...", true);
-    var contactLogFlag = moonwalkerStorage.getItem("contactLogFlag");
 
-    new SMSReaderPlugin().getInbox(contactLogFlag,
+    new SMSReaderPlugin().getInbox(
         function (data) {
             if (data.rows.length == 0) {
                 $('#smsLogDiv').html('<p align="center"><strong>Hurray!! You have no spam SMS sent in last 3 days.</strong></p>');
@@ -39,12 +38,12 @@ function fetchSMSLog() {
                     var reportSMSDialogLink = $(this).closest('li').children('a[name=reportSMSDialogLink]');
                     reportSMSDialogLinks.push(reportSMSDialogLink);
                 });
-                prepareSmsTextObjectsFromLog(reportSMSDialogLinks, 'sms');
+                prepareSmsTextObjectsFromLog(reportSMSDialogLinks);
                 $.mobile.changePage($('#confirmDialog'));
             });
 
             $('a[name=reportSMSDialogLink]').unbind().bind('click', function () {
-                prepareSmsText($(this), 'sms');
+                prepareSmsText($(this));
                 $.mobile.changePage($('#reportDialog'));
             });
             $.mobile.hidePageLoadingMsg();

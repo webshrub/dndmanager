@@ -7,10 +7,7 @@ $("#confirmDialog").die("pageinit").live("pageinit", function (event, ui) {
 
     $('#sendConfirmDialogButton').click(function () {
         $.mobile.showPageLoadingMsg("b", "Sending Messages to 1909", true);
-        var deleteSMSFlag = moonwalkerStorage.getItem("deleteSMSFlag");
-        var reportType = moonwalkerStorage.getItem("reportType");
         var smsTextObjects = moonwalkerStorage.getItem("smsTextObjects");
-        var deleteSentSMSFlag = moonwalkerStorage.getItem("deleteSentSMSFlag");
 
         var totalCounter = smsTextObjects.length;
         var closeDialog = function () {
@@ -24,7 +21,7 @@ $("#confirmDialog").die("pageinit").live("pageinit", function (event, ui) {
         for (var counter = 0; counter < smsTextObjects.length; counter++) {
             var smsTextObject = smsTextObjects[counter];
             var smsText = prepareSmsTextFromObject(smsTextObject);
-            new SmsPlugin().send('1909', smsText, reportType, deleteSMSFlag, deleteSentSMSFlag, smsTextObject.number,
+            new SmsPlugin().send(smsText, smsTextObject.number,
                 closeDialog, function (e) {
                     alert('Message Failed:' + e);
                 }

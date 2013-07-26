@@ -13,7 +13,7 @@ function getTemplate(templateName, json) {
     return ich[templateName](json, true);
 }
 
-function prepareSmsTextObjectsFromLog(reportDialogLinks, reportType) {
+function prepareSmsTextObjectsFromLog(reportDialogLinks) {
     var smsTextObjects = [];
     $(reportDialogLinks).each(function () {
         var reportDialogLink = $(this);
@@ -24,11 +24,10 @@ function prepareSmsTextObjectsFromLog(reportDialogLinks, reportType) {
         var smsTextObject = {"number":number, "date":date, "datetime":datetime, "text":text};
         smsTextObjects.push(smsTextObject);
     });
-    moonwalkerStorage.setItem("reportType", reportType);
     moonwalkerStorage.setItem("smsTextObjects", smsTextObjects);
 }
 
-function prepareSmsText(reportDialogLink, reportType) {
+function prepareSmsText(reportDialogLink) {
     var number = reportDialogLink.attr('data-number');
     var date = reportDialogLink.attr('data-date');
     var datetime = reportDialogLink.attr('data-datetime');
@@ -36,7 +35,6 @@ function prepareSmsText(reportDialogLink, reportType) {
     var smsText = prepareSmsTextFromFormat(number, date, datetime, text);
     moonwalkerStorage.setItem('sendingSmsText', smsText);
     moonwalkerStorage.setItem('spamNumber', number);
-    moonwalkerStorage.setItem("reportType", reportType);
 }
 
 function prepareSmsTextFromObject(smsTextObject) {

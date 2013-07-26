@@ -11,9 +11,8 @@ $("#callLog").die("pageinit").live("pageinit", function (event, ui) {
 
 function fetchCallLog() {
     $.mobile.showPageLoadingMsg("b", "Loading Call logs...", true);
-    var contactLogFlag = moonwalkerStorage.getItem("contactLogFlag");
 
-    new CallLogPlugin().list('3day', contactLogFlag,
+    new CallLogPlugin().list(
         function (data) {
             if (data.rows.length == 0) {
                 $('#callLogDiv').html('<p align="center"><strong>Hurray!! You have no spam calls sent in last 3 days.</strong></p>');
@@ -40,12 +39,12 @@ function fetchCallLog() {
                     var reportCallDialogLink = $(this).closest('li').children('a[name=reportCallDialogLink]');
                     reportCallDialogLinks.push(reportCallDialogLink);
                 });
-                prepareSmsTextObjectsFromLog(reportCallDialogLinks, 'call');
+                prepareSmsTextObjectsFromLog(reportCallDialogLinks);
                 $.mobile.changePage($('#confirmDialog'));
             });
 
             $('a[name=reportCallDialogLink]').unbind().bind('click', function () {
-                prepareSmsText($(this), 'call');
+                prepareSmsText($(this));
                 $.mobile.changePage($('#reportDialog'));
             });
             $.mobile.hidePageLoadingMsg();

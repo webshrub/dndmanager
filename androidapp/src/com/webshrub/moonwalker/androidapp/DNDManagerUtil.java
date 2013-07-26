@@ -81,8 +81,8 @@ public class DNDManagerUtil {
 
     public static void deleteCallLogByNumber(Context context, String number) {
         try {
-            String queryString = CallLog.Calls.NUMBER + " = '" + number + "'";
-            context.getContentResolver().delete(CallLog.Calls.CONTENT_URI, queryString, null);
+            String queryString = CallLog.Calls.NUMBER + " = ? ";
+            context.getContentResolver().delete(CallLog.Calls.CONTENT_URI, queryString, new String[]{number});
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,8 +90,8 @@ public class DNDManagerUtil {
 
     public static void deleteSmsByNumber(Context context, String number) {
         try {
-            String queryString = "address" + " = '" + number + "'";
-            context.getContentResolver().delete(Uri.parse("content://sms"), queryString, null);
+            String queryString = "address" + " = ? ";
+            context.getContentResolver().delete(Uri.parse("content://sms"), queryString, new String[]{number});
         } catch (Exception e) {
             e.printStackTrace();
         }

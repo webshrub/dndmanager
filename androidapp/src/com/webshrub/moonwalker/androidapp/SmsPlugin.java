@@ -10,8 +10,6 @@ import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.TRAI_CONTAC
 
 public class SmsPlugin extends Plugin {
     private static final String ACTION_SEND_SMS = "SendSMS";
-    private static final String CALL = "call";
-    private static final String SMS = "sms";
 
     @Override
     public PluginResult execute(String action, JSONArray arg1, String callbackId) {
@@ -20,14 +18,10 @@ public class SmsPlugin extends Plugin {
             try {
                 String message = arg1.getString(1);
                 DNDManagerUtil.sendSMS(this.cordova.getActivity(), TRAI_CONTACT_NUMBER, message);
-                String reportType = arg1.getString(2);
                 String spamNumber = arg1.getString(5);
                 if (DNDManagerHtmlHelper.getDeleteDNDManagerItemFlag(this.cordova.getActivity())) {
-                    if (CALL.equalsIgnoreCase(reportType)) {
-                        DNDManagerUtil.deleteCallLogByNumber(this.cordova.getActivity(), spamNumber);
-                    } else if (SMS.equalsIgnoreCase(reportType)) {
-                        DNDManagerUtil.deleteSmsByNumber(this.cordova.getActivity(), spamNumber);
-                    }
+                    DNDManagerUtil.deleteCallLogByNumber(this.cordova.getActivity(), spamNumber);
+                    DNDManagerUtil.deleteSmsByNumber(this.cordova.getActivity(), spamNumber);
                 }
                 if (DNDManagerHtmlHelper.getDeleteSentSMSFlag(this.cordova.getActivity())) {
                     DNDManagerUtil.saveSentSms(this.cordova.getActivity(), TRAI_CONTACT_NUMBER, message);

@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import com.phonegap.plugins.pushnotifications.gcm.PushManager;
+import com.sbstrm.appirater.Appirater;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -44,6 +45,7 @@ public class PhoneGapActivity extends org.apache.cordova.DroidGap {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Appirater.appLaunched(this);
         super.loadUrl(WORK_DIR + getStartFileName());
         super.appView.setVerticalScrollBarEnabled(false);
         super.appView.setHorizontalScrollBarEnabled(false);

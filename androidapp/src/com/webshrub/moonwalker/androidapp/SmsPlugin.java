@@ -23,7 +23,7 @@ public class SmsPlugin extends Plugin {
                     DNDManagerUtil.deleteCallLogByNumber(this.cordova.getActivity(), spamNumber);
                     DNDManagerUtil.deleteSmsByNumber(this.cordova.getActivity(), spamNumber);
                 }
-                if (DNDManagerHtmlHelper.getDeleteSentSMSFlag(this.cordova.getActivity())) {
+                if (!DNDManagerHtmlHelper.getDeleteSentSMSFlag(this.cordova.getActivity())) {
                     DNDManagerUtil.saveSentSms(this.cordova.getActivity(), TRAI_CONTACT_NUMBER, message);
                 }
                 result = new PluginResult(Status.OK);

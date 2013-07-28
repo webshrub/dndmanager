@@ -57,6 +57,7 @@
     <plugin name="SmsPlugin" value="com.webshrub.moonwalker.androidapp.SmsPlugin"/>
     <plugin name="CellularNetworkPlugin" value="com.webshrub.moonwalker.androidapp.CellularNetworkPlugin"/>
     <plugin name="IgnoredContactsPlugin" value="com.webshrub.moonwalker.androidapp.IgnoredContactsPlugin"/>
+    <plugin name="RecommendPlugin" value="com.webshrub.moonwalker.androidapp.RecommendPlugin"/>
 </plugins>
 </cordova>
 

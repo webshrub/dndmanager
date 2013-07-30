@@ -2,18 +2,16 @@ package com.webshrub.moonwalker.androidapp;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.viewpagerindicator.UnderlinePageIndicator;
 
@@ -58,25 +56,13 @@ public class DNDManagerDialogBox extends FragmentActivity {
                     ((TextView) dialog.findViewById(R.id.title)).setText("DND Manager " + "(Showing  1/" + pagerAdapter.getCount() + ")");
                     reportSpamButton.setOnClickListener(new ReportSpamButtonOnClickListener(dialog));
                     ignoreButton.setOnClickListener(new IgnoreButtonOnClickListener(dialog));
-                    toastMessage("Showing only last 3 day's calls and sms as per TRAI guidelines.");
+                    DNDManagerUtil.toastMessage(this, "Showing only last 3 day's calls and sms as per TRAI guidelines.");
                 }
                 return dialog;
             }
             default:
                 return null;
         }
-    }
-
-    private void toastMessage(String toastMessage) {
-        Toast toast = new Toast(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View toastRoot = inflater.inflate(R.layout.toast, null);
-        toast.setView(toastRoot);
-        TextView textView = (TextView) toastRoot.findViewById(R.id.toastMessage);
-        textView.setText(toastMessage);
-        textView.setTextColor(Color.BLACK);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.show();
     }
 
     private void refreshViewPager(Dialog dialog, int position) {
@@ -116,8 +102,8 @@ public class DNDManagerDialogBox extends FragmentActivity {
             String dateTime = dndManagerItem.getDateTime();
             EditText editText = (EditText) viewPager.findViewWithTag(dateTime);
             String messageText = editText.getText().toString().trim();
-            if (messageText.equals("")) {
-                toastMessage("Please type short description of the call/spam your received.");
+            if (TextUtils.isEmpty(messageText)) {
+                DNDManagerUtil.toastMessage(DNDManagerDialogBox.this, "Please type short description of the call/spam your received.");
             } else {
                 DNDManagerUtil.sendSMS(DNDManagerDialogBox.this, TRAI_CONTACT_NUMBER, messageText);
                 if (!DNDManagerHtmlHelper.getDeleteSentSMSFlag(DNDManagerDialogBox.this)) {
@@ -128,7 +114,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
                     deleteDNDManagerItem(removedItem);
                     refreshViewPager(dialog, viewPager.getCurrentItem());
                 }
-                toastMessage("Your request has been submitted successfully.");
+                DNDManagerUtil.toastMessage(DNDManagerDialogBox.this, "Your request has been submitted successfully.");
             }
         }
     }
@@ -155,7 +141,7 @@ public class DNDManagerDialogBox extends FragmentActivity {
             ignoredContact.setCachedName(dndManagerItem.getCachedName());
             DNDManagerDataSource.getInstance(DNDManagerDialogBox.this).createIgnoredContact(ignoredContact);
             refreshViewPager(dialog, viewPager.getCurrentItem());
-            toastMessage("Number successfully added to ignored list. You will not receive notification for this number again.");
+            DNDManagerUtil.toastMessage(DNDManagerDialogBox.this, "Number successfully added to ignored list. You will not receive notification for this number again.");
         }
     }
 

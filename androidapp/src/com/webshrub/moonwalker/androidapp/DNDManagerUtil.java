@@ -1,16 +1,23 @@
 package com.webshrub.moonwalker.androidapp;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 
@@ -18,6 +25,18 @@ import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE
 import static com.webshrub.moonwalker.androidapp.DNDManagerConstants.SIMPLE_DATE_TIME_FORMAT;
 
 public class DNDManagerUtil {
+
+    public static void toastMessage(Activity activity, String toastMessage) {
+        Toast toast = new Toast(activity);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View toastRoot = inflater.inflate(R.layout.toast, null);
+        toast.setView(toastRoot);
+        TextView textView = (TextView) toastRoot.findViewById(R.id.toastMessage);
+        textView.setText(toastMessage);
+        textView.setTextColor(Color.BLACK);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
+    }
 
     public static String stripText(String input) {
         if (input.length() < 115) {
@@ -74,9 +93,13 @@ public class DNDManagerUtil {
     }
 
     public static void sendSMS(Context context, String phoneNumber, String message) {
-        SmsManager manager = SmsManager.getDefault();
-        PendingIntent sentIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
-        manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
+        if (TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(message)) {
+            toastMessage((Activity) context, "Either phone number is blank or message is blank. Please try again.");
+        } else {
+            SmsManager manager = SmsManager.getDefault();
+            PendingIntent sentIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+            manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
+        }
     }
 
     public static void deleteCallLogByNumber(Context context, String number) {

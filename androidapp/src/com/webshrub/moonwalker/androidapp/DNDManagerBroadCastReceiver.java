@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
     private static final String ANDROID_PROVIDER_TELEPHONY_SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
@@ -32,7 +33,7 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
 
 
     public void checkAndShowNotification(Context context, String incomingNumber) {
-        if (DNDManagerHtmlHelper.getShowNotificationFlag(context) && !DNDManagerDataSource.getInstance(context).isIgnoredNumber(incomingNumber)) {
+        if (!TextUtils.isEmpty(incomingNumber) && DNDManagerHtmlHelper.getShowNotificationFlag(context) && !DNDManagerDataSource.getInstance(context).isIgnoredNumber(incomingNumber)) {
             String contactName = DNDManagerUtil.getContactName(context, incomingNumber);
             if (contactName.equals("")) {
                 buildNotification(context);

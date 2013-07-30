@@ -18,7 +18,6 @@
     <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <supports-screens
             android:largeScreens="true"
@@ -45,7 +44,7 @@
         </activity>
 
         <receiver android:name=".DNDManagerBroadCastReceiver">
-            <intent-filter>
+            <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.PHONE_STATE"/>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>

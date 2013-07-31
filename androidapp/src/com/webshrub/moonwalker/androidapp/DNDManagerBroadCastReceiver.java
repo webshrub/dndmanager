@@ -56,7 +56,8 @@ public class DNDManagerBroadCastReceiver extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.dnd_icon)
                 .setTicker("Got spam calls/sms! Report to TRAI.")
-                .setPriority(Notification.PRIORITY_HIGH);
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setDefaults(Notification.DEFAULT_LIGHTS);
         mgr.notify(1337, builder.build());
     }
 }

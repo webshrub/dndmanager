@@ -39,10 +39,10 @@ public class DNDManagerUtil {
     }
 
     public static String stripText(String input) {
-        if (input.length() < 135) {
+        if (input.length() < 115) {
             return input;
         }
-        return input.substring(0, 135);
+        return input.substring(0, 115);
     }
 
     public static String getMessageText(Context context, String number, String dateTime, String shortDescription) {
@@ -50,7 +50,7 @@ public class DNDManagerUtil {
             String messageText = DNDManagerHtmlHelper.getMessageFormat(context).replaceAll("~~number~~", number);
             messageText = messageText.replaceAll("~~date~~", SIMPLE_DATE_FORMAT.format(SIMPLE_DATE_TIME_FORMAT.parse(dateTime)));
             messageText = messageText.replaceAll("~~datetime~~", dateTime);
-            messageText = messageText.replaceAll("~~text~~", shortDescription);
+            messageText = messageText.replaceAll("~~text~~", stripText(shortDescription.replaceAll(",", " ")));
             return messageText;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -95,11 +95,13 @@ public class DNDManagerUtil {
     public static void sendSMS(Context context, String phoneNumber, String message) {
         try {
             if (TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(message)) {
-                toastMessage((Activity) context, "Either phone number is blank or message is blank. Please try again.");
+                System.out.println("Either phone number is blank or message is blank. Please try again.");
+            } else if (message.length() >= 160) {
+                System.out.println("Too large message content. Please edit description of the spam to make it smaller.");
             } else {
                 SmsManager manager = SmsManager.getDefault();
                 PendingIntent sentIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
-                manager.sendTextMessage(phoneNumber, null, stripText(message), sentIntent, null);
+                manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
             }
         } catch (Exception e) {
             e.printStackTrace();

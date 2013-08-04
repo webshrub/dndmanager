@@ -122,7 +122,7 @@ class DNDManagerItemPagerAdapter extends PagerAdapter {
         public void afterTextChanged(Editable editable) {
             String message = shortDescription.getText().toString();
             message = DNDManagerUtil.getMessageText(context, dndManagerItem.getNumber(), dndManagerItem.getDateTime(), message);
-            messageText.setText(DNDManagerUtil.stripText(message));
+            messageText.setText(message);
         }
     }
 

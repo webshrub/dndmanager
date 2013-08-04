@@ -39,10 +39,10 @@ public class DNDManagerUtil {
     }
 
     public static String stripText(String input) {
-        if (input.length() < 115) {
+        if (input.length() < 135) {
             return input;
         }
-        return input.substring(0, 115);
+        return input.substring(0, 135);
     }
 
     public static String getMessageText(Context context, String number, String dateTime, String shortDescription) {

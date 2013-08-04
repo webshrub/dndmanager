@@ -98,7 +98,7 @@ public class DNDManagerUtil {
         } else {
             SmsManager manager = SmsManager.getDefault();
             PendingIntent sentIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
-            manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
+            manager.sendTextMessage(phoneNumber, null, stripText(message), sentIntent, null);
         }
     }
 

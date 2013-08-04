@@ -93,12 +93,16 @@ public class DNDManagerUtil {
     }
 
     public static void sendSMS(Context context, String phoneNumber, String message) {
-        if (TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(message)) {
-            toastMessage((Activity) context, "Either phone number is blank or message is blank. Please try again.");
-        } else {
-            SmsManager manager = SmsManager.getDefault();
-            PendingIntent sentIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
-            manager.sendTextMessage(phoneNumber, null, stripText(message), sentIntent, null);
+        try {
+            if (TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(message)) {
+                toastMessage((Activity) context, "Either phone number is blank or message is blank. Please try again.");
+            } else {
+                SmsManager manager = SmsManager.getDefault();
+                PendingIntent sentIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+                manager.sendTextMessage(phoneNumber, null, stripText(message), sentIntent, null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
